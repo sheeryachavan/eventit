@@ -1,55 +1,58 @@
 import React, {Component} from 'react'
+import {Container, Row} from 'react-bootstrap'
 
 class CreateAccount extends Component {
 
   constructor(props) {
     super(props)
     this.state = {
-      formControls: {
-        name: {
-          value: null,
-          placeholder: "Name:"
-        },
-        email: {
-          value: null,
-          placeholder: "Email address:"
-        },
-        password: {
-          value: null,
-          placeholder: "Password:"
-        }
-      }
+      name: "",
+      email: "",
+      password: ""
     }
   }
 
   render() {
     return (
       <div>
+        <Container>
+        <form class="account-form">
         <h1>Create Account</h1>
-        <form>
-          <label>
-            Name:
+          <Row>
             <input 
             type="text" 
+            class="text-input"
             name="name"
-            onChange={this.changeHandler}/>
-          </label>
-          <label>
-            Email:
+            onChange={this.changeHandler}
+            placeholder="Name:"
+            />
+          </Row>
+          <Row class="text-input">
             <input 
             type="text" 
+            class="text-input"
             name="email"
-            onChange={this.changeHandler}/>
-          </label>
-          <label>
-            Password:
+            onChange={this.changeHandler}
+            placeholder="Email address:"
+            />
+          </Row>
+          <Row class="text-input">
             <input 
-            type="text" 
+            type="password" 
+            class="text-input"
             name="password" 
-            onChange={this.changeHandler}/>
-          </label>
-          <input type="submit" value="Submit" onClick={this.submit}/>
+            onChange={this.changeHandler}
+            placeholder="Password:"
+            />
+          </Row>
+          <input 
+          type="button" 
+          class="button"
+          value="Submit" 
+          onClick={this.submit.bind(this)}
+          />
         </form>
+        </Container>
       </div>
     )
   }
@@ -57,17 +60,14 @@ class CreateAccount extends Component {
   changeHandler = event => {
     const name = event.target.name
     const value = event.target.value
-    console.log(name)
-    console.log(value)
     this.setState({
-      formControls: {
-        [name]: value
-      }
+      [name]: value
     })
+    console.log(this.state)
   }
 
   submit() {
-    console.log("Submitted")
+    console.log(this.state)
   }
 
 }
