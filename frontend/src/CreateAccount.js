@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {Container, Row} from 'react-bootstrap'
+import {auth} from './firebase'
 
 class CreateAccount extends Component {
 
@@ -63,11 +64,18 @@ class CreateAccount extends Component {
     this.setState({
       [name]: value
     })
-    console.log(this.state)
   }
 
   submit() {
-    console.log(this.state)
+    if(this.state.email == "" || this.state.password == "") {
+      console.log("Empty field")
+      return
+    }
+    auth.createUserWithEmailAndPassword(this.state.email, this.state.password)
+      .then((res) => {
+        const user = res.user
+        console.log(user.uid) 
+      })
   }
 
 }
