@@ -35,21 +35,27 @@ class SearchEvent extends Component {
 
     render() {
         return (
-            <div className= ".search-container">
-                <Container className="search-box">
-                    {/* <input type="text" className="input" placeholder="Search Events..." /> */}
-                    <input className="search-txt" type="text" placeholder="Search..." data={this.data} callback={record => console.log(record)}></input>
-                    {/* <ReactSearchBox
+            <div>
+                <div className="title">
+                    EVENT.it
+                </div>
+                <div className="search-container">
+                    <Container className="search-box">
+                        {/* <input type="text" className="input" placeholder="Search Events..." /> */}
+                        <input className="search-txt" type="text" placeholder="Search..." data={this.data} callback={record => console.log(record)}></input>
+                        {/* <ReactSearchBox
                         placeholder="Search Events..."
                         className="search-txt"
                         value="Doe"
                         data={this.data}
                         callback={record => console.log(record)}
                     /> */}
-                    <Button className="search-btn">
-                    <FontAwesomeIcon icon="fas fa-search" />
-                    </Button>
-                </Container>
+                        <Button className="search-btn">
+                            <FontAwesomeIcon icon="fas fa-search" />
+                        </Button>
+                    </Container>
+                </div>
+
             </div>
         )
 
