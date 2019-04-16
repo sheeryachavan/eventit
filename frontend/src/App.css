@@ -22,3 +22,6 @@
   flex-direction: column;
   margin: 40px;
 }
+.clsContent{
+  position: relative;
+}
