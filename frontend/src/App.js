@@ -7,6 +7,7 @@ import SearchEvent from './SearchEvent'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStroopwafel } from '@fortawesome/free-solid-svg-icons'
+import Footer from './Footer';
 library.add(faStroopwafel)
 class App extends Component {
   render() {
@@ -22,6 +23,7 @@ class App extends Component {
             <Login />
           </Col>
         </Container>
+        <Footer></Footer>
       </div>
     );
   }

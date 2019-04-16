@@ -36,13 +36,13 @@ class SearchEvent extends Component {
     render() {
         return (
             <div>
-                <div className="title">
+                <div className="hometitle">
                     EVENT.it
                 </div>
-                <div className="search-container">
-                    <Container className="search-box">
+                <div className="clssearch-container">
+                    <div className="clssearch-box">
                         {/* <input type="text" className="input" placeholder="Search Events..." /> */}
-                        <input className="search-txt" type="text" placeholder="Search..." data={this.data} callback={record => console.log(record)}></input>
+                        <input className="clssearch-txt" type="search" placeholder="Search..." data={this.data} callback={record => console.log(record)}></input>
                         {/* <ReactSearchBox
                         placeholder="Search Events..."
                         className="search-txt"
@@ -50,10 +50,10 @@ class SearchEvent extends Component {
                         data={this.data}
                         callback={record => console.log(record)}
                     /> */}
-                        <Button className="search-btn">
+                        <button className="clssearch-btn">
                             <FontAwesomeIcon icon="fas fa-search" />
-                        </Button>
-                    </Container>
+                        </button>
+                    </div>
                 </div>
 
             </div>

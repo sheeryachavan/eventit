@@ -1,21 +1,20 @@
-.search-box {
+.clssearch-box {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background: #2f3640;
-    height: 40px;
     border-radius: 40px;
     padding: 10px;
     box-shadow:0px 0px 50px 20px #ffffff ;
     
 }
 
-.search-container {
+.clssearch-container {
     flex: 100%;
     position: sticky;
     height: -webkit-fill-available;
-    background: url(/static/media/blue-clouds-daylight-2088282.faff096c.jpg), linear-gradient(to bottom,  rgba(255,255,255,0) 65%,rgba(255,255,255,1) 99%);
+    background: url("./images/blue-clouds-daylight-2088282.jpg"), linear-gradient(to bottom,  rgba(255,255,255,0) 65%,rgba(255,255,255,1) 99%);
     background-repeat: no-repeat;
     background-size: cover;
     background-blend-mode: soft-light;
@@ -23,7 +22,7 @@
 
 }
 
-.search-btn {
+.clssearch-btn {
     color: #e84118;
     float: right;
     width: 40px;
@@ -37,7 +36,7 @@
 
 }
 
-.search-txt {
+.clssearch-txt {
     border: none;
     background: none;
     outline: none;
@@ -51,11 +50,11 @@
 
 
 }
-.search-box:hover{
+.clssearch-box:hover{
     box-shadow:0px 0px 70px 30px #ffffff ;
 }
 
-.search-box:hover>.search-txt {
+.clssearch-box:hover>.clssearch-txt {
     width: 50rem;
     padding: 0px 6px;
     transition: 0.4s;
@@ -63,17 +62,17 @@
 
 }
 
-.search-box:hover>.search-btn {
+.clssearch-box:hover>.clssearch-btn {
     background: white;
 
 }
 
-.search-box:hover>.search-container {
+.clssearch-box:hover>.clssearch-container {
     /* opacity: 0.5; */
     background-color: rgba(0, 0, 0, 0.4);
     filter: blur(9px); 
 }
-.title{
+.hometitle{
     position: absolute;
     z-index: 1;
     color: white;
