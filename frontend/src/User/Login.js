@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Container, Row} from 'react-bootstrap'
-import {auth} from './firebase'
+import {auth} from '../firebase'
 
 class Login extends Component {
 
