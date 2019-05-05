@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import CreateAccount from './CreateAccount'
-import Login from './Login'
+import CreateAccount from './User/CreateAccount'
+import Login from './User/Login'
 import { Container, Col } from 'react-bootstrap'
 import SearchEvent from './SearchEvent'
 import { library } from '@fortawesome/fontawesome-svg-core'
