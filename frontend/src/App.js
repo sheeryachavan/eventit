@@ -7,11 +7,13 @@ import Home from './Home';
 import EventContainer from './Events';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { Switch } from 'react-router-dom';
+import Navbar from './Navigation/TopNavigation'
 library.add(faStroopwafel)
 class App extends Component {
   render() {
     return (
       <div>
+        <Navbar />
         <Router>
           <div className="App">
             <div className="App-body">

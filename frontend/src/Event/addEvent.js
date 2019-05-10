@@ -6,10 +6,11 @@ class AddEvent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showCreateEvent: this.props.isOpen
+            showCreateEvent: this.props.isOpen ||true
         };
         this.handleOpenCreateEvent = this.handleOpenCreateEvent.bind(this);
         this.handleCloseCreateEvent = this.handleCloseCreateEvent.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
     handleOpenCreateEvent() {
         this.setState({ showCreateEvent: true });
@@ -20,13 +21,14 @@ class AddEvent extends Component {
     }
     handleSubmit(event) {
         event.preventDefault();
-        const data = new FormData(event.target);
+        // const data = new FormData(event.target);
 
-        fetch('/api/form-submit-url', {
-            method: 'POST',
-            body: data,
-        });
-        this.handleCloseCreateEvent();
+        // fetch('/api/form-submit-url', {
+        //     method: 'POST',
+        //     body: data,
+        // });
+        this.setState({ showCreateEvent: false });
+        this.props.handleClose(false);
     }
     render() {
         let body;
