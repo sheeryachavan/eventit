@@ -14,7 +14,7 @@ const navbar = props => (
             <div className="clsToolbarNavigationItems">
                 <ul>
                     <li>
-                        <a href="/"> All Events</a>
+                        <a href="/events"> All Events</a>
                     </li>
                 </ul>
             </div>

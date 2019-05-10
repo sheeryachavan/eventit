@@ -34,12 +34,12 @@ class App extends Component {
       backDrop = <BackDrop click={this.backDropClickHandler}/>;
     }
     return (
-      <div>
+      // <div>
         <div className="App">
           <Navbar drawerClickHandler={this.drawerToggleClickHandler} />
           <SideBar show = {this.state.SideDrawerOpen}/>
           {backDrop}
-          <div className="App-body">
+          <div className="Appbody">
             <Router>
               <Switch>
                 <Route path="/events" component={EventContainer} />
@@ -48,11 +48,12 @@ class App extends Component {
             </Router>
 
           </div>
+          <Footer></Footer>
         </div>
 
 
-        <Footer></Footer>
-      </div>
+        
+      // </div>
     );
   }
 }

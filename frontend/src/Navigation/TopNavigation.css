@@ -1,7 +1,7 @@
 .clsToolbar {
     position: fixed;
     width: 100%;
-    background: blue;
+    background: linear-gradient(to top,rgba(255,255,255,0),rgb(1, 100, 124)30%);
     z-index: 1;
     height: 5rem;
 }
@@ -20,10 +20,10 @@
     margin-left: 1rem;
 }
 .clsToolbarLogo a {
-    color: aliceblue
+    color: rgb(255, 255, 255)
 }
 
-.clsToolbarNavigationItems {
+.clsToolbarNavigationItems a{
     color: white;
     text-decoration: none;
 
