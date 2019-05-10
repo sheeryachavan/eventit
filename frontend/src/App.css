@@ -35,13 +35,16 @@
 .clsBGFooter{
   background: #2f3640;
   bottom: 0px!important;
+  position: fixed;
+  width: 100%;
 }
 .card {
-  margin: 3rem;
+  margin: 15% 20%;
   box-shadow: 1px 0px 5px white;
+  width: 50%;
   padding: 2rem;
   opacity: 1;
-  border-radius: 3rem;
+  border-radius: 3rem!important;
   background: linear-gradient(to right,rgba(77, 253, 224, 0.473),rgba(118, 239, 255, 0.527),rgb(255, 255, 184)) ,white;
 } 
 
