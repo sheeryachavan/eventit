@@ -2,7 +2,7 @@
     position: fixed;
     width: 100%;
     background: blue;
-    z-index: 9999;
+    z-index: 1;
     height: 5rem;
 }
 
@@ -16,7 +16,9 @@
     height: 100%;
     padding: 0 1rem;
 }
-
+.clsToolbarLogo{
+    margin-left: 1rem;
+}
 .clsToolbarLogo a {
     color: aliceblue
 }
@@ -44,4 +46,17 @@
 .clsToolbarNavigationItems a:active {
     color: orange;
 
+}
+@media (max-width:786px){
+    .clsToolbarNavigationItems{
+        display: none;
+    }
+}
+@media (min-width:787px){
+    .clsToolbarToggleButton{
+        display: none;
+    }
+    .clsToolbarLogo{
+        margin-left: 0%;
+    }
 }
