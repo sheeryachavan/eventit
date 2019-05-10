@@ -9,7 +9,7 @@ const Footer = () => {
           <MDBCol md="2">
             <h5 className="title">EVENT.it</h5>
             <p>
-              do togther, achieve together
+              do together, achieve together
             </p>
           </MDBCol>
           <MDBCol md="5">
