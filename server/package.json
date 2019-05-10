@@ -7,7 +7,7 @@
     "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Tianyi Wang1",
+  "author": "Tianyi Wang",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^3.0.6",
