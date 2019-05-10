@@ -73,7 +73,7 @@ router.get("/profile/:id", async(req, res) => {
 
 
 router.get("/*", async(req, res) => {
-  res.redirect("http://localhost:3000/hannibal/");
+  res.redirect("http://localhost:3001/eventit/");
 });
 
 

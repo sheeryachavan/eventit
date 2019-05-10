@@ -1,28 +1,28 @@
 import React, { Component } from 'react';
 import './App.css';
-import CreateAccount from './User/CreateAccount'
-import Login from './User/Login'
-import { Container, Col } from 'react-bootstrap'
-import SearchEvent from './SearchEvent'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStroopwafel } from '@fortawesome/free-solid-svg-icons'
 import Footer from './Footer';
+import Home from './Home';
+import EventContainer from './Events';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 library.add(faStroopwafel)
 class App extends Component {
   render() {
     return (
       <div>
-        <SearchEvent ></SearchEvent>
-        <Container className="clsContent">
+        <Router>
+          <div className="App">
+            <div className="App-body">
+              <Switch>
+                <Route path="/events" component={EventContainer} />
+                <Route path="/" component={Home} />
+              </Switch>
+            </div>
+          </div>
+        </Router>
 
-          <Col className="signin-block">
-            <CreateAccount />
-          </Col>
-          <Col className="signin-block">
-            <Login />
-          </Col>
-        </Container>
         <Footer></Footer>
       </div>
     );

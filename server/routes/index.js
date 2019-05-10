@@ -2,10 +2,10 @@ const userRoutes = require("./users_r");
 
 const constructorMethod = app => {
 
-    app.use("/event.it/api/user", userRoutes);
+    app.use("/eventit/user", userRoutes);
 
     app.use("*", (req, res) => {
-        res.redirect("http://localhost:3000/event.it");
+        res.redirect("http://localhost:3000/eventit");
       });
 };
 
