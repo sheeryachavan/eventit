@@ -16,21 +16,21 @@ class Login extends Component {
     return (
       <div>
         <Container>
-          <form class='account-form'>
+          <form className='account-form'>
           <h1>Login</h1>
-          <Row class="text-input">
+          <Row className="text-input">
             <input 
             type="text" 
-            class="text-input"
+            className="text-input"
             name="email"
             onChange={this.changeHandler}
             placeholder="Email address:"
             />
           </Row>
-          <Row class="text-input">
+          <Row className="text-input">
             <input 
             type="password" 
-            class="text-input"
+            className="text-input"
             name="password" 
             onChange={this.changeHandler}
             placeholder="Password:"
@@ -38,7 +38,7 @@ class Login extends Component {
           </Row>
           <input 
           type="button" 
-          class="button"
+          className="button"
           value="Login" 
           onClick={this.submit.bind(this)}
           />

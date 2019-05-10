@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Container, Row, Button } from 'react-bootstrap'
 import ReactSearchBox from 'react-search-box'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { classnames } from './helpers';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import {
     geocodeByAddress,
@@ -32,14 +33,19 @@ class SearchEvent extends Component {
     
       handleSelect = selected => {
         this.setState({ isGeocoding: true, address: selected });
+        debugger;
         geocodeByAddress(selected)
-          .then(res => getLatLng(res[0]))
-          .then(({ lat, lng }) => {
+          .then((res) => {
+
+            var {lat,lng} = getLatLng(res[0])
             this.setState({
               latitude: lat,
               longitude: lng,
+              address: res[0]["formatted_address"],
               isGeocoding: false,
             });
+            console.log(res);
+            debugger;
           })
           .catch(error => {
             this.setState({ isGeocoding: false });
@@ -102,14 +108,14 @@ class SearchEvent extends Component {
                     {suggestions.length > 0 && (
                       <div className="Demo__autocomplete-container">
                         {suggestions.map(suggestion => {
-                        //   const className = classnames('Demo__suggestion-item', {
-                        //     'Demo__suggestion-item--active': suggestion.active,
-                        //   });
+                          const className = classnames('Demo__suggestion-item', {
+                            'Demo__suggestion-item--active': suggestion.active,
+                          });
     
                           return (
                             /* eslint-disable react/jsx-key */
                             <div
-                              {...getSuggestionItemProps(suggestion, )}
+                              {...getSuggestionItemProps(suggestion, { className } )}
                             >
                               <strong>
                                 {suggestion.formattedSuggestion.mainText}
