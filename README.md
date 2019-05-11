@@ -4,8 +4,9 @@
  {<br /> 
    _id: automatically created by mongo<br /> 
    user_id:  created by firebase, I sugguest to use this id to connect with events<br /> 
-   user_name:  when creating an account, user input his name<br /> 
+   user_name:  when creating an account, user input his account which exactly equals his email account<br /> 
    user_email:  when creating an account, user input his email as login account<br /> 
+   name: when creating an account, user input his name
    events_owned:  it is an empty array, when creating an account<br /> 
    events_joined:  it is an empty array, when creating an account<br /> 
  }
