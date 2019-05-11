@@ -32,12 +32,12 @@ class AddEvent extends Component {
         this.setState({ showCreateEvent: false });
         this.props.handleClose(false);
     }
-    // fileSelectedHandler = event => {
-    //     this.setState({
-    //         selectedFile:event.target.files[0]
-    //     })
-    //     console.log(event.target.files[0]);
-    // }
+    fileSelectedHandler = event => {
+        this.setState({
+            selectedFile:event.target.files[0]
+        })
+        console.log(event.target.files[0]);
+    }
     render() {
         let body;
         body = (<div>
@@ -55,43 +55,43 @@ class AddEvent extends Component {
                         />
                     </label>
                 </div>
-                <div>
+                <div className='form-group'>
                     <label>
                         Description:
                         <input required type='textarea' className='clsTextField' />
                     </label>
                 </div>
-                <div>
+                <div className='form-group'>
                     <label>
                         Date:
                         <input required type='date' className='clsTextField' />
                     </label>
                 </div>
-                <div>
+                <div className='form-group'>
                     <label>
                         From Time:
                         <input required type='time' className='clsTextField' />
                     </label>
                 </div>
-                <div>
+                <div className='form-group'>
                     <label>
                         To Time:
                         <input required type='time' className='clsTextField' />
                     </label>
                 </div>
-                <div>
+                <div className='form-group'>
                     <label>
                         Max participants:
                         <input required type='number' className='clsTextField' />
                     </label>
                 </div>
-                <div>
+                <div className='form-group'>
                     <label>
                         Upload Cover Photo:
                         <input type='file' onChange={this.fileSelectedHandler} className='clsTextField' />
                     </label>
                 </div>
-                <button type='submit'>
+                <button type='submit' >
                     Add Event
                             </button>
             </form>
