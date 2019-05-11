@@ -69,7 +69,13 @@ class AddEvent extends Component {
                 </div>
                 <div>
                     <label>
-                        Time:
+                        From Time:
+                        <input required type='time' className='clsTextField' />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        To Time:
                         <input required type='time' className='clsTextField' />
                     </label>
                 </div>
