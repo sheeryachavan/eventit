@@ -24,6 +24,19 @@ router.post("/addUser", async(req, res) => {
 	}
 });
 
+router.get("/profile/:id", async(req, res) => {
+    try{
+        const result = await userData.getUserById(req.params.id);
+        if(result)
+            res.json(result);
+        else
+        res.json({error:"Server is busy, please wait!"})
+    }
+    catch(e){
+        res.json({error:"Server is busy, please try latter!!"})
+    }
+});
+
 
 
 router.get("/*", async(req, res) => {
