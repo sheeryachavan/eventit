@@ -17,30 +17,30 @@ class CreateAccount extends Component {
     return (
       <div>
         <Container>
-          <form className="account-form">
+          <form class="account-form">
             <h1>Create Account</h1>
             <Row>
               <input
                 type="text"
-                className="text-input"
+                class="text-input"
                 name="name"
                 onChange={this.changeHandler}
                 placeholder="Name:"
               />
             </Row>
-            <Row className="text-input">
+            <Row class="text-input">
               <input
                 type="text"
-                className="text-input"
+                class="text-input"
                 name="email"
                 onChange={this.changeHandler}
                 placeholder="Email address:"
               />
             </Row>
-            <Row className="text-input">
+            <Row class="text-input">
               <input
                 type="password"
-                className="text-input"
+                class="text-input"
                 name="password"
                 onChange={this.changeHandler}
                 placeholder="Password:"
@@ -48,7 +48,7 @@ class CreateAccount extends Component {
             </Row>
             <input
               type="button"
-              className="button"
+              class="button"
               value="Submit"
               onClick={this.submit.bind(this)}
             />
@@ -74,7 +74,8 @@ class CreateAccount extends Component {
     auth.createUserWithEmailAndPassword(this.state.email, this.state.password)
       .then((res) => {
         const user = res.user
-        console.log(JSON.parse(JSON.stringify('{"user_name":"'+String(user.email)+'","user_id" : "'+String(user.uid)+'","user_email" : "'+String(this.state.name)+'"}')))
+        console.log(JSON.parse(JSON.stringify('{"user_name":"'+String(user.email)+'","user_email" : "'+String(user.email)+'","user_id" : "'+String(user.uid)+'","name" : "'+String(this.state.name)+'"}')))
+        
         
         //const b=JSON.parse(JSON.stringify('{"user_name":"'+String(user.email)+'","user_id" : "'+String(user.uid)+'"}'));
         
@@ -84,7 +85,7 @@ class CreateAccount extends Component {
           headers: {
               'Access-Control-Allow-Origin':'*',
               'Content-Type':'application/json'},
-          body: JSON.parse(JSON.stringify('{"user_name":"'+String(user.email)+'","user_email" : "'+String(this.state.name)+'","user_id" : "'+String(user.uid)+'"}'))
+          body: JSON.parse(JSON.stringify('{"user_name":"'+String(user.email)+'","user_email" : "'+String(user.email)+'","user_id" : "'+String(user.uid)+'","name" : "'+String(this.state.name)+'"}'))
         
           
         })
