@@ -57,7 +57,7 @@ class Login extends Component {
   }
 
   submit() {
-    if(this.state.email == "" || this.state.password == "") {
+    if(this.state.email === "" || this.state.password === "") {
       console.log("Empty field")
       return
     }
