@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import ReactModal from 'react-modal';
 import { Container, Row, Button } from 'react-bootstrap';
+import axios from 'axios';
 ReactModal.setAppElement('#root');
 class AddEvent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showCreateEvent: this.props.isOpen ||true
+            showCreateEvent: this.props.isOpen || true,
+            selectedFile:null
         };
         this.handleOpenCreateEvent = this.handleOpenCreateEvent.bind(this);
         this.handleCloseCreateEvent = this.handleCloseCreateEvent.bind(this);
@@ -30,6 +32,12 @@ class AddEvent extends Component {
         this.setState({ showCreateEvent: false });
         this.props.handleClose(false);
     }
+    // fileSelectedHandler = event => {
+    //     this.setState({
+    //         selectedFile:event.target.files[0]
+    //     })
+    //     console.log(event.target.files[0]);
+    // }
     render() {
         let body;
         body = (<div>
@@ -45,6 +53,36 @@ class AddEvent extends Component {
                             autoFocus={true}
                             className="clsTextField"
                         />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        Description:
+                        <input required type='textarea' className='clsTextField' />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        Date:
+                        <input required type='date' className='clsTextField' />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        Time:
+                        <input required type='time' className='clsTextField' />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        Max participants:
+                        <input required type='number' className='clsTextField' />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        Upload Cover Photo:
+                        <input type='file' onChange={this.fileSelectedHandler} className='clsTextField' />
                     </label>
                 </div>
                 <button type='submit'>
