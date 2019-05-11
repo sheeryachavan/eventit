@@ -1,6 +1,6 @@
-const usersData = require("./users");
+const usersData = require("./users_firebase");
 
 
 module.exports = {
-	users: usersData,
+	usersFirebase: usersData,
 }

@@ -18,5 +18,5 @@ let getCollectionFn = collection => {
 /* Now, you can list your collections here: */
 module.exports = {
   events: getCollectionFn("events"),
-  users: getCollectionFn("users")
+  usersFirebase: getCollectionFn("usersFirebase")
 };
