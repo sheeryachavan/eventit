@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import AddEvent from './Event/addEvent';
+import { connect } from "react-redux";
 class EventContainer extends Component{
     constructor(props) {
         super(props);
@@ -39,4 +40,13 @@ class EventContainer extends Component{
         </div>);
     }
 }
-export default EventContainer;
+// export default EventContainer;
+const mapStateToProps = (state) => {
+
+    console.log("home comp redux-state");
+    console.log(state);
+    // state.authentication.id
+    return { id: state.authentication.id };
+}
+
+export default connect(mapStateToProps)(EventContainer);

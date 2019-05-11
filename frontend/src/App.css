@@ -35,7 +35,7 @@
 .clsBGFooter{
   background: #2f3640;
   bottom: 0px!important;
-  position: fixed;
+  /* position: fixed; */
   width: 100%;
 }
 .card {

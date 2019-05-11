@@ -17,30 +17,30 @@ class CreateAccount extends Component {
     return (
       <div>
         <Container>
-          <form class="account-form">
+          <form className="account-form">
             <h1>Create Account</h1>
             <Row>
               <input
                 type="text"
-                class="text-input"
+                className="text-input"
                 name="name"
                 onChange={this.changeHandler}
                 placeholder="Name:"
               />
             </Row>
-            <Row class="text-input">
+            <Row className="text-input">
               <input
                 type="text"
-                class="text-input"
+                className="text-input"
                 name="email"
                 onChange={this.changeHandler}
                 placeholder="Email address:"
               />
             </Row>
-            <Row class="text-input">
+            <Row className="text-input">
               <input
                 type="password"
-                class="text-input"
+                className="text-input"
                 name="password"
                 onChange={this.changeHandler}
                 placeholder="Password:"
@@ -48,7 +48,7 @@ class CreateAccount extends Component {
             </Row>
             <input
               type="button"
-              class="button"
+              className="button"
               value="Submit"
               onClick={this.submit.bind(this)}
             />

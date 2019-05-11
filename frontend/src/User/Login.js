@@ -1,6 +1,8 @@
-import React, {Component} from 'react'
-import {Container, Row} from 'react-bootstrap'
-import {auth} from '../firebase'
+import React, { Component } from 'react'
+import { Container, Row } from 'react-bootstrap'
+import { auth } from '../firebase';
+import { connect } from "react-redux";
+import { UserDetails } from "../action";
 
 class Login extends Component {
 
@@ -17,31 +19,31 @@ class Login extends Component {
       <div>
         <Container>
           <form className='account-form'>
-          <h1>Login</h1>
-          <Row className="text-input">
-            <input 
-            type="text" 
-            className="text-input"
-            name="email"
-            onChange={this.changeHandler}
-            placeholder="Email address:"
+            <h1>Login</h1>
+            <Row className="text-input">
+              <input
+                type="text"
+                className="text-input"
+                name="email"
+                onChange={this.changeHandler}
+                placeholder="Email address:"
+              />
+            </Row>
+            <Row className="text-input">
+              <input
+                type="password"
+                className="text-input"
+                name="password"
+                onChange={this.changeHandler}
+                placeholder="Password:"
+              />
+            </Row>
+            <input
+              type="button"
+              className="button"
+              value="Login"
+              onClick={this.submit.bind(this)}
             />
-          </Row>
-          <Row className="text-input">
-            <input 
-            type="password" 
-            className="text-input"
-            name="password" 
-            onChange={this.changeHandler}
-            placeholder="Password:"
-            />
-          </Row>
-          <input 
-          type="button" 
-          className="button"
-          value="Login" 
-          onClick={this.submit.bind(this)}
-          />
           </form>
         </Container>
       </div>
@@ -57,17 +59,31 @@ class Login extends Component {
   }
 
   submit() {
-    if(this.state.email === "" || this.state.password === "") {
+    if (this.state.email === "" || this.state.password === "") {
       console.log("Empty field")
       return
     }
     auth.signInWithEmailAndPassword(this.state.email, this.state.password)
-    .then((res) => {
-      const user = res.user
-      console.log(user.uid)
-    })
+      .then(async (res) => {
+        const user = res.user
+        console.log("user")
+        // user1={
+        //   id,
+        //   image,
+        //   name
+        // }
+        console.log(user);
+        await this.props.UserDetails(user.uid);
+
+      })
   }
 
 }
 
-export default Login
+// export default Login
+
+const mapStateToProps = (state)=>{
+  return state;
+}
+
+export default connect(mapStateToProps, { UserDetails })(Login);
