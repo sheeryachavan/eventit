@@ -8,11 +8,6 @@ import { connect } from "react-redux";
 import { text } from '@fortawesome/fontawesome-svg-core';
 
 class Home extends Component {
-
-
-
-
-
     render() {
         return (
             <div>

@@ -14,20 +14,34 @@ class navbar extends Component {
         }
     }
     componentDidMount() {
-        axios.get(`https://localhost:3001/eventit/user/${this.props.id}`)
-            .then(response => {
-                this.setState({userData:response});
-            })
+        if (this.props.id) {
+            var config = {
+                headers: { 'Access-Control-Allow-Origin': "*" }
+            };
+            this.setState({ userData : axios.get(`localhost:3001/eventit/user/profile/${this.props.id}`, config)});
+        }
+        debugger;
     }
+    async changeUser() {
+        var config = {
+            headers: { 'Access-Control-Allow-Origin': "*" }
+        };
+        return axios.get(`localhost:3001/eventit/user/profile/${this.props.id}`, config);
+        // debugger;
+        // console.log(`localhost:3001/eventit/user/profile/${this.props.id}`);
 
+    }
     render() {
         let UserLoggedIn = null;
-        if (this.props.id != null) {
+        var a = null;
+        if (this.props.id != null && this.state.userData != null) {
+            var username = String(this.state.userData.name).split(" ")[0];
             UserLoggedIn =
                 <li>
-                    <a href="/user"> Hi! {this.state.userData.userName}</a>
+                    <a href="/user"> Hi! {username}</a>
                 </li>
                 ;
+                a = this.state.userData.name
         }
         return (<header className="clsToolbar">
             <nav className="clsToolbarNavigation">
