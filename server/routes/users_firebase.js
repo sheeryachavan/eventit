@@ -12,7 +12,7 @@ router.post("/addUser", async(req, res) => {
             return
         }
         
-		let result = await userData.addUser(upload.user_name, upload.user_email, upload.user_id, [], []);
+		let result = await userData.addUser(upload.user_name, upload.user_email, upload.user_id, upload.name, [], []);
         if(result)
             res.json(result);
         else
