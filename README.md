@@ -14,7 +14,6 @@
  User module apis:<br /> 
  method: post,<br /> 
  url: "http://localhost:3001/eventit/user/addUser"<br /> 
- 
  body:{<br /> 
   "user_name": name,
   "user_email":email,
