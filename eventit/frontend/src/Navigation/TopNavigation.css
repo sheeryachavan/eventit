@@ -1,0 +1,62 @@
+.clsToolbar {
+    position: fixed;
+    width: 100%;
+    background: blue;
+    z-index: 1;
+    height: 5rem;
+}
+
+.spacer {
+    flex: 1;
+}
+
+.clsToolbarNavigation {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 1rem;
+}
+.clsToolbarLogo{
+    margin-left: 1rem;
+}
+.clsToolbarLogo a {
+    color: aliceblue
+}
+
+.clsToolbarNavigationItems {
+    color: white;
+    text-decoration: none;
+
+}
+
+.clsToolbarNavigationItems ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+}
+
+.clsToolbarNavigationItems li {
+
+    padding: 0px 0.5rem;
+
+}
+
+.clsToolbarNavigationItems a:hover,
+.clsToolbarNavigationItems a:active {
+    color: orange;
+
+}
+@media (max-width:786px){
+    .clsToolbarNavigationItems{
+        display: none;
+    }
+}
+@media (min-width:787px){
+    .clsToolbarToggleButton{
+        display: none;
+    }
+    .clsToolbarLogo{
+        margin-left: 0%;
+    }
+}
