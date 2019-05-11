@@ -66,7 +66,7 @@ class Login extends Component {
     auth.signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(async (res) => {
         const user = res.user
-        console.log("user")
+        console.log("user");
         // user1={
         //   id,
         //   image,
