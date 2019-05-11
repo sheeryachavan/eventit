@@ -6,8 +6,12 @@ import { Container, Col } from 'react-bootstrap'
 import SearchEvent from './SearchEvent'
 import { connect } from "react-redux";
 import { text } from '@fortawesome/fontawesome-svg-core';
-
+import viewUser from './User/viewUser'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 class Home extends Component {
+    clickHandler() {
+
+    }
     render() {
         return (
             <div>
@@ -22,6 +26,14 @@ class Home extends Component {
                     </Col>
                 </Container>
                 {this.props.id}
+                <Router>
+                <Link to="/profile/user" >
+                    <button >hi</button>
+                </Link>
+                <Route path="/profile/user" exact component={viewUser} />
+                </Router>
+                
+
             </div>
         );
     }

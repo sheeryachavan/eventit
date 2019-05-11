@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Container, Row, Button } from 'react-bootstrap'
 import axios from 'axios'
+import api from '../api'
 import { connect } from "react-redux";
 class ViewUser extends Component {
     constructor(props) {
@@ -11,11 +12,16 @@ class ViewUser extends Component {
         }
     }
     componentWillMount() {
+       
+
+    }
+    async componentDidMount() {
         if (this.props.id) {
-            var config = {
-                headers: { 'Access-Control-Allow-Origin': "*" }
-            };
-            this.setState({ userData: axios.get(`localhost:3001/eventit/user/profile/${this.props.id}`, config) });
+            var url = await api.get(`eventit/user/profile/${this.props.id}`);
+            this.setState({
+                userData : JSON.stringify(url.data)
+            });
+            debugger;
         }
     }
     render() {
