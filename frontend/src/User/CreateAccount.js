@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Container, Row } from 'react-bootstrap'
 import { auth } from '../firebase'
+import './UserFormStyle.css'
+
 
 class CreateAccount extends Component {
 
@@ -16,10 +18,10 @@ class CreateAccount extends Component {
   render() {
     return (
       <div>
-        <Container>
-          <form class="account-form">
+        <Container className="Create-Account">
+          <form className="account-form">
             <h1>Create Account</h1>
-            <Row>
+            <Row className="account-row">
               <input
                 type="text"
                 class="text-input"
@@ -28,7 +30,7 @@ class CreateAccount extends Component {
                 placeholder="Name:"
               />
             </Row>
-            <Row class="text-input">
+            <Row class="text-input" className="account-row">
               <input
                 type="text"
                 class="text-input"
@@ -37,7 +39,7 @@ class CreateAccount extends Component {
                 placeholder="Email address:"
               />
             </Row>
-            <Row class="text-input">
+            <Row class="text-input" className="account-row">
               <input
                 type="password"
                 class="text-input"

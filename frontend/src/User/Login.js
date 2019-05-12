@@ -6,6 +6,8 @@ import { UserDetails } from "../action";
 import history from '../history';
 import { Redirect } from 'react-router';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import './UserFormStyle.css'
+
 class Login extends Component {
 
   constructor(props) {
@@ -23,7 +25,7 @@ class Login extends Component {
         <Container>
           <form className='account-form'>
             <h1>Login</h1>
-            <Row className="text-input">
+            <Row class="text-input" className="account-row">
               <input
                 type="text"
                 className="text-input"
@@ -32,7 +34,7 @@ class Login extends Component {
                 placeholder="Email address:"
               />
             </Row>
-            <Row className="text-input">
+            <Row className="text-input" className="account-row">
               <input
                 type="password"
                 className="text-input"
