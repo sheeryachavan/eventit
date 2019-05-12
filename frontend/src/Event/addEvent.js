@@ -22,6 +22,7 @@ class AddEvent extends Component {
             errorMessage: '',
             isGeocoding: false,
             event_title: '',
+            event_type:'',
             event_description: '',
             event_date: new Date(),
             event_from_time: undefined,
@@ -77,6 +78,7 @@ debugger;
     }
     handleAllChanges=(e)=> {
         if (e.target.name === 'event_title') this.setState({ event_title: e.target.value });
+        if (e.target.name === 'event_type') this.setState({ event_type: e.target.value });
         if (e.target.name === 'event_description') this.setState({ event_description: e.target.value });
         if (e.target.name === 'event_date') this.setState({ event_date: e.target.value });
         if (e.target.name === 'event_from_time') this.setState({ event_from_time: e.target.value });
@@ -144,6 +146,12 @@ debugger;
                             name="event_title"
                             onChange={this.handleAllChanges}
                         />
+                    </label>
+                </div>
+                <div className='form-group'>
+                    <label>
+                        Type:
+                        <input required type='text' className='clsTextField' name="event_type" />
                     </label>
                 </div>
                 <div className='form-group'>

@@ -4,7 +4,7 @@ import { auth } from '../firebase';
 import { connect } from "react-redux";
 import { UserDetails } from "../action";
 import './User.css';
-import { Redirect } from 'react-router';
+import MessageHandler from '../Message/messageHandler'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import './UserFormStyle.css'
 
@@ -15,13 +15,26 @@ class Login extends Component {
     this.state = {
       email: "",
       password: "",
-      redirect: false
+      redirect: false,
+      isError: false,
+      errorMessage: ''
     }
   }
 
   render() {
+    var error = null;
+    if (this.state.isError) {
+      error = <MessageHandler message={{ isError: this.state.isError, message: this.state.errorMessage }} />
+    }
+    else if (!this.state.isError && this.state.errorMessage !== '') {
+      error = <MessageHandler message={{ isError: this.state.isError, message: this.state.errorMessage }} />
+    }
+    else {
+      error = null
+    }
     return (
       <div className="limiter">
+        {error}
         <div className="container-login100">
           <div className="wrap-login100">
             <form className="login100-form validate-form">
@@ -78,29 +91,32 @@ class Login extends Component {
     })
   }
 
-  submit() {
+  async submit(event) {
+    event.preventDefault();
     if (this.state.email === "" || this.state.password === "") {
       console.log("Empty field")
       return
     }
-    auth.signInWithEmailAndPassword(this.state.email, this.state.password)
+    var msgtemp = await auth.signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(async (res) => {
         const user = res.user
         console.log("user");
-        // user1={
-        //   id,
-        //   image,
-        //   name
-        // }
         console.log(user);
         await this.props.UserDetails(user.uid);
 
 
-      }).catch(error => {
-        console.log(error.message);
+      }).catch(err => {
+        this.setState({ isError: true, errorMessage: err.message });
+        return err;
       });
-    var link = document.getElementById('test');
-    link.click();
+      debugger;
+    if (msgtemp == undefined) {
+      var link = document.getElementById('test');
+      link.click();
+    }
+    else {
+      this.setState({ isError: true, errorMessage: msgtemp.message })
+    }
     // history.push("/events");
   }
 

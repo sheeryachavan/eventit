@@ -31,17 +31,19 @@ class EventContainer extends Component {
     }
     async getEvents() {
         var l_objResponse;
+        debugger;
         if (this.props.location && this.props.location.address) {
 
             var splitAdd = (this.props.location.address.address).split(',');
             var nearby = (splitAdd.length > 2) ? splitAdd[splitAdd.length - 3].trim() : (splitAdd.length > 2) ? splitAdd[splitAdd.length - 2] : splitAdd[0];
             l_objResponse = await api.get(`/eventit/event/getAllEvents/${nearby}`);
         }
+        // else if(this.props.userId) {
+        //     l_objResponse = await api.get(`/eventit/event/getOwnedEvents/${this.props.userID}`);
+        // }
         else {
             l_objResponse = await api.get("/eventit/event/getAllEvents");
         }
-
-        debugger;
         this.setState({
             events: l_objResponse.data
         });
