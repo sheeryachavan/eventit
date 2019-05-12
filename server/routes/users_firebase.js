@@ -31,7 +31,7 @@ router.get("/profile/:id",cors(), async(req, res) => {
         if(result)
             res.json(result);
         else
-        res.json({error:"Server is busy, please wait!"})
+            res.json({error:"Server is busy, please wait!"})
     }
     catch(e){
         res.json({error:"Server is busy, please try latter!!"})

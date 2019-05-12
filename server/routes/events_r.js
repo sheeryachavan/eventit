@@ -91,6 +91,55 @@ router.put("/updateEvent/:id",cors(),async(req,res)=>{
   }
 });
 
+router.post("/joinEvent", cors(), async(req, res) => {
+  try {
+    const upload = req.body; 
+    var info = await eventData.getEventById(upload.event_id);
+    if(info.event_owner == upload.user_id){
+      res.json({error:"You're the owner!"});
+      return
+    }
+    for(let i = 0; i<info.event_joiners.length; i++){
+      if(info.event_joiners[i] == upload.user_id){
+        res.json({error:"You've already joined!"});
+        return
+      }
+    }
+    let result2 = await userData.joinEventById(upload.user_id,upload.event_id);
+    
+    info.event_joiners.push(upload.user_id);
+    let result = await eventData.updateEventById(upload.event_id,info);
+    res.json(result);
+  } 
+  catch (e) {
+    res.json({error:"Server is busy, please try latter!!"});
+    // res.status(500).json({ error: e });
+    // return
+  }
+});
+
+router.post("/cancelEvent", cors(), async(req, res) => {
+  try {
+    const upload = req.body; 
+    var info = await eventData.getEventById(upload.event_id);
+    let result2 = await userData.cancelEventById(upload.user_id,upload.event_id);
+    
+    for(let i = 0; i < info.event_joiners.length; i++){
+			if (info.event_joiners[i] == upload.user_id)
+				var index = i;
+		}
+    info.event_joiners.splice(index,1);
+    console.log(info);
+    let result = await eventData.updateEventById(upload.event_id,info);
+    res.json(result);
+  } 
+  catch (e) {
+    res.json({error:"Server is busy, please try latter!!"});
+    // res.status(500).json({ error: e });
+    // return
+  }
+});
+
 
 
 router.get("/*", async(req, res) => {
