@@ -3,7 +3,7 @@
     width: 100%;
     background: linear-gradient(to top,rgba(255,255,255,0),rgb(1, 100, 124)30%);
     z-index: 2;
-    height: 2rem;
+    height: 4rem;
 }
 
 .spacer {
@@ -13,7 +13,7 @@
 .clsToolbarNavigation {
     display: flex;
     align-items: center;
-    height: 50%;
+    height: 100%;
     padding: 0 5rem;
 }
 .clsToolbarLogo{
