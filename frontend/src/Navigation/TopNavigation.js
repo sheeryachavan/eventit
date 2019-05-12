@@ -12,7 +12,8 @@ class navbar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            userData: null
+            userData: null,
+            signedIn: false
         }
         this.signOutClick = this.signOutClick.bind(this)
     }
@@ -36,6 +37,7 @@ class navbar extends Component {
         auth.signOut();
         var link = document.getElementById('signout');
         link.click();
+        this.setState({ signedIn: !this.state.signedIn })
     }
     render() {
         let UserLoggedIn = null;
