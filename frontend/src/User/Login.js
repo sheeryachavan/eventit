@@ -6,6 +6,8 @@ import { UserDetails } from "../action";
 import './User.css';
 import { Redirect } from 'react-router';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import './UserFormStyle.css'
+
 class Login extends Component {
 
   constructor(props) {
