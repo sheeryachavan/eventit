@@ -65,14 +65,16 @@ const exportedMethods = {
 	
 	async joinEventById(user_id, new_event){
 		const userCollection = await users();
-		const user = await userCollection.findOne({user_id:id});
+		const user = await userCollection.findOne({user_id: user_id});
+		
 		if(!user)
 			throw "user not found"
 		const events = user.events_joined;
 		events.push(new_event);
 		const updateData = {};
 		updateData.events_joined = events
-		const updateInfo = await userCollection.updateOne({user_id:user_id}, {$set : updateData});
+		const updateInfo = await userCollection.updateOne({user_id: user_id}, {$set : updateData});
+		
 		if(updateInfo === null) 
 			throw "Something wrong!";
         return await this.getUserById(user_id);
@@ -93,6 +95,27 @@ const exportedMethods = {
         return await this.getUserById(user_id);
 	},
 
+	async cancelEventById(user_id, new_event){
+		const userCollection = await users();
+		const user = await userCollection.findOne({user_id:user_id});
+		if(!user)
+			throw "user not found"
+		const events = user.events_joined;
+
+		for(let i = 0; i < events.length; i++){
+			if (events[i] == new_event)
+				var index = i;
+		}
+		var newOne = user.events_joined;
+		newOne.splice(index,1);
+		const updateData = {};
+		updateData.events_joined = newOne;
+		const updateInfo = await userCollection.updateOne({user_id:user_id}, {$set : updateData});
+		if(updateInfo === null) 
+			throw "Something wrong!";
+        return await this.getUserById(user_id);
+	},
+    
 	
 }
 
