@@ -1,7 +1,7 @@
 const mongoCollections = require("../config/mongoCollections");
 const events = mongoCollections.events;
 const uuid = require("node-uuid");
-// const users = require("./users");
+const user = require("./users");
 
 exportedMethods = {
 
@@ -24,11 +24,11 @@ exportedMethods = {
 
 //create new event method
 
-    async createEvent(title,description,location,date,time,price,C0M){
+    async createEvent(title,description,location,date,time,price,userName,C0M){
       const eventsCollection = await events();
-      console.log("inside create events method..."+title)
-      // const userCollection = await users();
-      // const userThatPosted = await userCollection.findOne({_id: user_id});
+
+      const userThatPosted = await user.getUserByName(userName);
+      console.log(userThatPosted);
 
       for (let i = 0; i < C0M.length; i++)
          {
@@ -47,17 +47,16 @@ exportedMethods = {
         date: date,
         time: time,
         price: price,
-        // user:{
-        //   id:user_id,
-        //   name:`${userThatPosted.firstName} ${userThatPosted.lastName}`
-        // },
+        postedBy: userThatPosted.user_name,
         comments: C0M,
         _id: uuid.v4()
       }
-
-      console.log(newEvent);
-
       const newInsertInformation = await eventsCollection.insertOne(newEvent);
+
+      // adding event to posters database
+      
+      const updatedUser = await user.ownEventById(userThatPosted._id, newEvent._id);
+      console.log(updatedUser);
       const newE = await this.getEventById(newEvent._id);
          return newE;
       },
@@ -138,6 +137,19 @@ exportedMethods = {
 
       return await this.getEventById(Id);
     },
+
+// get user by event
+
+      async getEventPosterById(event_id){
+        const eventsCollection = await events();
+        const event1 = await eventCollection.findOne({_id: event_id});
+        if(!event1)
+          throw "User not found"
+        let user = {};
+        events.owned = user.events_owned;
+        events.joined = user.events_joined;
+        return events;
+      },
 
 //delete methods
 
