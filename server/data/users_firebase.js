@@ -4,13 +4,14 @@ const users = mongoCollections.usersFirebase;
 
 const exportedMethods = {
 	
-	async addUser(name,email,id,name2,events_owned,events_joined){
+	async addUser(name,email,id,name2,phone,events_owned,events_joined){
 		const userCollection = await users();
 		const newUser = {
             user_name: name,
             user_id: id,
             user_email: email,
-            name : name2,
+			name : name2,
+			phone: phone,
 			events_owned: events_owned,
             events_joined: events_joined
 		};
@@ -50,6 +51,9 @@ const exportedMethods = {
         }
         if(user_info.user_email){
 			updateData.user_email = user_info.user_email;
+        }
+        if(user_info.phone){
+			updateData.user_email = user_info.phone;
         }
 		if(user_info.events_owned){
 			updateData.events_owned = user_info.events_owned;

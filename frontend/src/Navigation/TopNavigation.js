@@ -2,7 +2,7 @@ import React from 'react';
 import './DrawerToggleButton'
 import './TopNavigation.css';
 import DrawerToggleButton from './DrawerToggleButton';
-import { checkPropTypes } from 'prop-types';
+import { auth } from '../firebase';
 import { connect } from "react-redux";
 import { Component } from 'react';
 import SearchEvent from '../SearchEvent'
@@ -14,6 +14,7 @@ class navbar extends Component {
         this.state = {
             userData: null
         }
+        this.signOutClick = this.signOutClick.bind(this)
     }
     componentDidMount() {
         if (this.props.id) {
@@ -31,6 +32,11 @@ class navbar extends Component {
         return axios.get(`localhost:3001/eventit/user/profile/${this.props.id}`, config);
 
     }
+    signOutClick() {
+        auth.signOut();
+        var link = document.getElementById('signout');
+        link.click();
+    }
     render() {
         let UserLoggedIn = null;
         var a = null;
@@ -45,9 +51,18 @@ class navbar extends Component {
                     </button>
                     <button className="btn btn-big btn-dark">
                         <Link className="showlink" to="/events">
-                            My Events
+                            All Events
           </Link>
-                    </button>
+                    </button><a href="/">
+                        <button className="btn btn-big btn-dark" onClick={this.signOutClick}>
+
+                            Signout
+
+</button>
+                    </a>
+
+                    <Link to="/" style={{ hidden: true }} id="signout">
+                    </Link>
                 </div>
                 ;
         }
@@ -77,7 +92,7 @@ class navbar extends Component {
 
 
                 <div className="spacer"></div>
-                
+
                 <div className="spacer"></div>
                 {UserLoggedIn}
             </nav>

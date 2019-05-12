@@ -3,7 +3,7 @@ import { Container, Row } from 'react-bootstrap'
 import { auth } from '../firebase';
 import { connect } from "react-redux";
 import { UserDetails } from "../action";
-import history from '../history';
+import './User.css';
 import { Redirect } from 'react-router';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 class Login extends Component {
@@ -13,47 +13,58 @@ class Login extends Component {
     this.state = {
       email: "",
       password: "",
-      redirect:false
+      redirect: false
     }
   }
 
   render() {
     return (
-      <div>
-        <Container>
-          <form className='account-form'>
-            <h1>Login</h1>
-            <Row className="text-input">
-              <input
-                type="text"
-                className="text-input"
-                name="email"
-                onChange={this.changeHandler}
-                placeholder="Email address:"
-              />
-            </Row>
-            <Row className="text-input">
-              <input
-                type="password"
-                className="text-input"
-                name="password"
-                onChange={this.changeHandler}
-                placeholder="Password:"
-              />
-            </Row>
+      <div className="limiter">
+        <div className="container-login100">
+          <div className="wrap-login100">
+            <form className="login100-form validate-form">
+              <span className="login100-form-title">
+                Member Login
+					</span>
 
-            <input
-              type="button"
-              className="button"
-              value="Login"
-              onClick={this.submit.bind(this)}
-            />
+              <div className="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                <input className="input100" type="text" name="email" placeholder="Email" onChange={this.changeHandler} />
+                <span className="focus-input100"></span>
+                <span className="symbol-input100">
+                  <i className="fa fa-envelope" aria-hidden="true"></i>
+                </span>
+              </div>
 
-          </form>
-          <Link to="/" style={{hidden:true}} id="test">
-          </Link>
-        </Container>
+              <div className="wrap-input100 validate-input" data-validate="Password is required">
+                <input className="input100" type="password" name="password" placeholder="Password" onChange={this.changeHandler} />
+                <span className="focus-input100"></span>
+                <span className="symbol-input100">
+                  <i className="fa fa-lock" aria-hidden="true"></i>
+                </span>
+              </div>
+
+              <div className="container-login100-form-btn">
+                <button className="login100-form-btn" onClick={this.submit.bind(this)}>
+                  Login
+						</button>
+              </div>
+              <Link to="/signup">
+                <div className="text-center p-t-136">
+                  Create your Account
+							<i className="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+
+                </div>
+              </Link>
+
+            </form>
+
+            <Link to="/" style={{ hidden: true }} id="test">
+            </Link>
+          </div>
+
+        </div>
       </div>
+
     )
   }
 
@@ -82,11 +93,11 @@ class Login extends Component {
         console.log(user);
         await this.props.UserDetails(user.uid);
 
-        
-      }).catch(error=>{
+
+      }).catch(error => {
         console.log(error.message);
       });
-      var link = document.getElementById('test');
+    var link = document.getElementById('test');
     link.click();
     // history.push("/events");
   }
