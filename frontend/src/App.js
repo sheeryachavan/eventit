@@ -11,7 +11,7 @@ import Navbar from './Navigation/TopNavigation';
 import SideBar from './Navigation/SideDrawer';
 import BackDrop from './Navigation/Backdrop';
 import viewUser from './User/viewUser';
-
+import viewEvent from './Event/viewEvent'
 import Login from './User/Login'
 import Signup from './User/CreateAccount';
 import history from './history';
@@ -48,7 +48,9 @@ class App extends Component {
             <div>
               <Switch>
                 <Route path="/" exact component={Home} />
-                <Route path="/events" component={EventContainer} />
+                <Route path="/events/:id" exact component={viewEvent} />
+                <Route path="/events" exact component={EventContainer} />
+                
                 <Route path="/login" component={Login} />
                 <Route path="/signup" component={Signup} />
                 <Route path="/profile/user" component={viewUser} />

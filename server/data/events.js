@@ -45,7 +45,7 @@ const exportedMethods = {
 		
 		let result = [];
 		for(let i = 0; i < eventList.length; i++){
-			let temp = {"event_id":eventList[i].event_id, "event_name":eventList[i].event_name};
+			let temp = {"event_id":eventList[i].event_id, "event_name":eventList[i].event_name,"event_location":eventList[i].event_location,"event_joiners":eventList[i].event_joiners.count};
 			result.push(temp);
 		}
 		return result;		

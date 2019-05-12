@@ -5,10 +5,10 @@ var cors = require('cors');
 const eventData = data.events;
 const userData = data.usersFirebase;
 
-router.post("/addEvent",cors(),async(req, res) => {
+router.post("/addevent",cors(),async(req, res) => {
 	try{
     const upload = req.body;   
-    let result = await eventData.addEvent(upload.event_name, upload.event_type, upload.event_description, upload.event_location, upload.event_begin, upload.event_end, upload.event_owner, upload.event_ownerName, upload.event_ownerPhone, upload.event_ownerContact,[],upload.event_count,upload.event_keyword);
+    let result = await eventData.addEvent(upload.event_name, upload.event_type, upload.event_description, upload.event_location, upload.event_begin, upload.event_end, upload.event_owner, upload.event_ownerContact, upload.event_ownerPhone, upload.event_ownerContact,[],upload.event_count,upload.event_keyword);
     
     if(!result)
       res.json({error:"Server is busy, please wait!"})
@@ -21,7 +21,7 @@ router.post("/addEvent",cors(),async(req, res) => {
 	}
 });
 
-router.get("/getEvent/:id", cors(), async(req,res) =>{
+router.get("/getevent/:id", cors(), async(req,res) =>{
   try{
     const result = await eventData.getEventById(req.params.id);
     if(result)
