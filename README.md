@@ -72,7 +72,23 @@ body:<br />
 	"event_keyword": ["a","b","c","d"]<br /> 
 }<br /> 
 
+--------------------------------------------------------------------------------------------
+join event:<br /> 
+method:post<br /> 
+url: url: "http://localhost:3001/eventit/event/joinEvent"<br /> 
+body{<br /> 
+	"event_id":"",<br /> 
+	"user_id":""<br /> 
+}<br /> 
 
+--------------------------------------------------------------------------------------------
+cancel join application for event:<br /> 
+method:post<br /> 
+url: url: "http://localhost:3001/eventit/event/cancelEvent"<br /> 
+body{<br /> 
+	"event_id":"",<br /> 
+	"user_id":""<br /> 
+}<br /> 
 
 
 
