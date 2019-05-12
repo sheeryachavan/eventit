@@ -3,14 +3,17 @@ import { Container, Row } from 'react-bootstrap'
 import { auth } from '../firebase';
 import { connect } from "react-redux";
 import { UserDetails } from "../action";
-
+import history from '../history';
+import { Redirect } from 'react-router';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 class Login extends Component {
 
   constructor(props) {
     super(props)
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      redirect:false
     }
   }
 
@@ -38,13 +41,17 @@ class Login extends Component {
                 placeholder="Password:"
               />
             </Row>
+
             <input
               type="button"
               className="button"
               value="Login"
               onClick={this.submit.bind(this)}
             />
+
           </form>
+          <Link to="/" style={{hidden:true}} id="test">
+          </Link>
         </Container>
       </div>
     )
@@ -75,14 +82,18 @@ class Login extends Component {
         console.log(user);
         await this.props.UserDetails(user.uid);
 
-      })
+        
+      });
+      var link = document.getElementById('test');
+    link.click();
+    // history.push("/events");
   }
 
 }
 
 // export default Login
 
-const mapStateToProps = (state)=>{
+const mapStateToProps = (state) => {
   return state;
 }
 

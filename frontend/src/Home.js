@@ -15,23 +15,7 @@ class Home extends Component {
     render() {
         return (
             <div>
-                <SearchEvent ></SearchEvent>
-                <Container className="clsContent">
 
-                    <Col className="signin-block">
-                        <CreateAccount />
-                    </Col>
-                    <Col className="signin-block">
-                        <Login />
-                    </Col>
-                </Container>
-                {this.props.id}
-                <Router>
-                <Link to="/profile/user" >
-                    <button >hi</button>
-                </Link>
-                <Route path="/profile/user" exact component={viewUser} />
-                </Router>
                 
 
             </div>

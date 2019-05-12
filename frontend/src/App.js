@@ -12,6 +12,9 @@ import SideBar from './Navigation/SideDrawer';
 import BackDrop from './Navigation/Backdrop';
 import viewUser from './User/viewUser';
 
+import Login from './User/Login'
+import Signup from './User/CreateAccount';
+import history from './history';
 library.add(faStroopwafel)
 class App extends Component {
   state = {
@@ -33,31 +36,29 @@ class App extends Component {
     let backDrop;
     if (this.state.SideDrawerOpen) {
 
-      backDrop = <BackDrop click={this.backDropClickHandler}/>;
+      backDrop = <BackDrop click={this.backDropClickHandler} />;
     }
     return (
-      // <div>
-        <div className="App">
-          <Navbar drawerClickHandler={this.drawerToggleClickHandler} />
-          <SideBar show = {this.state.SideDrawerOpen}/>
-          {backDrop}
+<Router>
+<div className="App">
+        <Navbar drawerClickHandler={this.drawerToggleClickHandler} />
+        <SideBar show={this.state.SideDrawerOpen} />
+        {backDrop}
           <div className="Appbody">
-            <Router>
+            <div>
               <Switch>
-                <Route path="/events" exact component={EventContainer} />
-                <Route path="/profile/user" exact component={viewUser} />
                 <Route path="/" exact component={Home} />
+                <Route path="/events" component={EventContainer} />
+                <Route path="/login" component={Login} />
+                <Route path="/signup" component={Signup} />
+                <Route path="/profile/user" component={viewUser} />
               </Switch>
-            </Router>
-
-          </div>
-          <Footer></Footer>
-        </div>
-
-
-        
-      // </div>
-    );
+            </div>
+         </div>
+        <Footer></Footer>
+      </div>    
+</Router>
+      );
   }
 }
 

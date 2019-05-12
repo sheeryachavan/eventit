@@ -16,6 +16,12 @@ class EventContainer extends Component{
         this.handleOpenCreateEvent = this.handleOpenCreateEvent.bind(this);
         this.handleCloseEvents = this.handleCloseEvents.bind(this);
     }
+
+
+componentDidMount(){
+    console.log("events component did mount")
+}
+
     handleCloseEvents() {
         this.setState({ showCreateEvent: false, showUpdateEvent: false, showDeleteEvent: false });
     }
@@ -23,6 +29,7 @@ class EventContainer extends Component{
         this.setState({ showCreateEvent: true });
     }
     render(){
+        console.log("events component did mount")
         return (<div>
             <div className="clsCreateButtonContainer">
                     <button className='clsCreateButton' onClick={this.handleOpenCreateEvent}>

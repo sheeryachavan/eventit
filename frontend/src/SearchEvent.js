@@ -88,8 +88,8 @@ class SearchEvent extends Component {
             >
               {({ getInputProps, suggestions, getSuggestionItemProps }) => {
                 return (
-                  <div className="Demo__search-bar-container">
-                    <div className="Demo__search-input-container">
+                  <div >
+                    <div >
                       <input
                         {...getInputProps({
                           placeholder: 'Search Places...',
