@@ -5,6 +5,7 @@ import Login from './User/Login'
 import { Container, Col } from 'react-bootstrap'
 import SearchEvent from './SearchEvent'
 import { connect } from "react-redux";
+import  EventContainer  from './Events';
 import { text } from '@fortawesome/fontawesome-svg-core';
 import viewUser from './User/viewUser'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
@@ -17,7 +18,7 @@ class Home extends Component {
             <div>
 
                 <SearchEvent ></SearchEvent>
-
+                <EventContainer></EventContainer>
             </div>
         );
     }

@@ -1,9 +1,9 @@
 .App{
-  height: 100%;
+  height: fill-available;
   
 }
 .Appbody{
-  padding-top: 5rem;
+  padding-top: 4rem;
 }
 .text-input {
   height: 24px;

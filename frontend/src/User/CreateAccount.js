@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Container, Row } from 'react-bootstrap'
 import { auth } from '../firebase'
 import { Link } from 'react-router-dom';
+import MessageHandler from '../Message/messageHandler'
 class CreateAccount extends Component {
 
   constructor(props) {
@@ -11,20 +12,34 @@ class CreateAccount extends Component {
       email: "",
       password: "",
       confirmpassword: "",
-      phone: ""
+      phone: "",
+      isError: false,
+      errorMessage: ''
     }
   }
 
   render() {
+    var error = null;
+    if (this.state.isError) {
+      error = <MessageHandler message={{ isError: this.state.isError, message: this.state.errorMessage }} />
+    }
+    else if (!this.state.isError && this.state.errorMessage !== '') {
+      error = <MessageHandler message={{ isError: this.state.isError, message: this.state.errorMessage }} />
+    }
+    else {
+      error = null
+    }
+
     return (
-      <div className="limiter">
+      <div className="limiter" >
+      {error}
         <div className="container-login100">
+          
           <div className="wrap-login100">
             <form className="login100-form validate-form">
               <span className="login100-form-title">
                 Get On Board!
 					</span>
-
               <div className="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
                 <input className="input100" type="text" name="name" placeholder="Hi! What's your name?" onChange={this.changeHandler} />
                 <span className="focus-input100"></span>
@@ -73,7 +88,7 @@ class CreateAccount extends Component {
           </div>
 
         </div>
-      </div>
+      </div >
 
 
     )
@@ -87,12 +102,13 @@ class CreateAccount extends Component {
     })
   }
 
-  submit() {
+  async submit(event) {
+    event.preventDefault();
     if (this.state.email === "" || this.state.password === "") {
       console.log("Empty field")
       return
     }
-    auth.createUserWithEmailAndPassword(this.state.email, this.state.password)
+    var msgtemp = await auth.createUserWithEmailAndPassword(this.state.email, this.state.password)
       .then((res) => {
         const user = res.user
         console.log(JSON.parse(JSON.stringify('{"user_name":"' + String(user.email) + '","user_email" : "' + String(user.email) + '","user_id" : "' + String(user.uid) + '","name" : "' + String(this.state.name) + '"}')))
@@ -111,9 +127,22 @@ class CreateAccount extends Component {
 
 
         })
+      }).catch(err => {
+        this.setState({ isError: true, errorMessage: err.message });
+
+        return err;
+
       })
-    var link = document.getElementById('test');
-    link.click();
+    debugger;
+    console.log(msgtemp);
+
+    if (msgtemp == undefined) {
+      var link = document.getElementById('test');
+      link.click();
+    }
+    else {
+      this.setState({ isError: true, errorMessage: msgtemp.message })
+    }
   }
 
 }
