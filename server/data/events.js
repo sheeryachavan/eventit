@@ -114,7 +114,38 @@ const exportedMethods = {
             );
             return l_arrdata;
         });
+	},
+
+	async getEventsByTag(tag, normaltag) {
+        if (!tag) throw "You must provide a tag";
+        return events().then(async eventCollection => {
+            var name_arrprodnamenormal = await eventCollection.find({
+            	event_name: normaltag
+            }).toArray();
+            var name_arrprodname = await eventCollection.find({
+                event_name: tag
+            }).toArray();
+            var key_arrprodtags = await eventCollection.find({
+                event_keyword: tag
+			}).toArray();
+			var type_arrprodnamenormal = await eventCollection.find({
+            	event_type: normaltag
+            }).toArray();
+            var type_arrprodname = await eventCollection.find({
+                event_type: tag
+            }).toArray();
+			var name_arrdata = Array.from(new Set(type_arrprodname.concat(name_arrprodname).concat(name_arrprodnamenormal).concat(key_arrprodtags).concat(type_arrprodnamenormal)));
+            name_arrdata = name_arrdata.filter((thing, index, self) =>
+                index === self.findIndex((t) => (
+                    t.event_id === thing.event_id
+                ))
+            );
+            return name_arrdata;
+        });
     },
+
+
+
 	async deleteEvent(event_id)
       {
       const eventCollection = await events();

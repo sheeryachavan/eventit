@@ -46,6 +46,18 @@ router.get("/getAllEvents/:address", cors(), async(req,res)=>{
     res.json({error:"Server is busy, please try latter!!"})
   }
 });
+
+router.get("/getAllEventsByTag/:keyword", cors(), async(req,res)=>{
+  try{
+    const regex = new RegExp(escapeRegex(req.params.keyword), 'gi');
+    var results = await eventData.getEventsByTag(regex, req.params.keyword);
+    res.status(200).json(results);
+  }
+  catch(e){
+    res.status(500).json({error:"Server is busy, please try latter!!"})
+  }
+});
+
 router.get("/getAllEvents", cors(), async(req,res)=>{
   try{
     const results = await eventData.getAllEvents();
@@ -140,7 +152,65 @@ router.post("/cancelEvent", cors(), async(req, res) => {
   }
 });
 
+router.get("/getOwenedEvents/:user_id", cors(), async(req,res)=>{
+  try{
+    var user = await userData.getEventsById(req.params.user_id);
+    var results = [];
+    console.log(user.owned.length)
+    if(user.owned.length == 0){
+      res.status(200).json(results);
+      return;
+    }    
+    for(let i = 0; i < user.owned.length; i++){
+      let result = {};
+      result.event_id = user.owned[i];
+      
+      let eventInfo = await eventData.getEventById(user.owned[i]);
+      result.event_name = eventInfo.event_name;
+      result.event_location = eventInfo.event_location;
+      result.event_count = eventInfo.event_count;
+      result.event_begin = eventInfo.event_begin;
+      result.event_end = eventInfo.event_end;
+      result.event_joiner_length = eventInfo.event_joiners.length;
+      results.push(result);
+      console.log(result);
+    }
+    res.status(200).json(results);
+  }
+  catch(e){
+    res.status(500).json({error:"Server is busy, please try latter!!"});
+  }
+});
 
+router.get("/getJoinedEvents/:user_id", cors(), async(req,res)=>{
+  try{
+    var user = await userData.getEventsById(req.params.user_id);
+    var results = [];
+    console.log(user.joined.length)
+    if(user.joined.length == 0){
+      res.status(200).json(results);
+      return;
+    }    
+    for(let i = 0; i < user.joined.length; i++){
+      let result = {};
+      result.event_id = user.owned[i];
+      
+      let eventInfo = await eventData.getEventById(user.joined[i]);
+      result.event_name = eventInfo.event_name;
+      result.event_location = eventInfo.event_location;
+      result.event_count = eventInfo.event_count;
+      result.event_begin = eventInfo.event_begin;
+      result.event_end = eventInfo.event_end;
+      result.event_joiner_length = eventInfo.event_joiners.length;
+      results.push(result);
+      console.log(result);
+    }
+    res.status(200).json(results);
+  }
+  catch(e){
+    res.status(500).json({error:"Server is busy, please try latter!!"});
+  }
+});
 
 router.get("/*", async(req, res) => {
   res.redirect("http://localhost:3001/eventit/");
