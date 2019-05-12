@@ -3,6 +3,7 @@ import { Container, Row, Button } from 'react-bootstrap'
 import ReactSearchBox from 'react-search-box'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { classnames } from './helpers';
+import api from './api';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import {

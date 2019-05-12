@@ -33,7 +33,19 @@ router.get("/getevent/:id", cors(), async(req,res) =>{
     res.json({error:"Server is busy, please try latter!!"})
 }
 });
-
+function escapeRegex(text) {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
+router.get("/getAllEvents/:address", cors(), async(req,res)=>{
+  try{
+    const regex = new RegExp(escapeRegex(req.params.address), 'gi');
+    var results = await eventData.getEventsByLocation(regex, req.params.address);
+    res.json(results);
+  }
+  catch(e){
+    res.json({error:"Server is busy, please try latter!!"})
+  }
+});
 router.get("/getAllEvents", cors(), async(req,res)=>{
   try{
     const results = await eventData.getAllEvents();

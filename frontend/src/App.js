@@ -12,6 +12,7 @@ import SideBar from './Navigation/SideDrawer';
 import BackDrop from './Navigation/Backdrop';
 import viewUser from './User/viewUser';
 import viewEvent from './Event/viewEvent'
+import editEvent from './Event/editEvent'
 import Login from './User/Login'
 import Signup from './User/CreateAccount';
 import history from './history';
@@ -49,6 +50,7 @@ class App extends Component {
               <Switch>
                 <Route path="/" exact component={Home} />
                 <Route path="/events/:id" exact component={viewEvent} />
+                <Route path="/events/editevent/:id" exact component={editEvent} />
                 <Route path="/events" exact component={EventContainer} />
                 
                 <Route path="/login" component={Login} />

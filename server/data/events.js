@@ -106,8 +106,24 @@ const exportedMethods = {
       { throw `deletion Failed.Could not delete event ${eventId}`;}
       return true;
     },
-
-
+	async getEventsByLocation(tag, normaltag) {
+        if (!tag) throw "You must provide a tag";
+        return events().then(async eventCollection => {
+            var l_arreventnamenormal = await eventCollection.find({
+                event_name: normaltag
+            }).toArray();
+            var l_arreventtags = await eventCollection.find({
+                event_location: tag
+            }).toArray();
+            var l_arrdata = Array.from(new Set(l_arreventtags.concat(l_arreventnamenormal)));
+            l_arrdata = l_arrdata.filter((thing, index, self) =>
+                index === self.findIndex((t) => (
+                    t.event_id === thing.event_id
+                ))
+            );
+            return l_arrdata;
+        });
+    }
 }
 
 

@@ -83,6 +83,8 @@ class Login extends Component {
         await this.props.UserDetails(user.uid);
 
         
+      }).catch(error=>{
+        console.log(error.message);
       });
       var link = document.getElementById('test');
     link.click();

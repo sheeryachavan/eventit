@@ -21,11 +21,22 @@ class EventContainer extends Component {
 
 
     componentDidMount() {
-        console.log("events component did mount")
+        console.log("events component did mount");
+        console.log(this.props);
+
         this.getEvents();
     }
     async getEvents() {
-        var l_objResponse = await api.get("/eventit/event/getAllEvents");
+        var l_objResponse;
+        if (this.props.location.address) {
+            var splitAdd = (this.props.location.address.address).split(',');
+            var nearby = (splitAdd.length > 2) ? splitAdd[splitAdd.length - 3].trim() : (splitAdd.length > 2) ? splitAdd[splitAdd.length - 2] : splitAdd[0];
+            l_objResponse = await api.get(`/eventit/event/getAllEvents/${nearby}`);
+        }
+        else {
+            l_objResponse = await api.get("/eventit/event/getAllEvents");
+        }
+
         debugger;
         this.setState({
             events: l_objResponse.data

@@ -29,8 +29,6 @@ class navbar extends Component {
             headers: { 'Access-Control-Allow-Origin': "*" }
         };
         return axios.get(`localhost:3001/eventit/user/profile/${this.props.id}`, config);
-        // debugger;
-        // console.log(`localhost:3001/eventit/user/profile/${this.props.id}`);
 
     }
     render() {
