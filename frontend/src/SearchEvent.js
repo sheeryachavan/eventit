@@ -81,22 +81,23 @@ class SearchEvent extends Component {
     } = this.state;
 
     return (
-      <div>
+      <div >
         <PlacesAutocomplete
           onChange={this.handleChange}
           value={address}
           onSelect={this.handleSelect}
           onError={this.handleError}
           shouldFetchSuggestions={address.length > 2}
+
         >
           {({ getInputProps, suggestions, getSuggestionItemProps }) => {
             return (
-              <div >
-                <div >
+              <div className="clssearch-container">
+                <div className="clssearch-box">
                   <input
                     {...getInputProps({
                       placeholder: 'Search Places...',
-                      className: 'Demo__search-input',
+                      className: 'clssearch-txt',
                     })}
                   />
                   {this.state.address.length > 0 && (
@@ -107,12 +108,11 @@ class SearchEvent extends Component {
                       x
                         </button>
                   )}
-                </div>
-                {suggestions.length > 0 && (
-                  <div className="Demo__autocomplete-container">
+                  {suggestions.length > 0 && (
+                  <div className=" clsSuggestionContainer">
                     {suggestions.map(suggestion => {
-                      const className = classnames('Demo__suggestion-item', {
-                        'Demo__suggestion-item--active': suggestion.active,
+                      const className = classnames('clsSuggestionItem', {
+                        'clsSuggestionItem-active': suggestion.active,
                       });
 
                       return (
@@ -132,6 +132,8 @@ class SearchEvent extends Component {
                     })}
                   </div>
                 )}
+                </div>
+                
               </div>
             );
           }}
