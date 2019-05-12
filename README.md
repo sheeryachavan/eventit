@@ -24,6 +24,7 @@
  
  
  Event module  apis: <br /> 
+ Add event:<br /> 
  method:post, <br /> 
  url: "http://localhost:3001/eventit/event/addEvent" <br /> 
  
@@ -41,8 +42,16 @@
 	"event_count": 50, <br /> 
 	"event_keyword": ["a","b"], <br /> 
 	"event_description":"123123123" <br /> 
-}
+} <br /> 
 
+get event: <br /> 
+method: get <br /> 
+url: "http://localhost:3001/eventit/event/getEvent/:event_id" <br /> 
+
+
+get all events <br /> 
+method: get <br /> 
+url: "http://localhost:3001/eventit/event/getAllEvent" <br /> 
 
 
 
