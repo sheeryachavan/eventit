@@ -22,9 +22,24 @@ router.post("/signup", async(req, res) => {
 			if(result)
                 res.json(result);
             else
-                res.json({error:"Server is busy, please wait!"})
+                res.json({error:"Server is busy, please wait!"});
         }
     }
+	catch(e){
+		res.json({error:"Server is busy, please try latter!!"})
+	}
+});
+
+// add button by clicking that one can join that event
+router.post("/joinevent", async(req,res) => {
+	try{
+				const upload = req.body;
+				const updatedUser = await userData.joinEventById(upload.user_id, upload.event_id);
+				if(updatedUser)
+	                res.json(updatedUser);
+	            else
+	                res.json({error:"Server is busy, please wait!"})
+		}
 	catch(e){
 		res.json({error:"Server is busy, please try latter!!"})
 	}
