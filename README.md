@@ -22,7 +22,7 @@
  }<br /> 
  
  
- 
+ --------------------------------------------------------------------------------------------
  Event module  apis: <br /> 
  Add event:<br /> 
  method:post, <br /> 
@@ -44,14 +44,41 @@
 	"event_description":"123123123" <br /> 
 } <br /> 
 
+--------------------------------------------------------------------------------------------
 get event: <br /> 
 method: get <br /> 
 url: "http://localhost:3001/eventit/event/getEvent/:event_id" <br /> 
 
-
-get all events <br /> 
+--------------------------------------------------------------------------------------------
+get all events: <br /> 
 method: get <br /> 
 url: "http://localhost:3001/eventit/event/getAllEvent" <br /> 
+
+--------------------------------------------------------------------------------------------
+edit event:<br /> 
+method:put<br /> 
+url: "http://localhost:3001/eventit/event/updateEvent/:event_id"<br /> 
+body:<br /> 
+{<br /> 
+"event_name": "sleep222",<br /> 
+   "event_type": "relaxing31",<br /> 
+   "event_location": "NewYork123",<br /> 
+	"event_ownerName":"Jax",<br /> 
+	"event_ownerPhone" : "8601113399",<br /> 
+	"event_ownerContact" : "Joe@stevens.edu",<br /> 
+	"event_begin": "2019/05/11",<br /> 
+	"event_end": "2019/05/13",<br /> 
+	"event_count": 500,<br /> 
+	"event_keyword": ["a","b","c","d"]<br /> 
+}<br /> 
+
+
+
+
+
+
+
+
 
 
 
