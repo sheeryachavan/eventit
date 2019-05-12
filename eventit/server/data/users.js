@@ -13,7 +13,7 @@ const exportedMethods = {
 		else{
 			return false;
 		}
-	}, 
+	},
 
 	//return user in json
 	async getUserByName(name){
@@ -23,7 +23,7 @@ const exportedMethods = {
 			throw "Wrong username/password";
 		}
 		return user;
-	}, 
+	},
 
 	async addUser(name,pass,events_owned,events_joined){
 		const userCollection = await users();
@@ -35,7 +35,7 @@ const exportedMethods = {
 			events_joined: events_joined
 		};
 		const newUserInfo = await userCollection.insertOne(newUser);
-		if(newUserInfo === null) 
+		if(newUserInfo === null)
 			throw "Something wrong!";
 		return newUser;
 	},
@@ -54,7 +54,7 @@ const exportedMethods = {
 	async getUserById(id){
 		const userCollection = await users();
 		const user = await userCollection.findOne({_id:id});
-		if(!user) 
+		if(!user)
 			throw "User not found";
 		return user;
 	},
@@ -75,45 +75,37 @@ const exportedMethods = {
 		if(updateInfo === null) throw "Can not update this user!";
         return await this.getUserById(user_id);
 	},
-	
+
 	async joinEventById(user_id, new_event){
 		const userCollection = await users();
-		const user = await userCollection.findOne({_id:id});
+		const user = await userCollection.findOne({_id:user_id});
 		if(!user)
 			throw "user not found"
 		const events = user.events_joined;
 		events.push(new_event);
 		const updateData = {};
-		updateData.events_joined = events
+		updateData.events_joined = events;
 		const updateInfo = await userCollection.updateOne({_id:user_id}, {$set : updateData});
-		if(updateInfo === null) 
+		if(updateInfo === null)
 			throw "Something wrong!";
         return await this.getUserById(user_id);
 	},
 
 	async ownEventById(user_id, new_event){
 		const userCollection = await users();
-		const user = await userCollection.findOne({_id:id});
+		const user = await userCollection.findOne({_id:user_id});
 		if(!user)
 			throw "user not found"
 		const events = user.events_owned;
 		events.push(new_event);
 		const updateData = {};
-		updateData.events_owned = events
+		updateData.events_owned = events;
 		const updateInfo = await userCollection.updateOne({_id:user_id}, {$set : updateData});
-		if(updateInfo === null) 
+		if(updateInfo === null)
 			throw "Something wrong!";
         return await this.getUserById(user_id);
 	},
 
 }
 
-
 module.exports = exportedMethods;
-
-
-
-
-
-
-
