@@ -9,11 +9,13 @@
 /* On mouse-over, add a deeper shadow */
 .eventCard:hover {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    
 }
 
 /* Add some padding inside the card container */
 .eventCardContainer {
     padding: 2px 16px;
+    
 }
 
 .clsCreateButtonContainer {
@@ -27,6 +29,7 @@
     border-radius: 1rem;
     outline: none;
     transition: 0.3s;
+    margin-top: 5rem;
 }
 
 .clsCreateButton:hover,
