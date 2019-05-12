@@ -79,7 +79,7 @@ class navbar extends Component {
 
 
                 <div className="spacer"></div>
-                <SearchEvent ></SearchEvent>
+                
                 <div className="spacer"></div>
                 {UserLoggedIn}
             </nav>
