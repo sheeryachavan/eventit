@@ -8,7 +8,6 @@ const userData = data.users;
 router.post("/signup", async(req, res) => {
 	try{
         const upload = req.body;
-        console.log(1)
         if(typeof(upload.user_name) !=="string"){
             res.json({error:"Username or password not provided!"})
             return
@@ -17,7 +16,7 @@ router.post("/signup", async(req, res) => {
             res.json({error:"Username or password not provided!"})
             return
         }
-        console.log(2)
+        
 		if(await userData.checkUsername(upload.user_name)){
 			const hashpass = await bcrypt.hash(upload.user_pass,saltRounds);
 			let result = await userData.addUser(upload.user_name, hashpass, [],[]);
@@ -26,10 +25,9 @@ router.post("/signup", async(req, res) => {
             else
                 res.json({error:"Server is busy, please wait!"})
         }
-        console.log(3)
+        
     }
 	catch(e){
-        console.log(4)
 		res.json({error:"Server is busy, please try latter!!"})
 	}
 });
@@ -61,6 +59,14 @@ router.post("/login", async(req, res) => {
 	}
 });
 
+router.post("/addUser", async(req, res)=>{
+    try{
+        
+    }
+    catch(e){
+
+    }
+});
 router.get("/profile/:id", async(req, res) => {
     try{
         const result = await userData.getUserById(req.params.id);

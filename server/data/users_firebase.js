@@ -76,7 +76,7 @@ const exportedMethods = {
 
 	async ownEventById(user_id, new_event){
 		const userCollection = await users();
-		const user = await userCollection.findOne({user_id:id});
+		const user = await userCollection.findOne({user_id:user_id});
 		if(!user)
 			throw "user not found"
 		const events = user.events_owned;
@@ -89,6 +89,7 @@ const exportedMethods = {
         return await this.getUserById(user_id);
 	},
 
+	
 }
 
 
