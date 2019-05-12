@@ -30,13 +30,15 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     const data1 = req.body;
-    const {title,description,location,date,time,price,comments} = data1;
-    let newEvent = await eventsData.createEvent(data1.title,
+    const {title,description,location,date,time,price,user,comments} = data1;
+    let newEvent = await eventsData.createEvent(
+      data1.title,
       data1.description,
       data1.location,
       data1.date,
       data1.time,
       data1.price,
+      data1.user,
       data1.comments
     );
     console.log(newEvent);
