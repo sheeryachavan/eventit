@@ -177,14 +177,14 @@ class AddEvent extends Component {
                 </div>
                 <div className='form-group'>
                     <label>
-                        From Time:
-                        <input required type='time' className='clsTextField' name="event_from_time" />
+                        Start Time:
+                        <input required type='time' className='clsTimeField' name="event_from_time" />
                     </label>
                 </div>
                 <div className='form-group'>
                     <label>
-                        To Time:
-                        <input required type='time' className='clsTextField' name="event_to_time" />
+                        End Time:
+                        <input required type='time' className='clsTimeField' name="event_to_time" />
                     </label>
                 </div>
                 <div className='form-group'>
@@ -205,7 +205,6 @@ class AddEvent extends Component {
                                     <label>
                                         Address:
                         <input name="event_address" {...getInputProps({
-                                            placeholder: 'Address',
                                             className: 'clsTextField',
                                             required: true,
 
@@ -271,7 +270,8 @@ class AddEvent extends Component {
                     name='createEvent'
                     isOpen={this.state.showCreateEvent}
                     contentLabel='Add Event'
-                    className="card">
+                    className="addEventCard"
+                    >
                     {body}
                     <button onClick={this.handleCloseCreateEvent}>
                         Cancel
