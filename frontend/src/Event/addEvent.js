@@ -48,8 +48,7 @@ class AddEvent extends Component {
     async handleSubmit(event) {
         event.preventDefault();
         console.log(event.target);
-        var userData = await api.get(`eventit/user/profile/${this.props.id}`);
-
+        var userData = await api.get(`/eventit/user/profile/0pYtveRBNhca98fkv4LjRK8cttm1`);
 
         const data = {
             "event_name": this.state.event_title,
@@ -75,10 +74,7 @@ class AddEvent extends Component {
                 'Content-type':'application/json'
             },
             body: JSON.stringify(data)
-
-
         })
-        console.log(data);
         debugger;
         this.setState({ showCreateEvent: false });
         this.props.handleClose(false);
