@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
-import { Container, Row, Button } from 'react-bootstrap'
-import ReactSearchBox from 'react-search-box'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { classnames } from './helpers';
 import api from './api';
+import MessageHandler from './Message/messageHandler'
 import PlacesAutocomplete from 'react-places-autocomplete';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   geocodeByAddress,
   geocodeByPlaceId,
@@ -20,6 +18,7 @@ class SearchEvent extends Component {
       errorMessage: '',
       latitude: null,
       longitude: null,
+      isError: false,
       isGeocoding: false,
     };
   }
@@ -46,12 +45,13 @@ class SearchEvent extends Component {
           address: res[0]["formatted_address"],
           isGeocoding: false,
         });
-        console.log(res);
         var link = document.getElementById('test');
         link.click();
       })
       .catch(error => {
         this.setState({ isGeocoding: false });
+        this.setState({ isError: true });
+        this.setState({ errorMessage: error });
         console.log('error', error); // eslint-disable-line no-console
       });
   };
@@ -65,7 +65,7 @@ class SearchEvent extends Component {
   };
 
   handleError = (status, clearSuggestions) => {
-    console.log('Error from Google Maps API', status); // eslint-disable-line no-console
+    console.log('Error from Google Maps API', status);
     this.setState({ errorMessage: status }, () => {
       clearSuggestions();
     });
@@ -79,17 +79,25 @@ class SearchEvent extends Component {
       longitude,
       isGeocoding,
     } = this.state;
-
+    var error = null;
+    if (this.state.isError) {
+      error = <MessageHandler message={{ isError: this.state.isError, message: this.state.errorMessage }} />
+    }
+    else if (!this.state.isError && this.state.errorMessage !== '') {
+      error = <MessageHandler message={{ isError: this.state.isError, message: this.state.errorMessage }} />
+    }
+    else {
+      error = null
+    }
     return (
       <div >
+        {error}
         <PlacesAutocomplete
           onChange={this.handleChange}
           value={address}
           onSelect={this.handleSelect}
           onError={this.handleError}
-          shouldFetchSuggestions={address.length > 2}
-
-        >
+          shouldFetchSuggestions={address.length > 2}>
           {({ getInputProps, suggestions, getSuggestionItemProps }) => {
             return (
               <div className="clssearch-container">
@@ -109,31 +117,29 @@ class SearchEvent extends Component {
                         </button>
                   )}
                   {suggestions.length > 0 && (
-                  <div className=" clsSuggestionContainer">
-                    {suggestions.map(suggestion => {
-                      const className = classnames('clsSuggestionItem', {
-                        'clsSuggestionItem-active': suggestion.active,
-                      });
+                    <div className=" clsSuggestionContainer">
+                      {suggestions.map(suggestion => {
+                        const className = classnames('clsSuggestionItem', {
+                          'clsSuggestionItem-active': suggestion.active,
+                        });
 
-                      return (
-                        /* eslint-disable react/jsx-key */
-                        <div
-                          {...getSuggestionItemProps(suggestion, { className })}
-                        >
-                          <strong>
-                            {suggestion.formattedSuggestion.mainText}
-                          </strong>{' '}
-                          <small>
-                            {suggestion.formattedSuggestion.secondaryText}
-                          </small>
-                        </div>
-                      );
-                      /* eslint-enable react/jsx-key */
-                    })}
-                  </div>
-                )}
+                        return (
+                          <div
+                            {...getSuggestionItemProps(suggestion, { className })}
+                          >
+                            <strong>
+                              {suggestion.formattedSuggestion.mainText}
+                            </strong>{' '}
+                            <small>
+                              {suggestion.formattedSuggestion.secondaryText}
+                            </small>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
-                
+
               </div>
             );
           }}

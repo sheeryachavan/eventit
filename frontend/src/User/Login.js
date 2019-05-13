@@ -1,15 +1,12 @@
 import React, { Component } from 'react'
-import { Container, Row } from 'react-bootstrap'
 import { auth } from '../firebase';
 import { connect } from "react-redux";
 import { UserDetails } from "../action";
 import './User.css';
 import MessageHandler from '../Message/messageHandler'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import './UserFormStyle.css'
 
 class Login extends Component {
-
   constructor(props) {
     super(props)
     this.state = {

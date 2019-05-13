@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Route, Switch, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import AddEvent from './Event/addEvent';
 import { connect } from "react-redux";
 import api from './api'
 import './Events.css';
+import MessageHandler from './Message/messageHandler'
 class EventContainer extends Component {
     constructor(props) {
         super(props);
@@ -13,7 +14,9 @@ class EventContainer extends Component {
             showDeleteEvent: false,
             editEvent: null,
             deleteEvent: null,
-            events: undefined
+            events: undefined,
+            isError: false,
+            errorMessage: ''
         };
         // this.handleOpenUpdateEvent = this.handleOpenUpdateEvent.bind(this);
         this.handleOpenCreateEvent = this.handleOpenCreateEvent.bind(this);
@@ -21,50 +24,58 @@ class EventContainer extends Component {
     }
 
     componentWillReceiveProps(nextProps, nextState) {
-       
         this.getEvents()
     }
     componentDidMount() {
-        console.log("events component did mount");
-        console.log(this.props);
-
         this.getEvents();
     }
     async getEvents() {
-        var l_objResponse;
-        
-        if (this.props.location && this.props.location.address) {
+        try {
+            var l_objResponse;
+            if (this.props.location && this.props.location.address) {
 
-            var splitAdd = (this.props.location.address.address).split(',');
-            var nearby = (splitAdd.length > 2) ? splitAdd[splitAdd.length - 3].trim() : (splitAdd.length > 2) ? splitAdd[splitAdd.length - 2] : splitAdd[0];
-            l_objResponse = await api.get(`/eventit/event/getAllEvents/${nearby}`);
+                var splitAdd = (this.props.location.address.address).split(',');
+                var nearby = (splitAdd.length > 2) ? splitAdd[splitAdd.length - 3].trim() : (splitAdd.length > 2) ? splitAdd[splitAdd.length - 2] : splitAdd[0];
+                l_objResponse = await api.get(`/eventit/event/getAllEvents/${nearby}`);
+            }
+            // else if(this.props.location && this.props.location.query){
+            //     console.log(this.props.location.query)
+            //     debugger;
+            // }
+            // else if(this.props.userId) {
+            //     l_objResponse = await api.get(`/eventit/event/getOwnedEvents/${this.props.userID}`);
+            // }
+            else {
+                l_objResponse = await api.get("/eventit/event/getAllEvents");
+            }
+            this.setState({
+                events: l_objResponse.data
+            });
+        } catch (err) {
+            this.setState({ isError: true, errorMessage: err });
         }
-        // else if(this.props.location && this.props.location.query){
-        //     console.log(this.props.location.query)
-        //     debugger;
-        // }
-        // else if(this.props.userId) {
-        //     l_objResponse = await api.get(`/eventit/event/getOwnedEvents/${this.props.userID}`);
-        // }
-        else {
-            l_objResponse = await api.get("/eventit/event/getAllEvents");
-        }
-        this.setState({
-            events: l_objResponse.data
-        });
+
     }
     handleCloseEvents() {
         this.setState({ showCreateEvent: false, showUpdateEvent: false, showDeleteEvent: false });
+        this.getEvents();
     }
     handleOpenCreateEvent() {
         this.setState({ showCreateEvent: true });
     }
     render() {
-        console.log("events component did mount");
-        let body = null;
         let cards = null;
-        if (this.state.events) {
-            debugger;
+        var error = null;
+        if (this.state.isError) {
+            error = <MessageHandler message={{ isError: this.state.isError, message: this.state.errorMessage }} />
+        }
+        else if (!this.state.isError && this.state.errorMessage !== '') {
+            error = <MessageHandler message={{ isError: this.state.isError, message: this.state.errorMessage }} />
+        }
+        else {
+            error = null
+        }
+        if (this.state.events && this.state.events.length > 0) {
             cards = this.state.events && (this.state.events).map(event => (
                 <div className="eventCard col-lg-3 col-md-4 col-sm-12 col-xs-12">
                     <div className="eventCardContainer">
@@ -74,33 +85,37 @@ class EventContainer extends Component {
                 </div>
             ));
         }
-        return (<div className="col-lg-12 ">
-            <div className="clsCreateButtonContainer">
-                <button className='clsCreateButton' onClick={this.handleOpenCreateEvent}>
-                    Create Event
+        else {
+            cards = (
+                <div className="eventCard col-lg-3 col-md-4 col-sm-12 col-xs-12">
+                    <h1>Its Empty Here! :(</h1>
+                </div>)
+        }
+        return (
+            <div className="col-lg-12 ">
+                {error}
+                <div className="clsCreateButtonContainer">
+                    <button className='clsCreateButton' onClick={this.handleOpenCreateEvent}>
+                        Create Event
                 </button>
-            </div>
-            {this.state &&
-                this.state.showCreateEvent && (
-                    <AddEvent
-                        isOpen={this.state.showCreateEvent}
-                        handleClose={this.handleCloseEvents}
-                        EventOperation='createEvent'
-                    />
-                )}
-            <div className="clsEventContainer">
-                {cards}
-            </div>
+                </div>
+                {this.state &&
+                    this.state.showCreateEvent && (
+                        <AddEvent
+                            isOpen={this.state.showCreateEvent}
+                            handleClose={this.handleCloseEvents}
+                            EventOperation='createEvent'
+                        />
+                    )}
+                <div className="clsEventContainer">
+                    {cards}
+                </div>
 
-        </div>);
+            </div>);
     }
 }
-// export default EventContainer;
-const mapStateToProps = (state) => {
 
-    console.log("home comp redux-state");
-    console.log(state);
-    // state.authentication.id
+const mapStateToProps = (state) => {
     return { id: state.authentication.id };
 }
 
