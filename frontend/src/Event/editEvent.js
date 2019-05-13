@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import ReactModal from 'react-modal';
-import { Container, Row, Button } from 'react-bootstrap';
-import axios from 'axios';
 import { classnames } from '../helpers';
+import { connect } from "react-redux";
 import PlacesAutocomplete from 'react-places-autocomplete';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import {
@@ -137,6 +136,7 @@ class EditEvent extends Component {
         const isGeocoding = this.state.isGeocoding;
 
         let body;
+        
         body = (<div>
             <form
                 className='form'
@@ -265,7 +265,7 @@ class EditEvent extends Component {
         return (
             <div>
 
-                {body}<Link to='/events'>
+                {body}<Link to='/events' id="back">
                     <button >
                         Cancel
                 </button>
@@ -276,4 +276,12 @@ class EditEvent extends Component {
         );
     };
 }
-export default EditEvent;
+const mapStateToProps = (state) => {
+
+    console.log("home comp redux-state");
+    console.log(state);
+    // state.authentication.id
+    return { id: state.authentication.id };
+}
+
+export default connect(mapStateToProps)(EditEvent);
