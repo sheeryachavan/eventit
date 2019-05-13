@@ -9,26 +9,24 @@ router.post("/signup", async(req, res) => {
 	try{
         const upload = req.body;
         if(typeof(upload.user_name) !=="string"){
-            res.json({error:"Username or password not provided!"})
+            res.status(404).json({error:"Username or password not provided!"})
             return
         }
         if(typeof(upload.user_pass) !=="string"){
-            res.json({error:"Username or password not provided!"})
+            res.status(404).json({error:"Username or password not provided!"})
             return
         }
-        
 		if(await userData.checkUsername(upload.user_name)){
 			const hashpass = await bcrypt.hash(upload.user_pass,saltRounds);
 			let result = await userData.addUser(upload.user_name, hashpass, [],[]);
             if(result)
-                res.json(result);
+                res.status(200).json(result);
             else
-                res.json({error:"Server is busy, please wait!"})
+								res.status(500).json({error:"Server is busy, please try latter!!"});
         }
-        
     }
 	catch(e){
-		res.json({error:"Server is busy, please try latter!!"})
+		res.status(500).json({error:"Server is busy, please try latter!!"});
 	}
 });
 
@@ -36,11 +34,11 @@ router.post("/login", async(req, res) => {
 	try{
         const upload = req.body;
         if(typeof(upload.user_name) !== "string"){
-            res.json({error:"Username or password not provided!"})         
+            res.status(404).json({error:"Username or password not provided!"})
             return
         }
         if(typeof(upload.user_pass) !== "string"){
-            res.json({error:"Username or password not provided!"})
+            res.status(404).json({error:"Username or password not provided!"})
             return
         }
 		var result = await userData.getUserByName(upload.user_name);
@@ -51,17 +49,17 @@ router.post("/login", async(req, res) => {
 			//res.status(200).render("index",{"user": req.session.user});
 		}
 		else{
-			res.json({error:"Wrong username or password!"})
+			res.status(404).json({error:"Wrong username or password!"})
 		}
 	}
 	catch(e){
-		res.json({error:"Server is busy, please try latter!!"})
+		res.status(500).json({error:"Server is busy, please try latter!!"});
 	}
 });
 
 router.post("/addUser", async(req, res)=>{
     try{
-        
+
     }
     catch(e){
 
@@ -71,24 +69,16 @@ router.get("/profile/:id", async(req, res) => {
     try{
         const result = await userData.getUserById(req.params.id);
         if(result)
-            res.json(result);
+            res.status(200).json(result);
         else
-        res.json({error:"Server is busy, please wait!"})
+				res.status(500).json({error:"Server is busy, please try latter!!"});
     }
     catch(e){
-        res.json({error:"Server is busy, please try latter!!"})
+				res.status(404).json({ message: "User not found with this id" });
     }
 });
-
-
 
 router.get("/*", async(req, res) => {
   res.redirect("http://localhost:3001/eventit/");
 });
-
-
 module.exports = router;
-
-
-
-
