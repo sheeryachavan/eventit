@@ -1,0 +1,17 @@
+form{
+  margin: auto;
+  padding-bottom: 12px;
+}
+
+.clsTextField {
+  width: 200px;
+}
+
+button {
+  width: 100px;
+}
+
+.addEventCard {
+  background-color: rgb(16, 29, 48);
+  color: white;
+}
