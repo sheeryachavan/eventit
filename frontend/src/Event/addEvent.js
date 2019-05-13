@@ -31,13 +31,25 @@ class AddEvent extends Component {
             event_to_time: '',
             event_max_participants: 0,
             event_picture: '',
-            event_keyword: ''
+            event_keyword: '', currentDate: ''
         };
         this.handleOpenCreateEvent = this.handleOpenCreateEvent.bind(this);
         this.handleCloseCreateEvent = this.handleCloseCreateEvent.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleAllChanges = this.handleAllChanges.bind(this);
 
+    }
+    componentWillMount() {
+        var now = new Date();
+
+        var day = ("0" + now.getDate()).slice(-2);
+        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+        var today = (month) + "/" + (day) + "/" + now.getFullYear();
+        this.setState({
+            currentDate: today
+        })
+        debugger;
     }
     handleOpenCreateEvent() {
         this.setState({ showCreateEvent: true });
@@ -187,7 +199,7 @@ class AddEvent extends Component {
                     <div className='form-group'>
                         <label name="event_date" className="clsTextFieldLabel"> Date: </label>
 
-                        <input required type='date' className='clsTextField' name="event_date" onChange={this.handleAllChanges} />
+                        <input required type='date' className='clsTextField' name="event_date" onChange={this.handleAllChanges} min={this.state.currentDate} />
 
                     </div>
                     <div className='form-group'>
