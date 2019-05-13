@@ -106,3 +106,19 @@
     line-height: 2rem;
     font-size:1.2rem;
 }
+
+form{
+  padding: 6px;
+}
+
+.clsTextField {
+  width: 200px;
+}
+
+.clsTimeField {
+    width: 120px;
+}
+
+form button {
+  width: 60px;
+}
