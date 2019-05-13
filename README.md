@@ -38,16 +38,18 @@ url: "http://localhost:3001/eventit/user/profile/:user_id" <br />
  { <br /> 
 	"event_name": "sleep", <br /> 
  "event_type": "relaxing", <br /> 
+ "event_description":"123123123", <br /> 
  "event_location": "NewYork", <br /> 
 	"event_owner": "9vwq8r2W06Yw8ITxBTfWHzxevAS2", <br /> 
 	"event_ownerName":"Wang", <br /> 
 	"event_ownerPhone" : "8601113399", <br /> 
 	"event_ownerContact" : "wang@stevens.edu", <br /> 
+	"event_date"
 	"event_begin": "2019/05/11", <br /> 
 	"event_end": "2019/05/13", <br /> 
 	"event_count": 50, <br /> 
-	"event_keyword": ["a","b"], <br /> 
-	"event_description":"123123123" <br /> 
+	"event_keyword": ["a","b"] <br /> 
+	
 } <br /> 
 
 --------------------------------------------------------------------------------------------
