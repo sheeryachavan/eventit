@@ -51,6 +51,9 @@ class ViewEvent extends Component {
 
                 };
                 const url = `/eventit/event/joinEvent`;
+                this.setState({
+                    isJoined:true
+                })
                 var temp = await api.post(url, data);
             }
             else {
