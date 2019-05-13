@@ -258,7 +258,7 @@ class EditEvent extends Component {
                 <button type='submit' className="clsButton">
                     Edit Event
                             </button>
-                <Link to='/events' id="back">
+                <Link to={'/events/' + this.props.match.params.id} id="back">
                     <button className="clsButton">
                         Cancel
                 </button>
