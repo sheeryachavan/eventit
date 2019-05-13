@@ -11,7 +11,7 @@ router.post("/addevent",cors(),async(req, res) => {
     let result = await eventData.addEvent(upload.event_name, upload.event_type, upload.event_description, upload.event_location, upload.event_begin, upload.event_end, upload.event_owner, upload.event_ownerContact, upload.event_ownerPhone, upload.event_ownerContact,[],upload.event_count,upload.event_keyword);
 
     if(!result)
-      res.json({error:"Server is busy, please wait!"})
+      res.status(500).json({error:"Server is busy, please wait!"})
 
     let result2 = await userData.ownEventById(upload.event_owner,result.event_id)
     res.status(200).json(result);
@@ -27,7 +27,7 @@ router.get("/getevent/:id", cors(), async(req,res) =>{
     if(result)
       res.status(200).json(result);
     else
-      res.json({error:"Server is busy, please wait!"})
+      res.status(500).json({error:"Server is busy, please wait!"})
   }
   catch(e){
 		res.status(404).json({ message: "Event not found with this Id!" });
@@ -108,12 +108,12 @@ router.post("/joinEvent", cors(), async(req, res) => {
     const upload = req.body;
     var info = await eventData.getEventById(upload.event_id);
     if(info.event_owner == upload.user_id){
-      res.json({error:"You're the owner!"});
+      res.status(400).json({error:"You're the owner!"});
       return
     }
     for(let i = 0; i<info.event_joiners.length; i++){
       if(info.event_joiners[i] == upload.user_id){
-        res.json({error:"You've already joined!"});
+        res.status(400).json({error:"You've already joined!"});
         return
       }
     }
