@@ -3,6 +3,7 @@ import MessageHandler from '../Message/messageHandler'
 import api from '../api';
 import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
+import './viewEvent.css';
 class ViewEvent extends Component {
     constructor(props) {
         super(props)
