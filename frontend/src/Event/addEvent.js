@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ReactModal from 'react-modal';
-import { Container, Row, Button } from 'react-bootstrap';
+import MessageHandler from '../Message/messageHandler'
 import api from '../api';
 import { classnames } from '../helpers';
 import { connect } from "react-redux";
@@ -20,6 +20,7 @@ class AddEvent extends Component {
             showCreateEvent: this.props.isOpen || true,
             selectedFile: null,
             address: '',
+            isError: false,
             errorMessage: '',
             isGeocoding: false,
             event_title: '',
@@ -42,55 +43,65 @@ class AddEvent extends Component {
         this.setState({ showCreateEvent: true });
     }
     handleCloseCreateEvent() {
+        this.setState({ isError: false, errorMessage: '' });
         this.setState({ showCreateEvent: false });
         this.props.handleClose(false);
     }
     async handleSubmit(event) {
-        event.preventDefault();
-        console.log(event.target);
-        var userData = await api.get(`eventit/user/profile/${this.props.id}`);
-        debugger;
-        const data = {
-            "event_name": this.state.event_title,
-            "event_type": this.state.event_type,
-            "event_description": this.state.event_description,
-            "event_location": this.state.address,
-            "event_date": this.state.event_date,
-            "event_end": this.state.event_to_time,
-            "event_begin": this.state.event_from_time,
-            "event_owner": this.props.id,
-            "event_count": this.state.event_max_participants,
-            "event_keyword": this.state.event_keyword,
-            "event_ownerPhone": userData.data.phone,
-            "event_ownerContact": userData.data.user_name,
-            "event_ownerName": userData.data.name
-        };
+        try {
+            event.preventDefault();
+            this.setState({ isError: false, errorMessage: '' });
+            var userData = await api.get(`eventit/user/profile/${this.props.id}`);
+            const data = {
+                "event_name": this.state.event_title,
+                "event_type": this.state.event_type,
+                "event_description": this.state.event_description,
+                "event_location": this.state.address,
+                "event_date": this.state.event_date,
+                "event_end": this.state.event_to_time,
+                "event_begin": this.state.event_from_time,
+                "event_owner": this.props.id,
+                "event_count": this.state.event_max_participants,
+                "event_keyword": this.state.event_keyword,
+                "event_ownerPhone": userData.data.phone,
+                "event_ownerContact": userData.data.user_name,
+                "event_ownerName": userData.data.name
+            };
+            const url = 'http://localhost:3001/eventit/event/addevent';
+            var temp = await fetch(url, {
+                method: 'post',
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            this.setState({ showCreateEvent: false });
+            this.props.handleClose(false);
+        }
+        catch (err) {
+            this.setState({ isError: true, errorMessage: err });
+            return err;
+        }
 
-        const url = 'http://localhost:3001/eventit/event/addevent';
-        var temp = await fetch(url, {
-            method: 'post',
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-        debugger;
-        this.setState({ showCreateEvent: false });
-        this.props.handleClose(false);
     }
     handleAllChanges = (e) => {
-        debugger;
-        if (e.target.name === 'event_title'){ this.setState({ event_title: e.target.value });}
-        else if (e.target.name === 'event_type') {this.setState({ event_type: e.target.value });}
-        else if (e.target.name === 'event_description') {this.setState({ event_description: e.target.value });}
-        else if (e.target.name === 'event_date') {this.setState({ event_date: e.target.value });}
-        else if (e.target.name === 'event_from_time') {this.setState({ event_from_time: e.target.value });}
-        else if (e.target.name === 'event_to_time') {this.setState({ event_to_time: e.target.value });}
-        else if (e.target.name === 'event_max_participants') {this.setState({ event_max_participants: e.target.value });}
-        // if (e.target.name === 'event_picture') this.setState({ event_picture: e.target.value });
-        else if (e.target.name === 'event_date') {this.setState({ event_date: e.target.value });}
-        else if (e.target.name === 'event_keyword'){ this.setState({ event_keyword: e.target.value });}
+        try {
+            if (e.target.name === 'event_title') { this.setState({ event_title: e.target.value }); }
+            else if (e.target.name === 'event_type') { this.setState({ event_type: e.target.value }); }
+            else if (e.target.name === 'event_description') { this.setState({ event_description: e.target.value }); }
+            else if (e.target.name === 'event_date') { this.setState({ event_date: e.target.value }); }
+            else if (e.target.name === 'event_from_time') { this.setState({ event_from_time: e.target.value }); }
+            else if (e.target.name === 'event_to_time') { this.setState({ event_to_time: e.target.value }); }
+            else if (e.target.name === 'event_max_participants') { this.setState({ event_max_participants: e.target.value }); }
+            // if (e.target.name === 'event_picture') this.setState({ event_picture: e.target.value });
+            else if (e.target.name === 'event_date') { this.setState({ event_date: e.target.value }); }
+            else if (e.target.name === 'event_keyword') { this.setState({ event_keyword: e.target.value }); }
+        } catch (err) {
+            this.setState({ isError: true, errorMessage: err });
+            return err;
+        }
+
     }
     fileSelectedHandler = event => {
         this.setState({
@@ -99,24 +110,30 @@ class AddEvent extends Component {
         console.log(event.target.files[0]);
     }
     handleAddressChange = address => {
-        this.setState({
-            address,
-        });
+        try {
+            this.setState({ isError: false, errorMessage: '' });
+            this.setState({
+                address,
+            });
+        } catch (err) {
+            this.setState({ isError: true, errorMessage: err });
+            return err;
+        }
     };
-
     handleSelect = selected => {
+        this.setState({ isError: false, errorMessage: '' });
         this.setState({ isGeocoding: true, address: selected });
-        debugger;
         geocodeByAddress(selected)
             .then((res) => {
                 this.setState({
                     address: res[0]["formatted_address"],
                     isGeocoding: false,
                 });
-                console.log(res);
             })
             .catch(error => {
                 this.setState({ isGeocoding: false });
+                this.setState({ isError: true });
+                this.setState({ errorMessage: error });
                 console.log('error', error); // eslint-disable-line no-console
             });
     };
@@ -158,31 +175,31 @@ class AddEvent extends Component {
                     <div className='form-group'>
                         <label name="event_type" className="clsTextFieldLabel"> Type:</label>
 
-                        <input required type='text' className='clsTextField' name="event_type" onChange={this.handleAllChanges}/>
+                        <input required type='text' className='clsTextField' name="event_type" onChange={this.handleAllChanges} />
 
                     </div>
                     <div className='form-group'>
                         <label name="event_description" className="clsTextFieldLabel"> Description:</label>
 
-                        <input required className='clsTextField' name="event_description" onChange={this.handleAllChanges}/>
+                        <input required className='clsTextField' name="event_description" onChange={this.handleAllChanges} />
 
                     </div>
                     <div className='form-group'>
                         <label name="event_date" className="clsTextFieldLabel"> Date: </label>
 
-                        <input required type='date' className='clsTextField' name="event_date" onChange={this.handleAllChanges}/>
+                        <input required type='date' className='clsTextField' name="event_date" onChange={this.handleAllChanges} />
 
                     </div>
                     <div className='form-group'>
                         <label name="event_from_time" className="clsTextFieldLabel">  Start Time:</label>
 
-                        <input required type='time' className='clsTextField' name="event_from_time" onChange={this.handleAllChanges}/>
+                        <input required type='time' className='clsTextField' name="event_from_time" onChange={this.handleAllChanges} />
 
                     </div>
                     <div className='form-group'>
                         <label name="event_to_time" className="clsTextFieldLabel">End Time: </label>
 
-                        <input required type='time' className='clsTextField' name="event_to_time" onChange={this.handleAllChanges}/>
+                        <input required type='time' className='clsTextField' name="event_to_time" onChange={this.handleAllChanges} />
 
                     </div>
                     <div className='form-group'>
@@ -222,7 +239,6 @@ class AddEvent extends Component {
                                                     });
 
                                                     return (
-                                                        /* eslint-disable react/jsx-key */
                                                         <div
                                                             {...getSuggestionItemProps(suggestion, { className })}
                                                         >
@@ -234,7 +250,6 @@ class AddEvent extends Component {
                                                             </small>
                                                         </div>
                                                     );
-                                                    /* eslint-enable react/jsx-key */
                                                 })}
                                             </div>
                                         )}
@@ -254,7 +269,7 @@ class AddEvent extends Component {
                     <div className='form-group'>
                         <label name="event_keyword" className="clsTextFieldLabel"> Keywords:</label>
 
-                        <input required type='text' className='clsTextField' name="event_keyword" onChange={this.handleAllChanges}/>
+                        <input required type='text' className='clsTextField' name="event_keyword" onChange={this.handleAllChanges} />
 
                     </div>
                     <button type='submit' className="clsButton">
