@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import ReactModal from 'react-modal';
 import { classnames } from '../helpers';
 import { connect } from "react-redux";
+import api from '../api';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import {
@@ -29,20 +30,32 @@ class EditEvent extends Component {
             event_max_participants: 0,
             event_picture: undefined,
             event_keyword: '',
-            event_id: this.props.match.params.id
+            event_id: this.props.match.params.id,
+            isEditable: true,
+            event_ownerPhone: '',
+            event_ownerContact: '',
+            event_ownerName: ''
         };
-        this.handleOpenCreateEvent = this.handleOpenCreateEvent.bind(this);
-        this.handleCloseCreateEvent = this.handleCloseCreateEvent.bind(this);
+
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleAllChanges = this.handleAllChanges.bind(this);
 
     }
-    handleOpenCreateEvent() {
-        this.setState({ showCreateEvent: true });
-    }
-    handleCloseCreateEvent() {
-        this.setState({ showCreateEvent: false });
-        this.props.handleClose(false);
+    async componentWillMount(prev) {
+        const l_objResponse = await api.get(`/eventit/event/getevent/${this.props.match.params.id}`);
+        this.setState({
+            event_title: l_objResponse.data.event_name,
+            event_type: l_objResponse.data.event_type,
+            event_description: l_objResponse.data.event_description,
+            event_date: l_objResponse.data.event_date,
+            event_from_time: l_objResponse.data.event_start,
+            event_to_time: l_objResponse.data.event_end,
+            event_max_participants: parseInt(l_objResponse.data.event_count),
+            event_keyword: l_objResponse.data.event_keyword,
+            event_ownerPhone: l_objResponse.data.event_ownerPhone,
+            event_ownerContact: l_objResponse.data.event_ownerContact,
+            event_ownerName: l_objResponse.data.event_ownerName
+        });
     }
     async handleSubmit(event) {
         event.preventDefault();
@@ -58,9 +71,9 @@ class EditEvent extends Component {
             "event_owner": this.props.id,
             "event_count": this.state.event_max_participants,
             "event_keyword": this.state.event_keyword,
-            "event_ownerPhone": '',
-            "event_ownerContact": '',
-            "event_ownerName": ''
+            "event_ownerPhone": this.state.event_ownerPhone,
+            "event_ownerContact": this.state.event_ownerContact,
+            "event_ownerName": this.state.event_ownerName
         };
 
         const url = `http://localhost:3001/eventit/event/updateEvent/${this.props.match.params.id}`;
@@ -71,126 +84,83 @@ class EditEvent extends Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
-
-
         })
         console.log(data);
-        debugger;
-        this.setState({ showCreateEvent: false });
-        this.props.handleClose(false);
+        var link = document.getElementById('back');
+        link.click();
     }
     handleAllChanges = (e) => {
-        if (e.target.name === 'event_title') this.setState({ event_title: e.target.value });
-        if (e.target.name === 'event_type') this.setState({ event_type: e.target.value });
-        if (e.target.name === 'event_description') this.setState({ event_description: e.target.value });
-        if (e.target.name === 'event_date') this.setState({ event_date: e.target.value });
-        if (e.target.name === 'event_from_time') this.setState({ event_from_time: e.target.value });
-        if (e.target.name === 'event_to_time') this.setState({ event_to_time: e.target.value });
-        if (e.target.name === 'event_max_participants') this.setState({ event_max_participants: e.target.value });
+        if (e.target.name === 'event_title') { this.setState({ event_title: e.target.value }); }
+        else if (e.target.name === 'event_type') { this.setState({ event_type: e.target.value }); }
+        else if (e.target.name === 'event_description') { this.setState({ event_description: e.target.value }); }
+        else if (e.target.name === 'event_date') { this.setState({ event_date: e.target.value }); }
+        else if (e.target.name === 'event_from_time') { this.setState({ event_from_time: e.target.value }); }
+        else if (e.target.name === 'event_to_time') { this.setState({ event_to_time: e.target.value }); }
+        else if (e.target.name === 'event_max_participants') { this.setState({ event_max_participants: e.target.value }); }
         // if (e.target.name === 'event_picture') this.setState({ event_picture: e.target.value });
-        if (e.target.name === 'event_date') this.setState({ event_date: e.target.value });
-        if (e.target.name === 'event_keyword') this.setState({ event_keyword: e.target.value });
+        else if (e.target.name === 'event_date') { this.setState({ event_date: e.target.value }); }
+        else if (e.target.name === 'event_keyword') { this.setState({ event_keyword: e.target.value }); }
     }
-    fileSelectedHandler = event => {
-        this.setState({
-            selectedFile: event.target.files[0]
-        })
-        console.log(event.target.files[0]);
-    }
-    handleAddressChange = address => {
-        this.setState({
-            address,
-        });
-    };
 
-    handleSelect = selected => {
-        this.setState({ isGeocoding: true, address: selected });
-        debugger;
-        geocodeByAddress(selected)
-            .then((res) => {
-                this.setState({
-                    address: res[0]["formatted_address"],
-                    isGeocoding: false,
-                });
-                console.log(res);
-            })
-            .catch(error => {
-                this.setState({ isGeocoding: false });
-                console.log('error', error); // eslint-disable-line no-console
-            });
-    };
-    handleCloseClick = () => {
-        this.setState({
-            address: '',
-        });
-    };
-    handleError = (status, clearSuggestions) => {
-        console.log('Error from Google Maps API', status); // eslint-disable-line no-console
-        this.setState({ errorMessage: status }, () => {
-            clearSuggestions();
-        });
-    };
     render() {
-        const address = this.state.address;
-        const errorMessage = this.state.errorMessage;
-        const isGeocoding = this.state.isGeocoding;
-
+        const event_title = this.state.event_title;
+        const event_type = this.state.event_type;
+        const event_description = this.state.event_description
+        const event_date = this.state.event_date;
+        const event_from_time = this.state.event_from_time;
+        const event_to_time = this.state.event_to_time;
+        const event_max_participants = parseInt(this.state.event_max_participants);
+        const event_keyword = this.state.event_keyword;
         let body;
-        
+
         body = (<div>
             <form
                 className='form'
                 id='add-Event'
                 onSubmit={this.handleSubmit}>
                 <div className='form-group'>
-                    <label>
-                        Title:
-                            <input
-                            required
-                            autoFocus={true}
-                            className="clsTextField"
-                            name="event_title"
-                            onChange={this.handleAllChanges}
-                        />
-                    </label>
+                    <label name="event_title" className="clsTextFieldLabel"> Title:</label>
+                    <input
+                        required
+                        autoFocus={true}
+                        className="clsTextField"
+                        name="event_title"
+                        value={event_title}
+                        onChange={this.handleAllChanges}
+                    />
+
                 </div>
                 <div className='form-group'>
-                    <label>
-                        Type:
-                        <input required type='text' className='clsTextField' name="event_type" />
-                    </label>
+                    <label name="event_type" className="clsTextFieldLabel"> Type:</label>
+                    <input required type='text' value={event_type} className='clsTextField' name="event_type" onChange={this.handleAllChanges} />
+
                 </div>
                 <div className='form-group'>
-                    <label>
-                        Description:
-                        <textarea required className='clsTextField' name="event_description" />
-                    </label>
+                    <label name="event_description" className="clsTextFieldLabel"> Description:</label>
+                    <textarea required value={event_description} className='clsTextField' name="event_description" onChange={this.handleAllChanges} />
+
                 </div>
                 <div className='form-group'>
-                    <label>
-                        Date:
-                        <input required type='date' className='clsTextField' name="event_date" />
-                    </label>
+                    <label name="event_date" className="clsTextFieldLabel"> Date: </label>
+                    <input required type='date' value={event_date} className='clsTextField' name="event_date" onChange={this.handleAllChanges} />
+
                 </div>
                 <div className='form-group'>
-                    <label>
-                        From Time:
-                        <input required type='time' className='clsTextField' name="event_from_time" />
-                    </label>
+                    <label name="event_from_time" className="clsTextFieldLabel">  Start Time:</label>
+                    <input required type='time' value={event_from_time} className='clsTextField' name="event_from_time" onChange={this.handleAllChanges} />
+
                 </div>
                 <div className='form-group'>
-                    <label>
-                        To Time:
-                        <input required type='time' className='clsTextField' name="event_to_time" />
-                    </label>
+                    <label name="event_to_time" className="clsTextFieldLabel">End Time: </label>
+                    <input required type='time' value={event_to_time} className='clsTextField' name="event_to_time" onChange={this.handleAllChanges} />
+
                 </div>
                 <div className='form-group'>
-                    <label>
-                        Max participants:
-                        <input required type='number' className='clsTextField' name="event_max_participants" />
-                    </label>
+                    <label name="event_max_participants" className="clsTextFieldLabel">  Max participants:</label>
+                    <input required type='number' value={event_max_participants} className='clsTextField' name="event_max_participants" onChange={this.handleAllChanges} />
+
                 </div>
-                <PlacesAutocomplete onChange={this.handleAddressChange}
+                {/* <PlacesAutocomplete onChange={this.handleAddressChange}
                     value={address}
                     onSelect={this.handleSelect}
                     onError={this.handleError}
@@ -199,13 +169,12 @@ class EditEvent extends Component {
                         ({ getInputProps, suggestions, getSuggestionItemProps }) => {
                             return (
                                 <div className='form-group'>
-                                    <label>
-                                        Address:
+                                   <label name="event_address" className="clsTextFieldLabel"> Address:</label>
                         <input name="event_address" {...getInputProps({
                                             placeholder: 'Address',
                                             className: 'clsTextField',
                                             required: true,
-
+                                            value:{address} 
                                         })} />
                                         {this.state.address.length > 0 && (
                                             <button
@@ -221,7 +190,7 @@ class EditEvent extends Component {
                                                     });
 
                                                     return (
-                                                        /* eslint-disable react/jsx-key */
+
                                                         <div
                                                             {...getSuggestionItemProps(suggestion, { className })}
                                                         >
@@ -233,17 +202,17 @@ class EditEvent extends Component {
                                                             </small>
                                                         </div>
                                                     );
-                                                    /* eslint-enable react/jsx-key */
+                                                   
                                                 })}
                                             </div>
                                         )}
-                                    </label>
+                                    
 
                                 </div>
                             );
                         }
                     }
-                </PlacesAutocomplete>
+                </PlacesAutocomplete> */}
                 {/* <div className='form-group'>
                     <label>
                         Upload Cover Photo:
@@ -251,12 +220,11 @@ class EditEvent extends Component {
                     </label>
                 </div> */}
                 <div className='form-group'>
-                    <label>
-                        Keywords:
-                        <input required type='text' className='clsTextField' name="event_keyword" />
-                    </label>
+                    <label name="event_keyword" className="clsTextFieldLabel"> Keywords:</label>
+                    <input required type='text' value={event_keyword} className='clsTextField' name="event_keyword" onChange={this.handleAllChanges} />
+
                 </div>
-                <button type='submit' >
+                <button type='submit' className="clsButton">
                     Edit Event
                             </button>
             </form>
@@ -266,7 +234,7 @@ class EditEvent extends Component {
             <div>
 
                 {body}<Link to='/events' id="back">
-                    <button >
+                    <button className="clsButton">
                         Cancel
                 </button>
                 </Link>

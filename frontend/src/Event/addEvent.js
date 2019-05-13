@@ -25,12 +25,12 @@ class AddEvent extends Component {
             event_title: '',
             event_type: '',
             event_description: '',
-            event_date: new Date(),
-            event_from_time: "18:00",
-            event_to_time: "19:00",
+            event_date: '',
+            event_from_time: '',
+            event_to_time: '',
             event_max_participants: 0,
-            event_picture: undefined,
-            event_keyword:''
+            event_picture: '',
+            event_keyword: ''
         };
         this.handleOpenCreateEvent = this.handleOpenCreateEvent.bind(this);
         this.handleCloseCreateEvent = this.handleCloseCreateEvent.bind(this);
@@ -48,18 +48,14 @@ class AddEvent extends Component {
     async handleSubmit(event) {
         event.preventDefault();
         console.log(event.target);
-<<<<<<< HEAD
-        var userData = await api.get(`/eventit/user/profile/0pYtveRBNhca98fkv4LjRK8cttm1`);
-
-=======
         var userData = await api.get(`eventit/user/profile/${this.props.id}`);
->>>>>>> bd1b527e96e5662bd8f96d1107cdd72dfff5f657
+        debugger;
         const data = {
             "event_name": this.state.event_title,
             "event_type": this.state.event_type,
             "event_description": this.state.event_description,
             "event_location": this.state.address,
-            "event_date":this.state.event_date,
+            "event_date": this.state.event_date,
             "event_end": this.state.event_to_time,
             "event_begin": this.state.event_from_time,
             "event_owner": this.props.id,
@@ -75,7 +71,7 @@ class AddEvent extends Component {
             method: 'post',
             headers: {
                 'Access-Control-Allow-Origin': '*',
-                'Content-type':'application/json'
+                'Content-type': 'application/json'
             },
             body: JSON.stringify(data)
         })
@@ -84,16 +80,17 @@ class AddEvent extends Component {
         this.props.handleClose(false);
     }
     handleAllChanges = (e) => {
-        if (e.target.name === 'event_title') this.setState({ event_title: e.target.value });
-        if (e.target.name === 'event_type') this.setState({ event_type: e.target.value });
-        if (e.target.name === 'event_description') this.setState({ event_description: e.target.value });
-        if (e.target.name === 'event_date') this.setState({ event_date: e.target.value });
-        if (e.target.name === 'event_from_time') this.setState({ event_from_time: e.target.value });
-        if (e.target.name === 'event_to_time') this.setState({ event_to_time: e.target.value });
-        if (e.target.name === 'event_max_participants') this.setState({ event_max_participants: e.target.value });
+        debugger;
+        if (e.target.name === 'event_title'){ this.setState({ event_title: e.target.value });}
+        else if (e.target.name === 'event_type') {this.setState({ event_type: e.target.value });}
+        else if (e.target.name === 'event_description') {this.setState({ event_description: e.target.value });}
+        else if (e.target.name === 'event_date') {this.setState({ event_date: e.target.value });}
+        else if (e.target.name === 'event_from_time') {this.setState({ event_from_time: e.target.value });}
+        else if (e.target.name === 'event_to_time') {this.setState({ event_to_time: e.target.value });}
+        else if (e.target.name === 'event_max_participants') {this.setState({ event_max_participants: e.target.value });}
         // if (e.target.name === 'event_picture') this.setState({ event_picture: e.target.value });
-        if (e.target.name === 'event_date') this.setState({ event_date: e.target.value });
-        if (e.target.name === 'event_keyword') this.setState({ event_keyword: e.target.value });
+        else if (e.target.name === 'event_date') {this.setState({ event_date: e.target.value });}
+        else if (e.target.name === 'event_keyword'){ this.setState({ event_keyword: e.target.value });}
     }
     fileSelectedHandler = event => {
         this.setState({
@@ -140,59 +137,59 @@ class AddEvent extends Component {
         const isGeocoding = this.state.isGeocoding;
 
         let body;
-        if(this.props.id!=null){
+        if (this.props.id != null) {
             body = (<div>
                 <form
                     className='form'
                     id='add-Event'
                     onSubmit={this.handleSubmit}>
                     <div className='form-group'>
-                        <label>
-                            Title:
-                                <input
-                                required
-                                autoFocus={true}
-                                className="clsTextField"
-                                name="event_title"
-                                onChange={this.handleAllChanges}
-                            />
-                        </label>
+                        <label name="event_title" className="clsTextFieldLabel"> Title:</label>
+
+                        <input
+                            required
+                            autoFocus={true}
+                            className="clsTextField"
+                            name="event_title"
+                            onChange={this.handleAllChanges}
+                        />
+
                     </div>
                     <div className='form-group'>
-                        <label>
-                            Type:
-                            <input required type='text' className='clsTextField' name="event_type" />
-                        </label>
+                        <label name="event_type" className="clsTextFieldLabel"> Type:</label>
+
+                        <input required type='text' className='clsTextField' name="event_type" onChange={this.handleAllChanges}/>
+
                     </div>
                     <div className='form-group'>
-                        <label>
-                            Description:
-                            <textarea required className='clsTextField' name="event_description" />
-                        </label>
+                        <label name="event_description" className="clsTextFieldLabel"> Description:</label>
+
+                        <input required className='clsTextField' name="event_description" onChange={this.handleAllChanges}/>
+
                     </div>
                     <div className='form-group'>
-                        <label>
-                            Date:
-                            <input required type='date' className='clsTextField' name="event_date" />
-                        </label>
+                        <label name="event_date" className="clsTextFieldLabel"> Date: </label>
+
+                        <input required type='date' className='clsTextField' name="event_date" onChange={this.handleAllChanges}/>
+
                     </div>
                     <div className='form-group'>
-                        <label>
-                            Start Time:
-                            <input required type='time' className='clsTextField' name="event_from_time" />
-                        </label>
+                        <label name="event_from_time" className="clsTextFieldLabel">  Start Time:</label>
+
+                        <input required type='time' className='clsTextField' name="event_from_time" onChange={this.handleAllChanges}/>
+
                     </div>
                     <div className='form-group'>
-                        <label>
-                            End Time:
-                            <input required type='time' className='clsTextField' name="event_to_time" />
-                        </label>
+                        <label name="event_to_time" className="clsTextFieldLabel">End Time: </label>
+
+                        <input required type='time' className='clsTextField' name="event_to_time" onChange={this.handleAllChanges}/>
+
                     </div>
                     <div className='form-group'>
-                        <label>
-                            Max participants:
-                            <input required type='number' className='clsTextField' name="event_max_participants" />
-                        </label>
+                        <label name="event_max_participants" className="clsTextFieldLabel">  Max participants:</label>
+
+                        <input required type='number' className='clsTextField' name="event_max_participants" onChange={this.handleAllChanges} />
+
                     </div>
                     <PlacesAutocomplete onChange={this.handleAddressChange}
                         value={address}
@@ -203,46 +200,46 @@ class AddEvent extends Component {
                             ({ getInputProps, suggestions, getSuggestionItemProps }) => {
                                 return (
                                     <div className='form-group'>
-                                        <label>
-                                            Address:
-                            <input name="event_address" {...getInputProps({
-                                                placeholder: 'Address',
-                                                className: 'clsTextField',
-                                                required: true,
-    
-                                            })} />
-                                            {this.state.address.length > 0 && (
-                                                <button
-                                                    className="Demo__clear-button"
-                                                    onClick={this.handleCloseClick}
-                                                > x        </button>
-                                            )}
-                                            {suggestions.length > 0 && (
-                                                <div className="Demo__autocomplete-container">
-                                                    {suggestions.map(suggestion => {
-                                                        const className = classnames('Demo__suggestion-item', {
-                                                            'Demo__suggestion-item--active': suggestion.active,
-                                                        });
-    
-                                                        return (
-                                                            /* eslint-disable react/jsx-key */
-                                                            <div
-                                                                {...getSuggestionItemProps(suggestion, { className })}
-                                                            >
-                                                                <strong>
-                                                                    {suggestion.formattedSuggestion.mainText}
-                                                                </strong>{' '}
-                                                                <small>
-                                                                    {suggestion.formattedSuggestion.secondaryText}
-                                                                </small>
-                                                            </div>
-                                                        );
-                                                        /* eslint-enable react/jsx-key */
-                                                    })}
-                                                </div>
-                                            )}
-                                        </label>
-    
+                                        <label name="event_address" className="clsTextFieldLabel"> Address:</label>
+
+                                        <input name="event_address" {...getInputProps({
+                                            placeholder: 'Address',
+                                            className: 'clsTextField',
+                                            required: true,
+
+                                        })} />
+                                        {this.state.address.length > 0 && (
+                                            <button
+                                                className="Demo__clear-button"
+                                                onClick={this.handleCloseClick}
+                                            > x        </button>
+                                        )}
+                                        {suggestions.length > 0 && (
+                                            <div className="">
+                                                {suggestions.map(suggestion => {
+                                                    const className = classnames('clsSuggestionItem', {
+                                                        'clsSuggestionItem-active': suggestion.active,
+                                                    });
+
+                                                    return (
+                                                        /* eslint-disable react/jsx-key */
+                                                        <div
+                                                            {...getSuggestionItemProps(suggestion, { className })}
+                                                        >
+                                                            <strong>
+                                                                {suggestion.formattedSuggestion.mainText}
+                                                            </strong>{' '}
+                                                            <small>
+                                                                {suggestion.formattedSuggestion.secondaryText}
+                                                            </small>
+                                                        </div>
+                                                    );
+                                                    /* eslint-enable react/jsx-key */
+                                                })}
+                                            </div>
+                                        )}
+
+
                                     </div>
                                 );
                             }
@@ -255,35 +252,35 @@ class AddEvent extends Component {
                         </label>
                     </div> */}
                     <div className='form-group'>
-                        <label>
-                            Keywords:
-                            <input required type='text' className='clsTextField' name="event_keyword" />
-                        </label>
+                        <label name="event_keyword" className="clsTextFieldLabel"> Keywords:</label>
+
+                        <input required type='text' className='clsTextField' name="event_keyword" onChange={this.handleAllChanges}/>
+
                     </div>
-                    <button type='submit' >
+                    <button type='submit' className="clsButton">
                         Add Event
                                 </button>
                 </form>
-    
+
             </div>)
-            
-        }else{
-           body = ( <div>
+
+        } else {
+            body = (<div>
                 <p>
                     Please <Link to="/login">Login</Link> or <Link to="/signup">Create an Account</Link>Create an Account to perform this action
             </p>
             </div>)
         }
-     return (
+        return (
             <div>
                 <ReactModal
                     name='createEvent'
                     isOpen={this.state.showCreateEvent}
                     contentLabel='Add Event'
                     className="addEventCard"
-                    >
+                >
                     {body}
-                    <button onClick={this.handleCloseCreateEvent}>
+                    <button onClick={this.handleCloseCreateEvent} className="clsButton">
                         Cancel
                 </button>
                 </ReactModal>
@@ -295,7 +292,6 @@ const mapStateToProps = (state) => {
 
     console.log("home comp redux-state");
     console.log(state);
-    // state.authentication.id
     return { id: state.authentication.id };
 }
 

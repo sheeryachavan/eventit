@@ -8,20 +8,36 @@ class ViewEvent extends Component {
         super(props)
         this.state = {
             eventId: undefined,
-            eventData: undefined
+            eventData: undefined,
+            isJoined: false
         }
         this.registerClick = this.registerClick.bind(this);
     }
-    componentDidMount() {
+    async componentDidMount() {
         this.setState({ eventId: this.props.match.params.id });
-        this.getEvent();
+        await this.getEvent();
+        
     }
     async getEvent() {
         const l_objResponse = await api.get(`/eventit/event/getevent/${this.props.match.params.id}`);
         this.setState({ eventData: l_objResponse.data });
+        if (this.props.id != null && this.state.eventData.event_joiners.indexOf(this.props.id) > -1) {
+            this.setState({ isJoined: true});
+        }
     }
     async registerClick() {
-        const l_objResponse = await api.get(`/eventit/event/getevent/${this.props.match.params.id}`);
+        try {
+            const data = {
+                "event_id": this.props.match.params.id,
+                "user_id": this.props.id,
+
+            };
+            const url = `/eventit/event/joinEvent`;
+            var temp = await api.post(url, data);
+        }
+        catch (err) {
+            console.log(err);
+        }
     }
     render() {
         let actionBtn = null;
@@ -29,8 +45,10 @@ class ViewEvent extends Component {
         if (this.props.id !== null && this.state.eventData && this.state.eventData.event_owner && (this.props.id === this.state.eventData.event_owner)) {
             actionBtn = <Link to={`/events/editevent/${this.props.match.params.id}`}><button> Update Event</button></Link>
         }
+        else if(this.state.isJoined)
+            actionBtn = <button disabled> You are Registered!</button>
         else
-            actionBtn = <button> Register</button>
+            actionBtn = <button onClick={this.registerClick}> Register</button>
         if (this.state.eventData !== undefined) {
             body = (<div className="container">
                 <div className="row">

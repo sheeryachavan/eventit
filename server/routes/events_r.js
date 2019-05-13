@@ -130,6 +130,7 @@ router.put("/updateEvent/:id",cors(),async(req,res)=>{
 
 router.post("/joinEvent", cors(), async(req, res) => {
   try {
+    
     const upload = req.body;
     var info = await eventData.getEventById(upload.event_id);
     if(info.event_owner == upload.user_id){
