@@ -11,7 +11,7 @@ import {
     geocodeByPlaceId,
     getLatLng,
 } from 'react-places-autocomplete';
-import '../search.css';
+import './addEvent.css';
 ReactModal.setAppElement('#root');
 class AddEvent extends Component {
     constructor(props) {
@@ -174,13 +174,13 @@ class AddEvent extends Component {
                 <div className='form-group'>
                     <label>
                         Start Time:
-                        <input required type='time' className='clsTimeField' name="event_from_time" />
+                        <input required type='time' className='clsTextField' name="event_from_time" />
                     </label>
                 </div>
                 <div className='form-group'>
                     <label>
                         End Time:
-                        <input required type='time' className='clsTimeField' name="event_to_time" />
+                        <input required type='time' className='clsTextField' name="event_to_time" />
                     </label>
                 </div>
                 <div className='form-group'>
