@@ -13,7 +13,7 @@
  
  
  User module apis:<br /> 
- method: post,,<br /> 
+ method: post,<br /> 
  url: "http://localhost:3001/eventit/user/addUser"<br /> 
  body:{<br /> 
   "user_name": name,
@@ -44,7 +44,7 @@ url: "http://localhost:3001/eventit/user/profile/:user_id" <br />
 	"event_ownerName":"Wang", <br /> 
 	"event_ownerPhone" : "8601113399", <br /> 
 	"event_ownerContact" : "wang@stevens.edu", <br /> 
-	"event_date":
+	"event_date": "2019/05/11", <br /> 
 	"event_begin": "2019/05/11", <br /> 
 	"event_end": "2019/05/13", <br /> 
 	"event_count": 50, <br /> 
