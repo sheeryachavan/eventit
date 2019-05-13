@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Container, Row, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
+import uimage from '../images/user.png';
 import api from '../api'
 import { connect } from "react-redux";
 import Event from '../Events'
@@ -49,12 +50,13 @@ class ViewUser extends Component {
         if (this.props.id !== null && this.state.userData !== undefined) {
             eventModule = <Event userId={this.props.id} />
             body = (<div className="container">
-                {error}
+
                 <div className="row">
-                    <div className="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+                    <div className="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-5">
                         <div className="well profile">
-                            <div className="col-sm-12">
-                                <div className="col-xs-12 col-sm-8">
+                            <div className="">
+                                <img src={uimage} className="clsUserImage" alt="user-profile" />
+                                <div className=" clsUserData col-xs-12 col-sm-8">
 
                                     <h2>{this.state.userData.name}</h2>
                                     <p><strong>Email: </strong> {this.state.userData.user_name} </p>
@@ -86,6 +88,7 @@ class ViewUser extends Component {
             </div>);
         }
         return (<div className="globalContainer">
+            {error}
             {body}
         </div>);
     };

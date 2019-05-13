@@ -174,7 +174,7 @@ router.post("/cancelEvent", cors(), async(req, res) => {
   }
 });
 
-router.get("/getOwenedEvents/:user_id", cors(), async(req,res)=>{
+router.get("/getOwnedEvents/:user_id", cors(), async(req,res)=>{
   try{
     var user = await userData.getEventsById(req.params.user_id);
     var results = [];

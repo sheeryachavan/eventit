@@ -4,6 +4,7 @@ import AddEvent from './Event/addEvent';
 import { connect } from "react-redux";
 import api from './api'
 import './Events.css';
+import logo from './images/logo2.png'
 import MessageHandler from './Message/messageHandler'
 class EventContainer extends Component {
     constructor(props) {
@@ -30,6 +31,7 @@ class EventContainer extends Component {
     }
     async getEvents() {
         try {
+
             var l_objResponse;
             if (this.props.location && this.props.location.address) {
 
@@ -41,8 +43,9 @@ class EventContainer extends Component {
             //     console.log(this.props.location.query)
             //     debugger;
             // }
-            else if(this.props.userId) {
-                l_objResponse = await api.get(`/eventit/event/getOwnedEvents/${this.props.userID}`);
+            else if (this.props.userId) {
+                debugger;
+                l_objResponse = await api.get(`/eventit/event/getOwnedEvents/${this.props.userId}`);
             }
             else {
                 l_objResponse = await api.get("/eventit/event/getAllEvents");
@@ -77,10 +80,18 @@ class EventContainer extends Component {
         if (this.state.events && this.state.events.length > 0) {
             cards = this.state.events && (this.state.events).map(event => (
                 <div className="eventCard col-lg-3 col-md-4 col-sm-12 col-xs-12">
-                    <div className="eventCardContainer">
-                        <h4><b>{event.event_name}</b></h4>
-                        <Link to={`/events/${event.event_id}`}>{event.event_name}</Link>
-                    </div>
+                    <Link to={`/events/${event.event_id}`} className="eventLink">
+                        <div className="eventCardContainer">
+                            <div>
+                                <img src={logo} alt="logo" className="clsCardLogo" />
+                            </div>
+                            <div className="clsEventHeading">{event.event_name}</div>
+                            <div className="clsEventDesc">{event.event_description}</div>
+                            <div className="clsEventDate">{event.event_date}</div>
+                            <div className="clsEventTime">{event.event_begin} To {event.event_end}</div>
+                            <div className="clsEventLoc">{event.event_location}</div>
+                        </div>
+                    </Link>
                 </div>
             ));
         }
