@@ -25,7 +25,6 @@ class navbar extends Component {
             };
             this.setState({ userData: axios.get(`localhost:3001/eventit/user/profile/${this.props.id}`, config) });
         }
-        debugger;
     }
     handleChange = query => {
         this.setState({
@@ -61,21 +60,21 @@ class navbar extends Component {
             // var username = String(this.state.userData.name).split(" ")[0];
             UserLoggedIn =
                 <div className="clsToolbarNavigationItems">
-                    <button className="btn btn-big btn-dark">
-                        <Link className="showlink" to="/profile/user">
+                    <Link className="showlink" to="/profile/user">
+                        <button className="btn btn-big btn-dark">
                             My Profile
-          </Link>
-                    </button>
-                    <button className="btn btn-big btn-dark">
-                        <Link className="showlink" to="/events">
+                        </button>
+                    </Link>
+                    <Link className="showlink" to="/events">
+                        <button className="btn btn-big btn-dark">
                             All Events
-          </Link>
-                    </button><a href="/">
+                    </button>
+                    </Link>
+                    <a href="/">
                         <button className="btn btn-big btn-dark" onClick={this.signOutClick}>
                             Signout
-</button>
+                        </button>
                     </a>
-
                     <Link to="/" style={{ hidden: true }} id="signout">
                     </Link>
                 </div>
@@ -83,16 +82,16 @@ class navbar extends Component {
         }
         else {
             UserLoggedIn = <div className="clsToolbarNavigationItems">
-                <button className="btn btn-big btn-dark">
-                    <Link className="showlink" to="/login">
+                <Link className="showlink" to="/login">
+                    <button className="btn btn-big btn-dark">
                         Login
-                  </Link>
-                </button>
-                <button className="btn btn-big btn-dark">
-                    <Link className="showlink" to="/signup">
+                    </button>
+                </Link>
+                <Link className="showlink" to="/signup">
+                    <button className="btn btn-big btn-dark">
                         Signup
-                  </Link>
-                </button>
+                    </button>
+                </Link>
             </div>
         }
         var searchBar = (<form onSubmit={this.searchSubmit}>
@@ -136,13 +135,9 @@ class navbar extends Component {
 
 
 const mapStateToProps = (state) => {
-
-    console.log("home comp redux-state");
-    console.log(state);
     return {
         id: state.authentication.id
     };
 }
 
 export default connect(mapStateToProps)(navbar);
-// export default navbar;
