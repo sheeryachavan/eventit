@@ -26,7 +26,7 @@ class ViewEvent extends Component {
     render() {
         let actionBtn = null;
         let body = null;
-        if (this.props.id != null) {
+        if (this.props.id !== null && this.state.eventData && this.state.eventData.event_owner && (this.props.id === this.state.eventData.event_owner)) {
             actionBtn = <Link to={`/events/editevent/${this.props.match.params.id}`}><button> Update Event</button></Link>
         }
         else
@@ -41,7 +41,7 @@ class ViewEvent extends Component {
 
                                     <h2>{this.state.eventData.event_name}</h2>
                                     <p><strong>Description: </strong> {this.state.eventData.event_description} </p>
-                                   
+
                                 </div>
 
                             </div>
@@ -55,7 +55,7 @@ class ViewEvent extends Component {
             </div>)
                 ;
         }
-        
+
         return (<div className="globalContainer">
             {body}
         </div>);

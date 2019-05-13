@@ -4,9 +4,9 @@ const uuid = require("uuid/v4");
 
 const exportedMethods = {
 
-	async addEvent(event_name,event_type,event_description,event_location,event_begin,event_end,event_owner,event_ownerName,event_ownerPhone,event_ownerContact,event_joiners,event_count,event_keyword){
+	async addEvent(event_name,event_type,event_description,event_location,event_date,event_begin,event_end,event_owner,event_ownerName,event_ownerPhone,event_ownerContact,event_joiners,event_count,event_keyword){
 		const eventCollection = await events();
-		
+		// console.log(event_picture);
 		const newEvent = {
 			event_id: uuid(),
 			event_name: event_name,
@@ -20,8 +20,9 @@ const exportedMethods = {
             event_joiners: event_joiners,
             event_begin: event_begin,
 			event_end: event_end,
+			event_date:event_date,
 			event_count: event_count,
-            event_keyword: event_keyword
+			event_keyword: event_keyword
         };
         
 		const newEventInfo = await eventCollection.insertOne(newEvent);

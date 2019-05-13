@@ -4,11 +4,36 @@ const data = require("../data");
 var cors = require('cors');
 const eventData = data.events;
 const userData = data.usersFirebase;
+const multer = require("multer");
+const storage = multer.diskStorage({
+  destination: function (req, file, callback) {
+    callback(null, '../public/images/events/');
+  },
+  filename: function (req, file, callback) {
+    callback(null, (new Date().toISOString().replace(/:/g, '_') + file.originalname));
+  },
+});
+const fileFilter = (req, file, callback) => {
+  if (file.mimetype == 'image/jpeg' || file.mimetype == 'image/png' || file.mimetype == 'image/bmp' || file.mimetype == 'image/jpg')
+    callback(null, true);
+  else
+    callback(null, false);
+};
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 6
+  },
+  fileFilter: fileFilter
+});
+
+
 
 router.post("/addevent",cors(),async(req, res) => {
 	try{
     const upload = req.body;
-    let result = await eventData.addEvent(upload.event_name, upload.event_type, upload.event_description, upload.event_location, upload.event_begin, upload.event_end, upload.event_owner, upload.event_ownerContact, upload.event_ownerPhone, upload.event_ownerContact,[],upload.event_count,upload.event_keyword);
+    console.log(req.body);
+    let result = await eventData.addEvent(upload.event_name, upload.event_type, upload.event_description, upload.event_location,upload.event_date, upload.event_begin, upload.event_end, upload.event_owner, upload.event_ownerContact, upload.event_ownerPhone, upload.event_ownerContact,[],upload.event_count,upload.event_keyword);
 
     if(!result)
       res.status(500).json({error:"Server is busy, please wait!"})
@@ -83,13 +108,13 @@ router.put("/updateEvent/:id",cors(),async(req,res)=>{
     updated.event_end = upload.event_end;
     updated.event_count = upload.event_count;
     updated.event_owner = upload.event_owner;
-    updated.event_ownerName = upload.event_ownerName;
-    updated.event_ownerPhone = upload.event_ownerPhone;
-    updated.event_ownerContact = upload.event_ownerContact;
+    updated.event_ownerName = oldOne.event_ownerName;
+    updated.event_ownerPhone = oldOne.event_ownerPhone;
+    updated.event_ownerContact = oldOne.event_ownerContact;
     updated.event_joiners = oldOne.event_joiners;
     updated.event_keyword = upload.event_keyword;
     updated.event_count = upload.event_count;
-    updated.event_location = upload.event_location;
+    updated.event_location = oldOne.event_location;
 
     // let temp =[];
     // for(let i = 0; i < oldOne.event_keyword.length; i++){
