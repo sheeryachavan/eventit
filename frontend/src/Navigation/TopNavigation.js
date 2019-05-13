@@ -6,6 +6,7 @@ import { auth } from '../firebase';
 import { connect } from "react-redux";
 import { Component } from 'react';
 import SearchEvent from '../SearchEvent'
+import logo_small from '../images/logolong-small.png'
 import axios from 'axios';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 class navbar extends Component {
@@ -119,7 +120,7 @@ class navbar extends Component {
                 </div>
 
                 <Link className="showlink" to="/">
-                    <div className="clsToolbarLogo">LOGO</div>
+                    <div className="clsToolbarLogo"><img src={logo_small} alt="logo" className="clsLogo"/></div>
                 </Link>
 
 

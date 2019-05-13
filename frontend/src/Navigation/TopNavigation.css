@@ -73,7 +73,10 @@
     padding:0.4rem;
 
 }
-
+.clsLogo{
+    max-width: 8rem;
+    filter: invert(100%);
+}
 @media (max-width:786px) {
     .clsToolbarNavigationItems {
         display: none;
