@@ -48,8 +48,12 @@ class AddEvent extends Component {
     async handleSubmit(event) {
         event.preventDefault();
         console.log(event.target);
+<<<<<<< HEAD
         var userData = await api.get(`/eventit/user/profile/0pYtveRBNhca98fkv4LjRK8cttm1`);
 
+=======
+        var userData = await api.get(`eventit/user/profile/${this.props.id}`);
+>>>>>>> bd1b527e96e5662bd8f96d1107cdd72dfff5f657
         const data = {
             "event_name": this.state.event_title,
             "event_type": this.state.event_type,
@@ -136,131 +140,141 @@ class AddEvent extends Component {
         const isGeocoding = this.state.isGeocoding;
 
         let body;
-        body = (<div>
-            <form
-                className='form'
-                id='add-Event'
-                onSubmit={this.handleSubmit}>
-                <div className='form-group'>
-                    <label>
-                        Title:
-                            <input
-                            required
-                            autoFocus={true}
-                            className="clsTextField"
-                            name="event_title"
-                            onChange={this.handleAllChanges}
-                        />
-                    </label>
-                </div>
-                <div className='form-group'>
-                    <label>
-                        Type:
-                        <input required type='text' className='clsTextField' name="event_type" />
-                    </label>
-                </div>
-                <div className='form-group'>
-                    <label>
-                        Description:
-                        <textarea required className='clsTextField' name="event_description" />
-                    </label>
-                </div>
-                <div className='form-group'>
-                    <label>
-                        Date:
-                        <input required type='date' className='clsTextField' name="event_date" />
-                    </label>
-                </div>
-                <div className='form-group'>
-                    <label>
-                        Start Time:
-                        <input required type='time' className='clsTextField' name="event_from_time" />
-                    </label>
-                </div>
-                <div className='form-group'>
-                    <label>
-                        End Time:
-                        <input required type='time' className='clsTextField' name="event_to_time" />
-                    </label>
-                </div>
-                <div className='form-group'>
-                    <label>
-                        Max participants:
-                        <input required type='number' className='clsTextField' name="event_max_participants" />
-                    </label>
-                </div>
-                <PlacesAutocomplete onChange={this.handleAddressChange}
-                    value={address}
-                    onSelect={this.handleSelect}
-                    onError={this.handleError}
-                    shouldFetchSuggestions={address.length > 2}>
-                    {
-                        ({ getInputProps, suggestions, getSuggestionItemProps }) => {
-                            return (
-                                <div className='form-group'>
-                                    <label>
-                                        Address:
-                        <input name="event_address" {...getInputProps({
-                                            className: 'clsTextField',
-                                            required: true,
-
-                                        })} />
-                                        {this.state.address.length > 0 && (
-                                            <button
-                                                className="Demo__clear-button"
-                                                onClick={this.handleCloseClick}
-                                            > x        </button>
-                                        )}
-                                        {suggestions.length > 0 && (
-                                            <div className="Demo__autocomplete-container">
-                                                {suggestions.map(suggestion => {
-                                                    const className = classnames('Demo__suggestion-item', {
-                                                        'Demo__suggestion-item--active': suggestion.active,
-                                                    });
-
-                                                    return (
-                                                        /* eslint-disable react/jsx-key */
-                                                        <div
-                                                            {...getSuggestionItemProps(suggestion, { className })}
-                                                        >
-                                                            <strong>
-                                                                {suggestion.formattedSuggestion.mainText}
-                                                            </strong>{' '}
-                                                            <small>
-                                                                {suggestion.formattedSuggestion.secondaryText}
-                                                            </small>
-                                                        </div>
-                                                    );
-                                                    /* eslint-enable react/jsx-key */
-                                                })}
-                                            </div>
-                                        )}
-                                    </label>
-
-                                </div>
-                            );
+        if(this.props.id!=null){
+            body = (<div>
+                <form
+                    className='form'
+                    id='add-Event'
+                    onSubmit={this.handleSubmit}>
+                    <div className='form-group'>
+                        <label>
+                            Title:
+                                <input
+                                required
+                                autoFocus={true}
+                                className="clsTextField"
+                                name="event_title"
+                                onChange={this.handleAllChanges}
+                            />
+                        </label>
+                    </div>
+                    <div className='form-group'>
+                        <label>
+                            Type:
+                            <input required type='text' className='clsTextField' name="event_type" />
+                        </label>
+                    </div>
+                    <div className='form-group'>
+                        <label>
+                            Description:
+                            <textarea required className='clsTextField' name="event_description" />
+                        </label>
+                    </div>
+                    <div className='form-group'>
+                        <label>
+                            Date:
+                            <input required type='date' className='clsTextField' name="event_date" />
+                        </label>
+                    </div>
+                    <div className='form-group'>
+                        <label>
+                            Start Time:
+                            <input required type='time' className='clsTextField' name="event_from_time" />
+                        </label>
+                    </div>
+                    <div className='form-group'>
+                        <label>
+                            End Time:
+                            <input required type='time' className='clsTextField' name="event_to_time" />
+                        </label>
+                    </div>
+                    <div className='form-group'>
+                        <label>
+                            Max participants:
+                            <input required type='number' className='clsTextField' name="event_max_participants" />
+                        </label>
+                    </div>
+                    <PlacesAutocomplete onChange={this.handleAddressChange}
+                        value={address}
+                        onSelect={this.handleSelect}
+                        onError={this.handleError}
+                        shouldFetchSuggestions={address.length > 2}>
+                        {
+                            ({ getInputProps, suggestions, getSuggestionItemProps }) => {
+                                return (
+                                    <div className='form-group'>
+                                        <label>
+                                            Address:
+                            <input name="event_address" {...getInputProps({
+                                                placeholder: 'Address',
+                                                className: 'clsTextField',
+                                                required: true,
+    
+                                            })} />
+                                            {this.state.address.length > 0 && (
+                                                <button
+                                                    className="Demo__clear-button"
+                                                    onClick={this.handleCloseClick}
+                                                > x        </button>
+                                            )}
+                                            {suggestions.length > 0 && (
+                                                <div className="Demo__autocomplete-container">
+                                                    {suggestions.map(suggestion => {
+                                                        const className = classnames('Demo__suggestion-item', {
+                                                            'Demo__suggestion-item--active': suggestion.active,
+                                                        });
+    
+                                                        return (
+                                                            /* eslint-disable react/jsx-key */
+                                                            <div
+                                                                {...getSuggestionItemProps(suggestion, { className })}
+                                                            >
+                                                                <strong>
+                                                                    {suggestion.formattedSuggestion.mainText}
+                                                                </strong>{' '}
+                                                                <small>
+                                                                    {suggestion.formattedSuggestion.secondaryText}
+                                                                </small>
+                                                            </div>
+                                                        );
+                                                        /* eslint-enable react/jsx-key */
+                                                    })}
+                                                </div>
+                                            )}
+                                        </label>
+    
+                                    </div>
+                                );
+                            }
                         }
-                    }
-                </PlacesAutocomplete>
-                {/* <div className='form-group'>
-                    <label>
-                        Upload Cover Photo:
-                        <input type='file' onChange={this.fileSelectedHandler} className='clsTextField' name="event_picture" accept="image/jpg, image/jpeg, image/png, image/gif, image/bmp"/>
-                    </label>
-                </div> */}
-                <div className='form-group'>
-                    <label>
-                        Keywords:
-                        <input required type='text' className='clsTextField' name="event_keyword" />
-                    </label>
-                </div>
-                <button type='submit' >
-                    Add Event
-                            </button>
-            </form>
-
-        </div>)
-        return (
+                    </PlacesAutocomplete>
+                    {/* <div className='form-group'>
+                        <label>
+                            Upload Cover Photo:
+                            <input type='file' onChange={this.fileSelectedHandler} className='clsTextField' name="event_picture" accept="image/jpg, image/jpeg, image/png, image/gif, image/bmp"/>
+                        </label>
+                    </div> */}
+                    <div className='form-group'>
+                        <label>
+                            Keywords:
+                            <input required type='text' className='clsTextField' name="event_keyword" />
+                        </label>
+                    </div>
+                    <button type='submit' >
+                        Add Event
+                                </button>
+                </form>
+    
+            </div>)
+            
+        }else{
+           body = ( <div>
+                <p>
+                    Please <Link to="/login">Login</Link> or <Link to="/signup">Create an Account</Link>Create an Account to perform this action
+            </p>
+            </div>)
+        }
+     return (
             <div>
                 <ReactModal
                     name='createEvent'
