@@ -258,17 +258,18 @@ class EditEvent extends Component {
                 <button type='submit' className="clsButton">
                     Edit Event
                             </button>
+                <Link to='/events' id="back">
+                    <button className="clsButton">
+                        Cancel
+                </button>
+                </Link>
             </form>
 
         </div>)
         return (
             <div>
                 {error}
-                {body}<Link to='/events' id="back">
-                    <button className="clsButton">
-                        Cancel
-                </button>
-                </Link>
+                {body}
 
 
             </div>

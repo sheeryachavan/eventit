@@ -5,6 +5,8 @@
 
 .clsTextField {
   width: 20rem;
+  height: 36px;
+  border-radius: 18px;
 }
 .clsTextFieldLabel {
   width: 10rem;
@@ -21,7 +23,6 @@
 }
 .clsSuggestionItem {
   color: #ffffff;
-  
 }
 
 .clsSuggestionItem-active {
