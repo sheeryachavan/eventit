@@ -60,7 +60,6 @@ class ViewUser extends Component {
 
         }
         else {
-            debugger;
             body = (<div>
                 <p>
                     Please <Link to="/login">Login</Link> or <Link to="/signup">Create an Account</Link>Create an Account to perform this action

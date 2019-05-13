@@ -25,13 +25,39 @@ class ViewEvent extends Component {
     }
     render() {
         let actionBtn = null;
+        let body = null;
         if (this.props.id != null) {
             actionBtn = <Link to={`/events/editevent/${this.props.match.params.id}`}><button> Update Event</button></Link>
         }
         else
             actionBtn = <button> Register</button>
-        return (<div>
-            {actionBtn}
+        if (this.state.eventData !== undefined) {
+            body = (<div className="container">
+                <div className="row">
+                    <div className="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+                        <div className="well profile">
+                            <div className="col-sm-12">
+                                <div className="col-xs-12 col-sm-8">
+
+                                    <h2>{this.state.eventData.event_name}</h2>
+                                    <p><strong>Description: </strong> {this.state.eventData.event_description} </p>
+                                   
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-xs-12 col-sm-4 col-lg-6">
+                        {actionBtn}
+                    </div>
+                </div>
+
+            </div>)
+                ;
+        }
+        
+        return (<div className="globalContainer">
+            {body}
         </div>);
     };
 }

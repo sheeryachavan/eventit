@@ -20,8 +20,9 @@ class EventContainer extends Component {
         this.handleCloseEvents = this.handleCloseEvents.bind(this);
     }
 
-    componentWillReceiveProps(prev) {
-
+    componentWillReceiveProps(nextProps, nextState) {
+       
+        this.getEvents()
     }
     componentDidMount() {
         console.log("events component did mount");
@@ -31,13 +32,17 @@ class EventContainer extends Component {
     }
     async getEvents() {
         var l_objResponse;
-        debugger;
+        
         if (this.props.location && this.props.location.address) {
 
             var splitAdd = (this.props.location.address.address).split(',');
             var nearby = (splitAdd.length > 2) ? splitAdd[splitAdd.length - 3].trim() : (splitAdd.length > 2) ? splitAdd[splitAdd.length - 2] : splitAdd[0];
             l_objResponse = await api.get(`/eventit/event/getAllEvents/${nearby}`);
         }
+        // else if(this.props.location && this.props.location.query){
+        //     console.log(this.props.location.query)
+        //     debugger;
+        // }
         // else if(this.props.userId) {
         //     l_objResponse = await api.get(`/eventit/event/getOwnedEvents/${this.props.userID}`);
         // }

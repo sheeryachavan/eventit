@@ -13,7 +13,8 @@ class navbar extends Component {
         super(props);
         this.state = {
             userData: null,
-            signedIn: false
+            signedIn: false,
+            query: ''
         }
         this.signOutClick = this.signOutClick.bind(this)
     }
@@ -26,6 +27,11 @@ class navbar extends Component {
         }
         debugger;
     }
+    handleChange = query => {
+        this.setState({
+            query: query
+        });
+    };
     async changeUser() {
         var config = {
             headers: { 'Access-Control-Allow-Origin': "*" }
@@ -39,7 +45,16 @@ class navbar extends Component {
         link.click();
         this.setState({ signedIn: !this.state.signedIn })
     }
+    searchSubmit(event) {
+        event.preventDefault();
+        var link = document.getElementById('searchit');
+        link.click();
+        this.setState({
+            query: ''
+        });
+    }
     render() {
+        let Query = this.state.query;
         let UserLoggedIn = null;
         var a = null;
         if (this.props.id != null) {
@@ -57,9 +72,7 @@ class navbar extends Component {
           </Link>
                     </button><a href="/">
                         <button className="btn btn-big btn-dark" onClick={this.signOutClick}>
-
                             Signout
-
 </button>
                     </a>
 
@@ -82,6 +95,24 @@ class navbar extends Component {
                 </button>
             </div>
         }
+        var searchBar = (<form onSubmit={this.searchSubmit}>
+            <div className="clsToolbarSearchContainer">
+                <div className="clsToolbarSearchInner">
+                    <input
+                        placeholder='Search Events...'
+                        className='clsToolbarSearchInput' onChange={this.handleChange}
+                    />
+                </div><Link to={{
+                    pathname: "/events", searchQuery: { searchQuery: this.state.query }
+                }} style={{ hidden: true }} id="searchit">
+                </Link>
+                <button type='submit' className='clsToolbarSearchBtn'><i className="fa fa-search" aria-hidden="true"></i></button>
+
+            </div>
+        </form>
+        );
+
+
         return (<header className="clsToolbar">
             <nav className="clsToolbarNavigation">
                 <div className="clsToolbarToggleButton">
@@ -94,7 +125,7 @@ class navbar extends Component {
 
 
                 <div className="spacer"></div>
-
+                {/* <div>{searchBar}</div> */}
                 <div className="spacer"></div>
                 {UserLoggedIn}
             </nav>
