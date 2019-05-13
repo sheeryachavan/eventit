@@ -9,7 +9,7 @@ router.post("/addUser", async(req, res) => {
         const upload = req.body;
         console.log(req.body);
         if(typeof(upload.user_name) !=="string"){
-            res.status(200).json({error:"Username or password not provided!"})
+            res.status(400).json({error:"Username not provided!"})
             return
         }
 		let result = await userData.addUser(upload.user_name, upload.user_email, upload.user_id, upload.name,upload.phone, [], []);
@@ -32,7 +32,7 @@ router.get("/profile/:id",cors(), async(req, res) => {
             res.status(500).json({error:"Server is busy, please wait!"})
     }
     catch(e){
-				res.status(404).json({ message: "profile not found with this Id!" });
+				res.status(404).json({ message: "User not found with this Id!" });
     }
 });
 
