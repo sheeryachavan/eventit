@@ -18,7 +18,6 @@ class EventContainer extends Component {
             isError: false,
             errorMessage: ''
         };
-        // this.handleOpenUpdateEvent = this.handleOpenUpdateEvent.bind(this);
         this.handleOpenCreateEvent = this.handleOpenCreateEvent.bind(this);
         this.handleCloseEvents = this.handleCloseEvents.bind(this);
     }
@@ -42,9 +41,9 @@ class EventContainer extends Component {
             //     console.log(this.props.location.query)
             //     debugger;
             // }
-            // else if(this.props.userId) {
-            //     l_objResponse = await api.get(`/eventit/event/getOwnedEvents/${this.props.userID}`);
-            // }
+            else if(this.props.userId) {
+                l_objResponse = await api.get(`/eventit/event/getOwnedEvents/${this.props.userID}`);
+            }
             else {
                 l_objResponse = await api.get("/eventit/event/getAllEvents");
             }
@@ -87,7 +86,7 @@ class EventContainer extends Component {
         }
         else {
             cards = (
-                <div className="eventCard col-lg-3 col-md-4 col-sm-12 col-xs-12">
+                <div >
                     <h1>Its Empty Here! :(</h1>
                 </div>)
         }
