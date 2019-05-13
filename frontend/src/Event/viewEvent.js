@@ -4,6 +4,7 @@ import api from '../api';
 import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
 import './viewEvent.css';
+import logo from '../images/logo2.png';
 class ViewEvent extends Component {
     constructor(props) {
         super(props)
@@ -43,13 +44,19 @@ class ViewEvent extends Component {
     async registerClick() {
         try {
             this.setState({ isError: false, errorMessage: '' });
-            const data = {
-                "event_id": this.props.match.params.id,
-                "user_id": this.props.id,
+            if (this.props.id != null) {
+                const data = {
+                    "event_id": this.props.match.params.id,
+                    "user_id": this.props.id,
 
-            };
-            const url = `/eventit/event/joinEvent`;
-            var temp = await api.post(url, data);
+                };
+                const url = `/eventit/event/joinEvent`;
+                var temp = await api.post(url, data);
+            }
+            else {
+                var link = document.getElementById('test');
+                link.click();
+            }
         }
         catch (err) {
             this.setState({ isError: true, errorMessage: err });
@@ -70,31 +77,59 @@ class ViewEvent extends Component {
             error = null
         }
         if (this.props.id !== null && this.state.eventData && this.state.eventData.event_owner && (this.props.id === this.state.eventData.event_owner)) {
-            actionBtn = <Link to={`/events/editevent/${this.props.match.params.id}`}><button> Update Event</button></Link>
+            actionBtn = <Link to={`/events/editevent/${this.props.match.params.id}`}><button className="clsUpdateBtn"> Update Event</button></Link>
         }
         else if (this.state.isJoined)
-            actionBtn = <button disabled> You are Registered!</button>
+            actionBtn = <button disabled className="clsRegisteredBtn"> You are Registered!</button>
         else
-            actionBtn = <button onClick={this.registerClick}> Register</button>
+            actionBtn = <button onClick={this.registerClick} className="clsUpdateBtn"> Register</button>
         if (this.state.eventData !== undefined) {
             body = (<div className="container">
                 {error}
                 <div className="row">
                     <div className="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
-                        <div className="well profile">
-                            <div className="col-sm-12">
-                                <div className="col-xs-12 col-sm-8">
 
-                                    <h2>{this.state.eventData.event_name}</h2>
-                                    <p><strong>Description: </strong> {this.state.eventData.event_description} </p>
+                        <div className="col-sm-12">
+                            <div>
+                                <img src={logo} alt="logo" className="clsLogoImage" />
+                            </div>
+                            <div className="col-xs-12 col-sm-8">
+
+                                <h2>{this.state.eventData.event_name}</h2>
+                                <p><div className="clsLabelDiv">Description:</div>{this.state.eventData.event_description} </p>
+                                <div className="clsIndiEventCard">
+                                    <div className="clsIndiEventCardInner">
+                                        <div className="clsLabelDiv">Address:</div> {this.state.eventData.event_location}
+                                    </div>
 
                                 </div>
-
                             </div>
+
                         </div>
+
                     </div>
                     <div className="col-xs-12 col-sm-4 col-lg-6">
                         {actionBtn}
+                        <div className="clsIndiEventCard">
+                            <div className="clsIndiEventCardInner">
+                                <div className="clsLabelDiv">Time:</div> {this.state.eventData.event_begin} to {this.state.eventData.event_end}
+                            </div>
+
+                        </div>
+                        <div className="clsIndiEventCard">
+                            <div className="clsIndiEventCardInner">
+                                <div className="clsContactDiv">
+                                    Contact:
+                                </div>
+                                <div>
+                                    <div className="clsLabelDiv">Phone:</div>{this.state.eventData.event_ownerPhone}
+                                </div>
+                                <div>
+                                    <div className="clsLabelDiv">Email:</div>{this.state.eventData.event_ownerContact}
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
 
@@ -104,6 +139,8 @@ class ViewEvent extends Component {
 
         return (<div className="globalContainer">
             {body}
+            <Link to="/login" style={{ hidden: true }} id="test">
+            </Link>
         </div>);
     };
 }
