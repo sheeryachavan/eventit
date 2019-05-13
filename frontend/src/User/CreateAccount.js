@@ -32,9 +32,9 @@ class CreateAccount extends Component {
 
     return (
       <div className="limiter" >
-      {error}
+        {error}
         <div className="container-login100">
-          
+
           <div className="wrap-login100">
             <form className="login100-form validate-form">
               <span className="login100-form-title">
@@ -105,17 +105,16 @@ class CreateAccount extends Component {
   async submit(event) {
     event.preventDefault();
     if (this.state.email === "" || this.state.password === "") {
-      console.log("Empty field")
+      this.setState({ isError: true, errorMessage: "Email and Password Cannot be empty" });
+      return
+    }
+    if (this.state.password !== this.state.confirmpassword) {
+      this.setState({ isError: true, errorMessage: "Passwords do not match" });
       return
     }
     var msgtemp = await auth.createUserWithEmailAndPassword(this.state.email, this.state.password)
       .then((res) => {
         const user = res.user
-        console.log(JSON.parse(JSON.stringify('{"user_name":"' + String(user.email) + '","user_email" : "' + String(user.email) + '","user_id" : "' + String(user.uid) + '","name" : "' + String(this.state.name) + '"}')))
-
-
-        //const b=JSON.parse(JSON.stringify('{"user_name":"'+String(user.email)+'","user_id" : "'+String(user.uid)+'"}'));
-
         const url = 'http://localhost:3001/eventit/user/addUser';
         fetch(url, {
           method: 'post',
@@ -136,7 +135,7 @@ class CreateAccount extends Component {
     debugger;
     console.log(msgtemp);
 
-    if (msgtemp == undefined) {
+    if (msgtemp === undefined) {
       var link = document.getElementById('test');
       link.click();
     }

@@ -18,7 +18,6 @@ class ViewUser extends Component {
             this.setState({
                 userData: url.data
             });
-            debugger;
         }
 
     }
@@ -63,7 +62,7 @@ class ViewUser extends Component {
             body = (<div>
                 <p>
                     Please <Link to="/login">Login</Link> or <Link to="/signup">Create an Account</Link>Create an Account to perform this action
-            </p>
+                </p>
             </div>);
         }
         return (<div className="globalContainer">
@@ -74,8 +73,6 @@ class ViewUser extends Component {
 
 const mapStateToProps = (state) => {
 
-    console.log("home comp redux-state");
-    console.log(state);
     return {
         id: state.authentication.id
     };
