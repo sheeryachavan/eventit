@@ -31,7 +31,7 @@ class EventContainer extends Component {
     }
     async getEvents() {
         try {
-
+            debugger;
             var l_objResponse;
             if (this.props.location && this.props.location.address) {
 
@@ -39,12 +39,11 @@ class EventContainer extends Component {
                 var nearby = (splitAdd.length > 2) ? splitAdd[splitAdd.length - 3].trim() : (splitAdd.length > 2) ? splitAdd[splitAdd.length - 2] : splitAdd[0];
                 l_objResponse = await api.get(`/eventit/event/getAllEvents/${nearby}`);
             }
-            // else if(this.props.location && this.props.location.query){
-            //     console.log(this.props.location.query)
-            //     debugger;
-            // }
+            else if(this.props.location && this.props.location.event){
+                var event_keyword =this.props.location.event.event
+                l_objResponse = await api.get(`/eventit/event/getAllEventsByTag/${event_keyword }`);
+            }
             else if (this.props.userId) {
-                debugger;
                 l_objResponse = await api.get(`/eventit/event/getOwnedEvents/${this.props.userId}`);
             }
             else {
