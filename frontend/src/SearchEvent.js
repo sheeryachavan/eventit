@@ -82,6 +82,10 @@ class SearchEvent extends Component {
   };
 
   render() {
+    const clsThumbStyle = { borderRadius: '0.2rem', };
+    const clsTrackStyle = { borderRadius: '0.2rem' };
+    const clsLabelStyle = { width: '50rem', padding: "1rem!important" };
+
     const {
       address,
       errorMessage,
@@ -234,19 +238,42 @@ class SearchEvent extends Component {
       <div >
         {error}
         <div className="clssearch-container">
-        <div className="clsToggleSwitchContainer">
-        <ToggleButton
-            inactiveLabel="Events"
-            activeLabel="Places"
-            className="clsToggleSwitch"
-            value={this.state.value}
-            onToggle={(value) => {
-              this.setState({
-                value: !value,
-              })
-            }} />
-        </div>
-          
+          <div className="clsToggleSwitchContainer col-lg-12">
+            <div className="clsToggleSwitchContainerInner col-lg-12">
+              <div className="clsToggleLabels">Search Places</div>
+              <ToggleButton
+                inactiveLabel=""
+                activeLabel=""
+                colors={{
+                  activeThumb: {
+                    base: 'rgb(1, 100, 124)',
+                  },
+                  inactiveThumb: {
+                    base: 'rgb(1, 100, 124)',
+                  },
+                  active: {
+                    base: 'rgb(255,255,255);',
+                    hover: 'rgb(255,255,255);',
+                  },
+                  inactive: {
+                    base: 'rgb(255,255,255)',
+                    hover: 'rgb(255,255,255)',
+                  }
+                }}
+                thumbStyle={clsThumbStyle}
+                trackStyle={clsTrackStyle}
+                labelStyle={clsLabelStyle}
+                value={this.state.value}
+                onToggle={(value) => {
+                  this.setState({
+                    value: !value,
+                  })
+                }} />
+              <div className="clsToggleLabels">Search Events</div>
+            </div>
+
+          </div>
+
           {body}
         </div>
       </div>
