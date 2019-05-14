@@ -1,5 +1,63 @@
-﻿# eventit
- 
+# Event-it
+
+Event-it is an application that connects users to community-created events. Upon creating an account, a user may either create their own event or register and sign up for events owned by other users. <br/>
+
+User registration, login, and security are provided by Firebase Authentication. 
+
+Events are searchable through either Location keywords or Tagged keywords, depending on toggle.
+
+Locations are populated in a dropdown box via the Google Geocode API.
+
+##  Installation
+
+Two sets of packages must be installed, one for the Server backend, and one for the Frontend.
+```
+cd server 
+npm install --save 
+cd .. 
+cd frontend 
+npm install --save 
+```
+## Usage
+
+In one terminal in /server, run: </br>
+```
+npm run seed 
+npm start
+```
+The user can also manually navigate to http://localhost:3000, as this application is best viewed in Chrome.
+
+On the homepage (http://localhost:3000) there is a Search bar and Create Event button centrally located.
+
+## Log-in
+
+Note that clicking the Event button displays an error message: Login or Create Account is required. 
+
+Both Login and Sign Up are in the upper right-hand corner. Sign Up properly detects if an email is already in use. 
+
+Logging in takes the user back to the homepage, where the user will see three new buttons in the upper right-hand corner: My Profile, All Events, and Sign Out. 
+
+The My Profile button takes users to their profile, which lists relevant identification information as well as a list of all Events owned by that user. 
+
+## Events
+
+A user can now create an event with the Create Event button. The new pop-up has error checking for invalid dates and times. The Address field is populated by Google Geocode API. 
+
+Events can be seen by scrolling down on the homepage or by clicking the All Events button in the upper right-hand corner while logged in. 
+
+While viewing an Event that is not owned by the user, that user may Register for that event.
+
+While viewing an Event that is owned by the user, that user may Update the Event. 
+
+## Searching
+
+Events can be searched for based on either Location or by Keywords by toggling the switch in the upper left-hand corner. Locations utilize the Google Geocode API for matching.
+
+
+Technical
+--------------------------------------------------------------------------------------------
+
+
  User Collection structure in Mongo:
  {<br /> 
    _id: automatically created by mongo<br /> 
@@ -98,13 +156,5 @@ body{<br />
 	"user_id":""<br /> 
 }<br /> 
 
-
-
-
-
-
-
-
-
-
-
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
