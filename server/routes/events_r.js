@@ -3,6 +3,7 @@ const router = express.Router();
 const data = require("../data");
 var cors = require('cors');
 var im = require('imagemagick');
+var nodemailer = require('nodemailer');
 const eventData = data.events;
 const userData = data.usersFirebase;
 const multer = require("multer");
@@ -90,7 +91,7 @@ router.get("/geteventjoiners/:id", cors(), async (req, res) => {
     const result = await eventData.getEventJoiners(req.params.id);
     if (result) {
       var joiners = [];
-      
+
       for (var i = 0; i < result.length; i++) {
         var joiner = await userData.getUserById(result[i]);
         joiners.push(joiner);
@@ -193,6 +194,30 @@ router.post("/joinEvent", cors(), async (req, res) => {
 
     info.event_joiners.push(upload.user_id);
     let result = await eventData.updateEventById(upload.event_id, info);
+    
+    let reciever = await userData.getUserById(info.event_owner);
+    let joiner = await userData.getUserById(upload.user_id);
+    var transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'saveit.team@gmail.com',
+        pass: 'save1234'
+      }
+    });
+    var mailOptions = {
+      from: 'saveit.team@gmail.com',
+      to: reciever.user_email,
+      subject: joiner.name + ' has joined ' + result.event_name,
+      text: `Hi ${reciever.name},\n One More Attendee! \n ${joiner.name}  is attending your event ${result.event_name}.\n\n ${joiner.name}'s email: ${joiner.user_email}\n\n ${joiner.name}'s phone: ${joiner.phone}\n\nRegards,\nTeam Event IT`
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
     res.status(200).json(result);
   }
   catch (e) {
