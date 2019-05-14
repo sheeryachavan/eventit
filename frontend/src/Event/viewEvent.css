@@ -47,3 +47,12 @@
     padding: 0.3rem 1.5rem;
     transition: 0.3s;
 }
+
+.clsjoinerDetails {
+    border-bottom:1px solid rgb(223, 223, 223);
+}
+
+.clsIndiEventCardInnerJoiner {
+    overflow: -webkit-paged-y;
+    height: 100%;
+}

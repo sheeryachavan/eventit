@@ -13,7 +13,9 @@ class ViewEvent extends Component {
             eventData: undefined,
             isJoined: false,
             isError: false,
-            errorMessage: ''
+            errorMessage: '',
+            isOwner: false,
+            eventJoiners: undefined
         }
         this.registerClick = this.registerClick.bind(this);
     }
@@ -34,6 +36,12 @@ class ViewEvent extends Component {
             if (this.props.id != null && this.state.eventData.event_joiners.indexOf(this.props.id) > -1) {
                 this.setState({ isJoined: true });
             }
+            if (this.props.id != null && this.state.eventData.event_owner === this.props.id) {
+                this.setState({ isOwner: true });
+
+                const l_objResponseJoiners = await api.get(`/eventit/event/geteventjoiners/${this.props.match.params.id}`);
+                this.setState({ eventJoiners: l_objResponseJoiners.data });
+            }
         } catch (err) {
             this.setState({ isError: true, errorMessage: err });
             return err;
@@ -51,7 +59,7 @@ class ViewEvent extends Component {
                 };
                 const url = `/eventit/event/joinEvent`;
                 this.setState({
-                    isJoined:true
+                    isJoined: true
                 })
                 var temp = await api.post(url, data);
             }
@@ -69,6 +77,8 @@ class ViewEvent extends Component {
         let actionBtn = null;
         let body = null;
         var error = null;
+        var joinersList = null;
+        var joiners = null;
         if (this.state.isError) {
             error = <MessageHandler message={{ isError: this.state.isError, message: this.state.errorMessage }} />
         }
@@ -80,10 +90,38 @@ class ViewEvent extends Component {
         }
         if (this.props.id !== null && this.state.eventData && this.state.eventData.event_owner && (this.props.id === this.state.eventData.event_owner)) {
             actionBtn = <Link to={`/events/editevent/${this.props.match.params.id}`}><button className="clsUpdateBtn"> Update Event</button></Link>
+            if (this.state.eventData && this.state.eventData.event_joiners.length > 0) {
+                joiners = this.state.eventJoiners && (this.state.eventJoiners).map(event => (
+                    <div className="clsjoinerDetails">
+                        <div>
+                            <div className="clsLabelDiv">Name:</div>{event.name}
+                        </div>
+                        <div>
+                            <div className="clsLabelDiv">Email:</div>{event.user_email}
+                        </div>
+                    </div>
+                ));
+            }
+            else {
+                joiners = (
+                    <div >
+                        <h2>Its Empty Here! :(</h2>
+                    </div>)
+            }
+            joinersList = (
+                <div className="clsIndiEventCard">
+                    <div className="clsIndiEventCardInner clsIndiEventCardInnerJoiner">
+                        <div className="clsContactDiv">
+                            Attendees:
+                </div>
+                        {joiners}
+                    </div>
+
+                </div>)
         }
         else if (this.state.isJoined)
             actionBtn = <button disabled className="clsRegisteredBtn"> You are Registered!</button>
-        else if (this.state.eventData&&this.state.eventData.event_count===(this.state.eventData.event_joiners).length)
+        else if (this.state.eventData && this.state.eventData.event_count === (this.state.eventData.event_joiners).length)
             actionBtn = <button disabled className="clsRegisteredBtn"> Registration full!</button>
         else
             actionBtn = <button onClick={this.registerClick} className="clsUpdateBtn"> Register</button>
@@ -140,6 +178,7 @@ class ViewEvent extends Component {
                             </div>
 
                         </div>
+                        {joinersList}
                     </div>
                 </div>
 

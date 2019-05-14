@@ -85,6 +85,25 @@ router.get("/getevent/:id", cors(), async (req, res) => {
     res.status(404).json({ message: "Event not found with this Id!" });
   }
 });
+router.get("/geteventjoiners/:id", cors(), async (req, res) => {
+  try {
+    const result = await eventData.getEventJoiners(req.params.id);
+    if (result) {
+      var joiners = [];
+      
+      for (var i = 0; i < result.length; i++) {
+        var joiner = await userData.getUserById(result[i]);
+        joiners.push(joiner);
+      }
+      res.status(200).json(joiners);
+    }
+    else
+      res.status(500).json({ error: "Server is busy, please wait!" })
+  }
+  catch (e) {
+    res.status(404).json({ message: "Event not found with this Id!" });
+  }
+});
 function escapeRegex(text) {
   return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 };

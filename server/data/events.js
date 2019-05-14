@@ -38,6 +38,14 @@ const exportedMethods = {
 			throw "Event not found"
 		return event;
 	},
+	async getEventJoiners(event_id) {
+		const eventCollection = await events();
+		const event = await eventCollection.findOne({ event_id: event_id });
+		if (!event)
+			throw "Event not found"
+		
+		return event.event_joiners;
+	},
 
 	async getAllEvents() {
 		const eventCollection = await events();
