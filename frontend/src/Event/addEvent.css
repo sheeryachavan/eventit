@@ -4,7 +4,7 @@
 }
 
 .clsTextField {
-  width: 20rem;
+  max-width: 20rem;
   height: 36px;
   border-radius: 18px;
   padding-left: 8px;
