@@ -22,7 +22,7 @@ const main = async () => {
 		"Texas_poker", 
 		"game", 
 		"Let's play Texas pokers. It's on 5th ave and time is ...",
-		"NewYork", 
+		"NewYork,NY,USA", 
 		"05/11/2019", //event_data
 		"12:00", //event_begin
 		"23:59", //event_end
@@ -40,7 +40,7 @@ const main = async () => {
 		"Meditation", 
 		"outdoor", 
 		"Let's meditation. It's...",
-		"NewYork", 
+		"NewYork,NY,USA", 
 		"06/11/2019", //event_date
 		"16:00", //event_begin
 		"19:00", //event_end
@@ -58,7 +58,7 @@ const main = async () => {
 		"Boxing Training", 
 		"workout", 
 		"Let's boxing. It's...",
-		"Hoboken", 
+		"Hoboken,NJ,USA", 
 		"04/11/2020", //event_date
 		"16:00", //event_begin
 		"19:00", //event_end
