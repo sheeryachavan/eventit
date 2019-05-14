@@ -103,6 +103,9 @@ const exportedMethods = {
 		if (event_info.event_end) {
 			updateData.event_end = event_info.event_end;
 		}
+		if (event_info.event_date) {
+			updateData.event_date = event_info.event_date;
+		}
 		if (event_info.event_count) {
 			updateData.event_count = event_info.event_count;
 		}

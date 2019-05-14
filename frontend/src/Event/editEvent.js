@@ -26,7 +26,7 @@ class EditEvent extends Component {
             event_title: '',
             event_type: '',
             event_description: '',
-            event_date: new Date(),
+            event_date: '',
             event_from_time: "18:00",
             event_to_time: "19:00",
             event_max_participants: 0,

@@ -153,6 +153,7 @@ router.put("/updateEvent/:id", cors(), async (req, res) => {
     updated.event_type = upload.event_type;
     updated.event_begin = upload.event_begin;
     updated.event_end = upload.event_end;
+    updated.event_date = upload.event_date;
     updated.event_count = upload.event_count;
     updated.event_owner = upload.event_owner;
     updated.event_ownerName = oldOne.event_ownerName;

@@ -157,6 +157,9 @@ class ViewEvent extends Component {
                             <div className="clsIndiEventCardInner">
                                 <div className="clsLabelDiv">Time:</div> {this.state.eventData.event_begin} to {this.state.eventData.event_end}
                             </div>
+                            <div className="clsIndiEventCardInner">
+                                <div className="clsLabelDiv">Date:</div> {this.state.eventData.event_date} 
+                            </div>
 
                         </div>
                         <div className="clsIndiEventCard">
