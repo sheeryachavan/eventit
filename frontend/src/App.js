@@ -11,6 +11,7 @@ import Navbar from './Navigation/TopNavigation';
 import SideBar from './Navigation/SideDrawer';
 import BackDrop from './Navigation/Backdrop';
 import viewUser from './User/viewUser';
+import editUser from './User/editUser';
 import viewEvent from './Event/viewEvent'
 import editEvent from './Event/editEvent'
 import Login from './User/Login'
@@ -40,11 +41,11 @@ class App extends Component {
       backDrop = <BackDrop click={this.backDropClickHandler} />;
     }
     return (
-<Router>
-<div className="App">
-        <Navbar drawerClickHandler={this.drawerToggleClickHandler} />
-        <SideBar show={this.state.SideDrawerOpen} />
-        {backDrop}
+      <Router>
+        <div className="App">
+          <Navbar drawerClickHandler={this.drawerToggleClickHandler} />
+          <SideBar show={this.state.SideDrawerOpen} />
+          {backDrop}
           <div className="Appbody">
             <div>
               <Switch>
@@ -52,17 +53,17 @@ class App extends Component {
                 <Route path="/events/:id" exact component={viewEvent} />
                 <Route path="/events/editevent/:id" exact component={editEvent} />
                 <Route path="/events" exact component={EventContainer} />
-                
                 <Route path="/login" component={Login} />
                 <Route path="/signup" component={Signup} />
                 <Route path="/profile/user" component={viewUser} />
+                <Route path="/profile/edituser" exact component={editUser} />
               </Switch>
             </div>
-         </div>
-        <Footer></Footer>
-      </div>    
-</Router>
-      );
+          </div>
+          <Footer></Footer>
+        </div>
+      </Router>
+    );
   }
 }
 

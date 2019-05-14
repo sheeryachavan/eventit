@@ -46,11 +46,24 @@ class ViewUser extends Component {
             error = null
         }
         let body = null;
+        let instagram = null;
+        let facebook = null;
+        let twitter = null;
         let eventModule = null;
+        
         if (this.props.id !== null && this.state.userData !== undefined) {
             eventModule = <Event userId={this.props.id} />
+            if (this.state.userData.insta_username){
+                instagram= (<div><a href="www.instagram.com/{this.state.userData.insta_username}"><i className="fa fa-user" aria-hidden="true"></i></a></div>)
+                
+            }
+            if (this.state.userData.facebook_username){
+                facebook= (<div><a href="www.facebook.com/"><i className="fa fa-user" aria-hidden="true"></i></a></div>)
+            }
+            if (this.state.userData.twitter_username){
+                twitter= (<div><a href="www.instagram.com/{this.state.userData.twitter_username}"><i className="fa fa-user" aria-hidden="true"></i></a></div>)
+            }
             body = (<div className="container">
-
                 <div className="row">
                     <div className="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-5">
                         <div className="well profile">
@@ -61,6 +74,7 @@ class ViewUser extends Component {
                                     <h2>{this.state.userData.name}</h2>
                                     <p><strong>Email: </strong> {this.state.userData.user_name} </p>
                                     <p><strong>Phone: </strong> {this.state.userData.phone}</p>
+                                    <Link to='/profile/edituser'><button> Edit Profile </button></Link>
                                 </div>
 
                             </div>

@@ -96,7 +96,6 @@ class EditEvent extends Component {
                 },
                 body: JSON.stringify(data)
             })
-            console.log(data);
             var link = document.getElementById('back');
             link.click();
         } catch (err) {

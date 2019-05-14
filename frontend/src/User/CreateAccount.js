@@ -69,7 +69,7 @@ class CreateAccount extends Component {
                   <i className="fa fa-lock" aria-hidden="true"></i>
                 </span>
               </div>
-              <div className="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+              <div className="wrap-input100 validate-input" data-validate="Valid phone is required: xxx xxx xxxx">
                 <input className="input100" type="tel" name="phone" placeholder="Phone" onChange={this.changeHandler} />
                 <span className="focus-input100"></span>
                 <span className="symbol-input100">
@@ -132,8 +132,6 @@ class CreateAccount extends Component {
         return err;
 
       })
-    debugger;
-    console.log(msgtemp);
 
     if (msgtemp === undefined) {
       var link = document.getElementById('test');

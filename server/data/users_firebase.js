@@ -13,7 +13,11 @@ const exportedMethods = {
 			name : name2,
 			phone: phone,
 			events_owned: events_owned,
-            events_joined: events_joined
+			events_joined: events_joined,
+			insta_username:'',
+			facebook_username:'',
+			twitter_username:'',
+
 		};
 		const newUserInfo = await userCollection.insertOne(newUser);
 		if(newUserInfo === null) 
@@ -57,6 +61,15 @@ const exportedMethods = {
         }
 		if(user_info.events_owned){
 			updateData.events_owned = user_info.events_owned;
+		}
+		if(user_info.insta_username){
+			updateData.insta_username = user_info.insta_username;
+		}
+		if(user_info.facebook_username){
+			updateData.facebook_username = user_info.facebook_username;
+		}
+		if(user_info.twitter_username){
+			updateData.twitter_username = user_info.twitter_username;
 		}
 		const updateInfo = await userCollection.updateOne({user_id : user_id},{$set : updateData});
 		if(updateInfo === null) throw "Can not update this user!";

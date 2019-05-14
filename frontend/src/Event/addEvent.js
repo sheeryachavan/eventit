@@ -49,7 +49,6 @@ class AddEvent extends Component {
         this.setState({
             currentDate: today
         })
-        debugger;
     }
     handleOpenCreateEvent() {
         this.setState({ showCreateEvent: true });

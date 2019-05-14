@@ -25,7 +25,6 @@ class ViewEvent extends Component {
             this.setState({ isError: true, errorMessage: err });
             return err;
         }
-
     }
     async getEvent() {
         try {
@@ -84,6 +83,8 @@ class ViewEvent extends Component {
         }
         else if (this.state.isJoined)
             actionBtn = <button disabled className="clsRegisteredBtn"> You are Registered!</button>
+        else if (this.state.eventData&&this.state.eventData.event_count===(this.state.eventData.event_joiners).length)
+            actionBtn = <button disabled className="clsRegisteredBtn"> Registration full!</button>
         else
             actionBtn = <button onClick={this.registerClick} className="clsUpdateBtn"> Register</button>
         if (this.state.eventData !== undefined) {
@@ -130,6 +131,12 @@ class ViewEvent extends Component {
                                 <div>
                                     <div className="clsLabelDiv">Email:</div>{this.state.eventData.event_ownerContact}
                                 </div>
+                            </div>
+
+                        </div>
+                        <div className="clsIndiEventCard">
+                            <div className="clsIndiEventCardInner">
+                                <div className="clsLabelDiv">{(this.state.eventData.event_joiners).length}/{this.state.eventData.event_count}</div> seats filled.
                             </div>
 
                         </div>
