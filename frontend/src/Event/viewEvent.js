@@ -15,7 +15,8 @@ class ViewEvent extends Component {
             isError: false,
             errorMessage: '',
             isOwner: false,
-            eventJoiners: undefined
+            eventJoiners: undefined,
+            eventJoinersCount: 0
         }
         this.registerClick = this.registerClick.bind(this);
     }
@@ -32,7 +33,7 @@ class ViewEvent extends Component {
         try {
             this.setState({ isError: false, errorMessage: '' });
             const l_objResponse = await api.get(`/eventit/event/getevent/${this.props.match.params.id}`);
-            this.setState({ eventData: l_objResponse.data });
+            this.setState({ eventData: l_objResponse.data, eventJoinersCount: (l_objResponse.data.event_joiners).length });
             if (this.props.id != null && this.state.eventData.event_joiners.indexOf(this.props.id) > -1) {
                 this.setState({ isJoined: true });
             }
@@ -174,7 +175,7 @@ class ViewEvent extends Component {
                         </div>
                         <div className="clsIndiEventCard">
                             <div className="clsIndiEventCardInner">
-                                <div className="clsLabelDiv">{(this.state.eventData.event_joiners).length}/{this.state.eventData.event_count}</div> seats filled.
+                                <div className="clsLabelDiv">{this.state.eventJoinersCount}/{this.state.eventData.event_count}</div> seats filled.
                             </div>
 
                         </div>
