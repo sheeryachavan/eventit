@@ -58,6 +58,7 @@ const exportedMethods = {
 				"event_id": eventList[i].event_id,
 				"event_name": eventList[i].event_name,
 				"event_description": eventList[i].event_description,
+				"event_date": eventList[i].event_date,
 				"event_end": eventList[i].event_end,
 				"event_begin": eventList[i].event_begin,
 				"event_location": eventList[i].event_location,
