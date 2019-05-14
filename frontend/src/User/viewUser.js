@@ -50,18 +50,21 @@ class ViewUser extends Component {
         let facebook = null;
         let twitter = null;
         let eventModule = null;
-        
+
         if (this.props.id !== null && this.state.userData !== undefined) {
             eventModule = <Event userId={this.props.id} />
-            if (this.state.userData.insta_username){
-                instagram= (<div><a href="www.instagram.com/{this.state.userData.insta_username}"><i className="fa fa-user" aria-hidden="true"></i></a></div>)
-                
+            if (this.state.userData.insta_username) {
+                let insta = `www.instagram.com/${this.state.userData.insta_username}`
+                instagram = (<div><a href={insta}><i className="fab fa-instagram" aria-hidden="true"></i></a></div>)
+
             }
-            if (this.state.userData.facebook_username){
-                facebook= (<div><a href="www.facebook.com/"><i className="fa fa-user" aria-hidden="true"></i></a></div>)
+            if (this.state.userData.facebook_username) {
+                let fb = `www.facebook.com/${this.state.userData.facebook_username}`
+                facebook = (<div><a href={fb}><i className="fab fa-facebook-square" aria-hidden="true"></i></a></div>)
             }
-            if (this.state.userData.twitter_username){
-                twitter= (<div><a href="www.instagram.com/{this.state.userData.twitter_username}"><i className="fa fa-user" aria-hidden="true"></i></a></div>)
+            if (this.state.userData.twitter_username) {
+                let tweet = `www.twitter.com/${this.state.userData.twitter_username}`
+                twitter = (<div><a href={tweet}><i className="fab fa-twitter" aria-hidden="true"></i></a></div>)
             }
             body = (<div className="container">
                 <div className="row">
@@ -74,17 +77,18 @@ class ViewUser extends Component {
                                     <h2>{this.state.userData.name}</h2>
                                     <p><strong>Email: </strong> {this.state.userData.user_name} </p>
                                     <p><strong>Phone: </strong> {this.state.userData.phone}</p>
-                                    <Link to='/profile/edituser'><button> Edit Profile </button></Link>
+                                    {instagram}{facebook}{twitter}
+                                    <Link to='/profile/edituser'><button className="btn btn-big btn-dark"> Edit Profile </button></Link>
                                 </div>
 
                             </div>
                         </div>
                     </div>
                     <div className="col-xs-12 col-sm-4 col-lg-6">
-                        <div>
-                            <h2>
+                        <div className="myevents">
+                            <div>
                                 My Events
-                        </h2>
+                        </div>
                         </div>
                         {eventModule}
                     </div>

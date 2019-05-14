@@ -16,6 +16,7 @@ import viewEvent from './Event/viewEvent'
 import editEvent from './Event/editEvent'
 import Login from './User/Login'
 import Signup from './User/CreateAccount';
+import AboutUs from './AboutUs/aboutUs';
 import history from './history';
 library.add(faStroopwafel)
 class App extends Component {
@@ -57,6 +58,8 @@ class App extends Component {
                 <Route path="/signup" component={Signup} />
                 <Route path="/profile/user" component={viewUser} />
                 <Route path="/profile/edituser" exact component={editUser} />
+                <Route path="/aboutus" exact component={AboutUs} />
+                <Route path="" exact component={Home} />
               </Switch>
             </div>
           </div>

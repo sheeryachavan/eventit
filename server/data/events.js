@@ -22,7 +22,7 @@ const exportedMethods = {
 			event_end: event_end,
 			event_date: event_date,
 			event_count: event_count,
-			event_keyword: event_keyword
+			event_keyword: event_keyword.trim().split(',')
 		};
 
 		const newEventInfo = await eventCollection.insertOne(newEvent);
@@ -98,7 +98,7 @@ const exportedMethods = {
 			updateData.event_count = event_info.event_count;
 		}
 		if (event_info.event_keyword) {
-			updateData.event_keyword = event_info.event_keyword;
+			updateData.event_keyword = event_info.event_keyword.trim().split(',');
 		}
 		if (event_info.event_joiners) {
 			updateData.event_joiners = event_info.event_joiners;

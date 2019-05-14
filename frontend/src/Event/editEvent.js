@@ -55,7 +55,7 @@ class EditEvent extends Component {
                 event_from_time: l_objResponse.data.event_start,
                 event_to_time: l_objResponse.data.event_end,
                 event_max_participants: parseInt(l_objResponse.data.event_count),
-                event_keyword: l_objResponse.data.event_keyword,
+                event_keyword: l_objResponse.data.event_keyword.join(','),
                 event_ownerPhone: l_objResponse.data.event_ownerPhone,
                 event_ownerContact: l_objResponse.data.event_ownerContact,
                 event_ownerName: l_objResponse.data.event_ownerName

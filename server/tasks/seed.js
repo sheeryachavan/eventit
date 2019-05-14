@@ -22,8 +22,8 @@ const main = async () => {
 		"Let's play Texas pokers. It's on 5th ave and time is ...",
 		"NewYork", 
 		"2019/05/11", //event_data
-		"2019/05/11", //event_begin
-		"2019/05/13", //event_end
+		"12:00", //event_begin
+		"23:59", //event_end
 		user_id1, 
 		"sheeryachavan@gmail.com", 
 		"2123216666", 
@@ -40,8 +40,8 @@ const main = async () => {
 		"Let's meditation. It's...",
 		"NewYork", 
 		"2019/06/11", //event_data
-		"2019/06/11", //event_begin
-		"2019/06/13", //event_end
+		"16:00", //event_begin
+		"19:00", //event_end
 		user_id2, 
 		"shreesh.chavan@gmai.com", 
 		"2123217777", 

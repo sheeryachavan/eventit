@@ -31,7 +31,6 @@ class EventContainer extends Component {
     }
     async getEvents() {
         try {
-            debugger;
             var l_objResponse;
             if (this.props.location && this.props.location.address) {
 

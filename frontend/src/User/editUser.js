@@ -107,21 +107,21 @@ class EditUser extends Component {
                             <input className="input100" type="text" name="insta_username" placeholder="Instagram" onChange={this.changeHandler} value={this.state.insta_username} />
                             <span className="focus-input100"></span>
                             <span className="symbol-input100">
-                                <i className="fa fa-lock" aria-hidden="true"></i>
+                                <i className="fab fa-instagram" aria-hidden="true"></i>
                             </span>
                         </div>
                         <div className="wrap-input100 validate-input" >
                             <input className="input100" type="text" name="facebook_username" placeholder="Facebook" onChange={this.changeHandler} value={this.state.facebook_username} />
                             <span className="focus-input100"></span>
                             <span className="symbol-input100">
-                                <i className="fa fa-lock" aria-hidden="true"></i>
+                                <i className="fab fa-facebook-square" aria-hidden="true"></i>
                             </span>
                         </div>
                         <div className="wrap-input100 validate-input" >
                             <input className="input100" type="text" name="twitter_username" placeholder="Twitter" onChange={this.changeHandler} value={this.state.insta_ustwitter_usernameername} />
                             <span className="focus-input100"></span>
                             <span className="symbol-input100">
-                                <i className="fa fa-lock" aria-hidden="true"></i>
+                                <i className="fab fa-twitter" aria-hidden="true"></i>
                             </span>
                         </div>
                         <div className="wrap-input100 validate-input" data-validate="Valid phone is required: xxx xxx xxxx">
