@@ -205,12 +205,16 @@ class ViewEvent extends Component {
 
                 </div>)
         }
-        else if (this.state.isJoined)
+        else if (this.state.isJoined) {
             actionBtn = <button disabled className="clsRegisteredBtn"> You are Registered!</button>
+            //actionBtn = <Link to={`//localhost:3002`}target="_blank"><button> Chat</button></Link> //socket.io
+        }
         else if (this.state.eventData && this.state.eventData.event_count === (this.state.eventData.event_joiners).length)
             actionBtn = <button disabled className="clsRegisteredBtn"> Registration full!</button>
-        else
+        else {
             actionBtn = <button onClick={this.registerClick} className="clsUpdateBtn"> Register</button>
+            //actionBtn = <Link to={`//localhost:3002`}target="_blank"><button> Chat</button></Link> //socket.io
+        }
         if (this.state.eventData !== undefined) {
             body = (<div className="container">
                 {error}
