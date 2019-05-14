@@ -3,6 +3,8 @@ import MessageHandler from '../Message/messageHandler'
 import api from '../api';
 import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
+
+import axios from "axios";
 import './viewEvent.css';
 import logo from '../images/logo2.png';
 class ViewEvent extends Component {
@@ -16,7 +18,9 @@ class ViewEvent extends Component {
             errorMessage: '',
             isOwner: false,
             eventJoiners: undefined,
-            eventJoinersCount: 0
+            eventJoinersCount: 0,
+            success: false,
+            url: ""
         }
         this.registerClick = this.registerClick.bind(this);
     }
@@ -49,6 +53,76 @@ class ViewEvent extends Component {
         }
 
     }
+    // handleFileChange = ev => {
+
+    //     this.setState({ success: false, url: "" });
+
+    // };
+    // handleUpload = ev => {
+
+    //     let file = this.uploadInput.files[0];
+
+    //     let fileParts = this.uploadInput.files[0].name.split(".");
+
+    //     let fileName = fileParts[0];
+
+    //     let fileType = fileParts[1];
+
+    //     console.log("Preparing the upload");
+
+    //     axios.post("http://localhost:7050/sign_s3", {
+
+    //         fileName: fileName,
+
+    //         fileType: fileType
+
+    //     }).then(response => {
+
+    //         var returnData = response.data.data.returnData;
+
+    //         var signedRequest = returnData.signedRequest;
+
+    //         var url = returnData.url;
+
+    //         this.setState({ url: url });
+
+    //         console.log("Recieved a signed request " + signedRequest);
+
+
+
+    //         // Put the fileType in the headers for the upload
+
+    //         var options = {
+
+    //             headers: {
+
+    //                 "Content-Type": fileType
+
+    //             }
+
+    //         };
+
+    //         axios.put(signedRequest, file, options)
+
+    //             .then(result => {
+
+    //                 console.log("Response from s3");
+
+    //                 this.setState({ success: true });
+
+    //             }).catch(error => {
+
+    //                 alert("ERROR " + JSON.stringify(error));
+
+    //             });
+
+    //     }).catch(error => {
+
+    //         alert(JSON.stringify(error));
+
+    //     });
+
+    // };
     async registerClick() {
         try {
             this.setState({ isError: false, errorMessage: '' });
@@ -80,6 +154,7 @@ class ViewEvent extends Component {
         var error = null;
         var joinersList = null;
         var joiners = null;
+        var uploadbtn = null
         if (this.state.isError) {
             error = <MessageHandler message={{ isError: this.state.isError, message: this.state.errorMessage }} />
         }
@@ -91,6 +166,16 @@ class ViewEvent extends Component {
         }
         if (this.props.id !== null && this.state.eventData && this.state.eventData.event_owner && (this.props.id === this.state.eventData.event_owner)) {
             actionBtn = <Link to={`/events/editevent/${this.props.match.params.id}`}><button className="clsUpdateBtn"> Update Event</button></Link>
+            // uploadbtn = <div>
+            //     <input id="myinput"
+            //         onChange={this.handleFileChange}
+            //         ref={ref => {
+            //             this.uploadInput = ref;
+            //         }}
+            //         type="file"
+            //     />
+            //     <button className="clsUpdateBtn" onClick={this.handleUpload}> Update Brochure</button>
+            // </div>
             if (this.state.eventData && this.state.eventData.event_joiners.length > 0) {
                 joiners = this.state.eventJoiners && (this.state.eventJoiners).map(event => (
                     <div className="clsjoinerDetails">
@@ -162,7 +247,7 @@ class ViewEvent extends Component {
                                 <div className="clsLabelDiv">Time:</div> {this.state.eventData.event_begin} to {this.state.eventData.event_end}
                             </div>
                             <div className="clsIndiEventCardInner">
-                                <div className="clsLabelDiv">Date:</div> {this.state.eventData.event_date} 
+                                <div className="clsLabelDiv">Date:</div> {this.state.eventData.event_date}
                             </div>
 
                         </div>

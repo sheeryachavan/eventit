@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {BrowserRouter as Link } from 'react-router-dom';
+import { BrowserRouter as Link } from 'react-router-dom';
 import api from '../api'
 import { connect } from "react-redux";
 import MessageHandler from '../Message/messageHandler'
@@ -56,8 +56,8 @@ class EditUser extends Component {
                     "twitter_username": this.state.twitter_username,
 
                 }
-                var tem = await api.post(`eventit/user/profileUpdate/${this.props.id}`,data);
-                
+                var tem = await api.post(`eventit/user/profileUpdate/${this.props.id}`, data);
+                this.setState({ isError: false, errorMessage: "User Profile Updated" });
                 var link = document.getElementById('test1');
                 link.click();
 
@@ -133,14 +133,14 @@ class EditUser extends Component {
                             </span>
                         </div>
                         <div className="container-login100-form-btn">
-                            <button className="login100-form-btn" onClick={this.submit.bind(this)}>
+
+                            <button className="login100-form-btn" type='submit' onClick={this.submit.bind(this)}>
                                 Update
 						</button>
                         </div>
                     </form>
 
-                    <Link to="/profile/user" style={{ hidden: true }} id="test1">
-                    </Link>
+
                 </div>
 
             </div>
