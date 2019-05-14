@@ -240,7 +240,7 @@ class SearchEvent extends Component {
         <div className="clssearch-container">
           <div className="clsToggleSwitchContainer col-lg-12">
             <div className="clsToggleSwitchContainerInner col-lg-12">
-              <div className="clsToggleLabels">Search Places</div>
+              <div className="clsToggleLabels">Search Events</div>
               <ToggleButton
                 inactiveLabel=""
                 activeLabel=""
@@ -269,7 +269,7 @@ class SearchEvent extends Component {
                     value: !value,
                   })
                 }} />
-              <div className="clsToggleLabels">Search Events</div>
+              <div className="clsToggleLabels">Search Places</div>
             </div>
 
           </div>

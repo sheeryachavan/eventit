@@ -22,7 +22,7 @@ const exportedMethods = {
 			event_end: event_end,
 			event_date: event_date,
 			event_count: event_count,
-			event_keyword: event_keyword.trim().split(',')
+			event_keyword: Array.isArray(event_keyword) ?event_keyword : (event_keyword).split(',')
 		};
 
 		const newEventInfo = await eventCollection.insertOne(newEvent);
@@ -43,7 +43,7 @@ const exportedMethods = {
 		const event = await eventCollection.findOne({ event_id: event_id });
 		if (!event)
 			throw "Event not found"
-		
+
 		return event.event_joiners;
 	},
 
@@ -61,8 +61,8 @@ const exportedMethods = {
 				"event_end": eventList[i].event_end,
 				"event_begin": eventList[i].event_begin,
 				"event_location": eventList[i].event_location,
-				"event_count":eventList[i].event_count,
-				"event_joiners_count":eventList[i].event_joiners.length
+				"event_count": eventList[i].event_count,
+				"event_joiners_count": eventList[i].event_joiners.length
 			};
 			result.push(temp);
 		}
@@ -106,7 +106,7 @@ const exportedMethods = {
 			updateData.event_count = event_info.event_count;
 		}
 		if (event_info.event_keyword) {
-			updateData.event_keyword = event_info.event_keyword.trim().split(',');
+			updateData.event_keyword = Array.isArray(event_info.event_keyword) ? event_info.event_keyword : (event_info.event_keyword).split(',');
 		}
 		if (event_info.event_joiners) {
 			updateData.event_joiners = event_info.event_joiners;

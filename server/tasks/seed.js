@@ -11,7 +11,9 @@ const main = async () => {
 	var uid1 = "3MEqtUlEH7Po4DnjCvQY7Mivmg13";
 	var uid2 = "tRrLCp4LnGRY8kOssWAj4lfgFZn2";
 	const test_user1 = await userData.addUser("sheeryachavan@gmail.com", "sheeryachavan@gmail.com", uid1,"Test_Account1", "2123216666", [], []);
+	// password:123456
 	const test_user2 = await userData.addUser("shreesh.chavan@gmai.com", "shreesh.chavan@gmai.com", uid2,"Test_Account2", "2123217777", [], []);
+	// password:shree7895
 	const user_id1 = test_user1.user_id;
 	const user_id2 = test_user2.user_id;
 
@@ -21,7 +23,7 @@ const main = async () => {
 		"game", 
 		"Let's play Texas pokers. It's on 5th ave and time is ...",
 		"NewYork", 
-		"2019/05/11", //event_data
+		"05/11/2019", //event_data
 		"12:00", //event_begin
 		"23:59", //event_end
 		user_id1, 
@@ -39,13 +41,13 @@ const main = async () => {
 		"outdoor", 
 		"Let's meditation. It's...",
 		"NewYork", 
-		"2019/06/11", //event_data
+		"06/11/2019", //event_date
 		"16:00", //event_begin
 		"19:00", //event_end
 		user_id2, 
-		"shreesh.chavan@gmai.com", 
+		"shreesh.chavan@gmail.com", 
 		"2123217777", 
-		"shreesh.chavan@gmai.com",		
+		"shreesh.chavan@gmail.com",		
 		[],
 		20, 
 		["meditation","pressure","relax"]
@@ -57,13 +59,13 @@ const main = async () => {
 		"workout", 
 		"Let's boxing. It's...",
 		"Hoboken", 
-		"2020/04/11", //event_data
-		"2020/04/11", //event_begin
-		"2020/04/13", //event_end
+		"04/11/2020", //event_date
+		"16:00", //event_begin
+		"19:00", //event_end
 		user_id2, 
-		"shreesh.chavan@gmai.com", 
+		"shreesh.chavan@gmail.com", 
 		"2123217777", 
-		"shreesh.chavan@gmai.com",		
+		"shreesh.chavan@gmail.com",		
 		[],
 		10, 
 		["boxing","gym","workout"]
