@@ -56,8 +56,9 @@ class EditUser extends Component {
                     "twitter_username": this.state.twitter_username,
 
                 }
-                var tem = await api.patch(`eventit/user/profile/${this.props.id}`);
-                var link = document.getElementById('test');
+                var tem = await api.post(`eventit/user/profileUpdate/${this.props.id}`,data);
+                
+                var link = document.getElementById('test1');
                 link.click();
 
             }
@@ -138,7 +139,7 @@ class EditUser extends Component {
                         </div>
                     </form>
 
-                    <Link to="/login" style={{ hidden: true }} id="test">
+                    <Link to="/profile/user" style={{ hidden: true }} id="test1">
                     </Link>
                 </div>
 

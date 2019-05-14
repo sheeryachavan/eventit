@@ -35,11 +35,13 @@ router.get("/profile/:id", cors(), async (req, res) => {
         res.status(404).json({ message: "User not found with this Id!" });
     }
 });
-router.patch("/profile/:id", cors(), async (req, res) => {
+router.post("/profileUpdate/:id", cors(), async (req, res) => {
     try {
         const result = await userData.getUserById(req.params.id);
-        if (result)
-            await userData.updateUserById(req.params.id, req.body)
+        if (result) {
+            console.log(req.body);
+            let updateduser = await userData.updateUserById(req.params.id, req.body);
+        }
         else
             res.status(500).json({ error: "Server is busy, please wait!" })
     }

@@ -56,8 +56,8 @@ class App extends Component {
                 <Route path="/events" exact component={EventContainer} />
                 <Route path="/login" component={Login} />
                 <Route path="/signup" component={Signup} />
-                <Route path="/profile/user" component={viewUser} />
                 <Route path="/profile/edituser" exact component={editUser} />
+                <Route path="/profile/user" exact component={viewUser} />
                 <Route path="/aboutus" exact component={AboutUs} />
                 <Route path="" exact component={Home} />
               </Switch>

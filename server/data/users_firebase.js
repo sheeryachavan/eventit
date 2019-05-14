@@ -57,7 +57,7 @@ const exportedMethods = {
 			updateData.user_email = user_info.user_email;
         }
         if(user_info.phone){
-			updateData.user_email = user_info.phone;
+			updateData.phone = user_info.phone;
         }
 		if(user_info.events_owned){
 			updateData.events_owned = user_info.events_owned;

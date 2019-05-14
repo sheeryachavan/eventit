@@ -54,16 +54,16 @@ class ViewUser extends Component {
         if (this.props.id !== null && this.state.userData !== undefined) {
             eventModule = <Event userId={this.props.id} />
             if (this.state.userData.insta_username) {
-                let insta = `www.instagram.com/${this.state.userData.insta_username}`
+                let insta = `https://www.instagram.com/${this.state.userData.insta_username}`
                 instagram = (<div><a href={insta}><i className="fab fa-instagram" aria-hidden="true"></i></a></div>)
 
             }
             if (this.state.userData.facebook_username) {
-                let fb = `www.facebook.com/${this.state.userData.facebook_username}`
+                let fb = `https://www.facebook.com/${this.state.userData.facebook_username}`
                 facebook = (<div><a href={fb}><i className="fab fa-facebook-square" aria-hidden="true"></i></a></div>)
             }
             if (this.state.userData.twitter_username) {
-                let tweet = `www.twitter.com/${this.state.userData.twitter_username}`
+                let tweet = `https://www.twitter.com/${this.state.userData.twitter_username}`
                 twitter = (<div><a href={tweet}><i className="fab fa-twitter" aria-hidden="true"></i></a></div>)
             }
             body = (<div className="container">
