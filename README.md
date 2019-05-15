@@ -53,7 +53,7 @@ A user can now create an event with the Create Event button. The Address field i
 
 Events can be seen by scrolling down on the homepage or by clicking the All Events button in the upper right-hand corner while logged in. 
 
-While viewing an Event that is not owned by the user, that user may Register for that event. If the event registrations are full, the register button is replaced by "Resgistratin full" label. If user registers for the event, the register button is replaced by "You are Registered!" label. If Brochure of the event is available, event brochure option is shown where you can view the brochure.
+While viewing an Event that is not owned by the user, that user may Register for that event. If the event registrations are full, the register button is replaced by "Resgistratin full" label. If user registers for the event, the register button is replaced by "You are Registered!" label. If Brochure of the event is available, event brochure option is shown where you can view the brochure. Event owner also gets email notification when someone joins his event
 
 While viewing an Event that is owned by the user, that user may Update the Event. The owner can see all users who have registered to attend their event and also receives an email whenever an attendee joins an event.Owner can upload a brochure for the event. 
 
