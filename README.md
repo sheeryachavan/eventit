@@ -9,7 +9,7 @@ Events are searchable through either Location keywords or Tagged keywords, depen
 Locations are populated in a dropdown box via the Google Geocode API.
 
 ##  Installation
-
+(Active internet connection is must)
 Two sets of packages must be installed, one for the Server backend, and one for the Frontend.
 ```
 >cd frontend 
