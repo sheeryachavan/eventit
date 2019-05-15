@@ -20,11 +20,14 @@ npm install --save
 ```
 ## Usage
 
-In one terminal in /server, run: </br>
+Firstly, run mongoDB.
+
+Then, in one terminal in /server, run: </br>
 ```
 npm run seed 
 npm start
 ```
+
 The user can also manually navigate to http://localhost:3000, as this application is best viewed in Chrome.
 
 On the homepage (http://localhost:3000) there is a Search bar and Create Event button centrally located.
@@ -45,13 +48,15 @@ A user can now create an event with the Create Event button. The new pop-up has 
 
 Events can be seen by scrolling down on the homepage or by clicking the All Events button in the upper right-hand corner while logged in. 
 
-While viewing an Event that is not owned by the user, that user may Register for that event.
+While viewing an Event that is not owned by the user, that user may Register for that event. There is a notification if an event is full.
 
-While viewing an Event that is owned by the user, that user may Update the Event. 
+While viewing an Event that is owned by the user, that user may Update the Event. The owner can see all users who have registered to attend their event and also receives an email whenever an attendee joins an event.
 
 ## Searching
 
 Events can be searched for based on either Location or by Keywords by toggling the switch in the upper left-hand corner. Locations utilize the Google Geocode API for matching.
+
+
 
 
 Technical
