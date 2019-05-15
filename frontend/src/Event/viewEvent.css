@@ -56,3 +56,7 @@
     overflow: -webkit-paged-y;
     height: 100%;
 }
+.clsactbtn{
+    display: inline-flex;
+    text-align: justify;
+}

@@ -20,9 +20,12 @@ class ViewEvent extends Component {
             eventJoiners: undefined,
             eventJoinersCount: 0,
             success: false,
-            url: ""
+            url: '',
+            upload: false
         }
         this.registerClick = this.registerClick.bind(this);
+        this.handleFileChange = this.handleFileChange.bind(this);
+        this.handleUpload = this.handleUpload.bind(this);
     }
     async componentDidMount() {
         try {
@@ -38,6 +41,7 @@ class ViewEvent extends Component {
             this.setState({ isError: false, errorMessage: '' });
             const l_objResponse = await api.get(`/eventit/event/getevent/${this.props.match.params.id}`);
             this.setState({ eventData: l_objResponse.data, eventJoinersCount: (l_objResponse.data.event_joiners).length });
+            this.setState({ url: l_objResponse.data.url })
             if (this.props.id != null && this.state.eventData.event_joiners.indexOf(this.props.id) > -1) {
                 this.setState({ isJoined: true });
             }
@@ -53,76 +57,47 @@ class ViewEvent extends Component {
         }
 
     }
-    // handleFileChange = ev => {
+    handleFileChange = ev => {
+        this.setState({ isError: false, errorMessage: '' });
+        this.setState({ success: false, url: "", upload: true });
 
-    //     this.setState({ success: false, url: "" });
-
-    // };
-    // handleUpload = ev => {
-
-    //     let file = this.uploadInput.files[0];
-
-    //     let fileParts = this.uploadInput.files[0].name.split(".");
-
-    //     let fileName = fileParts[0];
-
-    //     let fileType = fileParts[1];
-
-    //     console.log("Preparing the upload");
-
-    //     axios.post("http://localhost:7050/sign_s3", {
-
-    //         fileName: fileName,
-
-    //         fileType: fileType
-
-    //     }).then(response => {
-
-    //         var returnData = response.data.data.returnData;
-
-    //         var signedRequest = returnData.signedRequest;
-
-    //         var url = returnData.url;
-
-    //         this.setState({ url: url });
-
-    //         console.log("Recieved a signed request " + signedRequest);
-
-
-
-    //         // Put the fileType in the headers for the upload
-
-    //         var options = {
-
-    //             headers: {
-
-    //                 "Content-Type": fileType
-
-    //             }
-
-    //         };
-
-    //         axios.put(signedRequest, file, options)
-
-    //             .then(result => {
-
-    //                 console.log("Response from s3");
-
-    //                 this.setState({ success: true });
-
-    //             }).catch(error => {
-
-    //                 alert("ERROR " + JSON.stringify(error));
-
-    //             });
-
-    //     }).catch(error => {
-
-    //         alert(JSON.stringify(error));
-
-    //     });
-
-    // };
+    };
+    handleUpload = ev => {
+        if (this.state.upload) {
+            let file = this.uploadInput.files[0];
+            let fileParts = this.uploadInput.files[0].name.split(".");
+            let fileName = fileParts[0];
+            let fileType = fileParts[1];
+            api.post("/sign_s3", {
+                fileName: fileName,
+                fileType: fileType
+            }).then(response => {
+                var returnData = response.data.data.returnData;
+                var signedRequest = returnData.signedRequest;
+                var url = returnData.url;
+                this.setState({ url: url });
+                console.log("Recieved a signed request " + signedRequest);
+                var options = {
+                    headers: {
+                        "Content-Type": fileType
+                    }
+                };
+                axios.put(signedRequest, file, options)
+                    .then(async (result) => {
+                        console.log("Response from s3");
+                        this.setState({ success: true });
+                        await api.put(`eventit/event/updateEventUrl/${this.props.match.params.id}`, { "url": this.state.url })
+                    }).catch(error => {
+                        alert("ERROR " + JSON.stringify(error));
+                    });
+            }).catch(error => {
+                alert(JSON.stringify(error));
+            });
+        }
+        else {
+            this.setState({ isError: true, errorMessage: "upload a file!" });
+        }
+    };
     async registerClick() {
         try {
             this.setState({ isError: false, errorMessage: '' });
@@ -130,7 +105,6 @@ class ViewEvent extends Component {
                 const data = {
                     "event_id": this.props.match.params.id,
                     "user_id": this.props.id,
-
                 };
                 const url = `/eventit/event/joinEvent`;
                 this.setState({
@@ -154,7 +128,8 @@ class ViewEvent extends Component {
         var error = null;
         var joinersList = null;
         var joiners = null;
-        var uploadbtn = null
+        var uploadbtn = null;
+        var urllink = null;
         if (this.state.isError) {
             error = <MessageHandler message={{ isError: this.state.isError, message: this.state.errorMessage }} />
         }
@@ -164,18 +139,24 @@ class ViewEvent extends Component {
         else {
             error = null
         }
+        if (this.state.url !== '') {
+            urllink = <div className="col-lg-6 clsactbtn">
+                <a href={this.state.url} target="_blank"><button className="clsUpdateBtn" > View Brochure</button></a>
+            </div>
+        }
         if (this.props.id !== null && this.state.eventData && this.state.eventData.event_owner && (this.props.id === this.state.eventData.event_owner)) {
             actionBtn = <Link to={`/events/editevent/${this.props.match.params.id}`}><button className="clsUpdateBtn"> Update Event</button></Link>
-            // uploadbtn = <div>
-            //     <input id="myinput"
-            //         onChange={this.handleFileChange}
-            //         ref={ref => {
-            //             this.uploadInput = ref;
-            //         }}
-            //         type="file"
-            //     />
-            //     <button className="clsUpdateBtn" onClick={this.handleUpload}> Update Brochure</button>
-            // </div>
+            uploadbtn = <div className="col-lg-6 clsactbtn">
+                <button className="clsUpdateBtn" onClick={this.handleUpload}> Update Brochure</button>
+                <input id="myinput"
+                    onChange={this.handleFileChange}
+                    ref={ref => {
+                        this.uploadInput = ref;
+                    }}
+                    type="file"
+                />
+
+            </div>
             if (this.state.eventData && this.state.eventData.event_joiners.length > 0) {
                 joiners = this.state.eventJoiners && (this.state.eventJoiners).map(event => (
                     <div className="clsjoinerDetails">
@@ -241,7 +222,22 @@ class ViewEvent extends Component {
 
                     </div>
                     <div className="col-xs-12 col-sm-4 col-lg-6">
-                        {actionBtn}
+                        <div className="clsIndiEventCard">
+                            <div className="clsIndiEventCardInner">
+                                <div>
+                                    <div className="col-lg-6 clsactbtn">
+                                        {actionBtn}
+                                    </div>
+                                    {uploadbtn}
+                                    {urllink}
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
                         <div className="clsIndiEventCard">
                             <div className="clsIndiEventCardInner">
                                 <div className="clsLabelDiv">Time:</div> {this.state.eventData.event_begin} to {this.state.eventData.event_end}

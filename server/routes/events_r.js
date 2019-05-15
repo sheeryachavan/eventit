@@ -140,6 +140,27 @@ router.get("/getAllEvents", cors(), async (req, res) => {
   }
 });
 
+router.put("/updateEventUrl/:id", cors(), async (req, res) => {
+  try {
+    const upload = req.body;
+    console.log(req.body);
+    const oldOne = await eventData.getEventById(req.params.id);
+    const updated = {};
+
+
+    updated.url = upload.url;
+
+    // let temp =[];
+    // for(let i = 0; i < oldOne.event_keyword.length; i++){
+    //   temp[i] = oldOne.event_keyword[]
+    // }
+    const updatedResult = await eventData.updateEventById(req.params.id, updated);
+    res.status(200).json(updatedResult);
+  }
+  catch (e) {
+    res.status(500).json({ error: "Server is busy, please try latter!!" });
+  }
+});
 router.put("/updateEvent/:id", cors(), async (req, res) => {
   try {
     const upload = req.body;
@@ -195,7 +216,7 @@ router.post("/joinEvent", cors(), async (req, res) => {
 
     info.event_joiners.push(upload.user_id);
     let result = await eventData.updateEventById(upload.event_id, info);
-    
+
     let reciever = await userData.getUserById(info.event_owner);
     let joiner = await userData.getUserById(upload.user_id);
     var transporter = nodemailer.createTransport({

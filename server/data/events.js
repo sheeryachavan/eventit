@@ -22,6 +22,7 @@ const exportedMethods = {
 			event_end: event_end,
 			event_date: event_date,
 			event_count: event_count,
+			url: '',
 			event_keyword: Array.isArray(event_keyword) ?event_keyword : (event_keyword).split(',')
 		};
 
@@ -114,6 +115,9 @@ const exportedMethods = {
 		}
 		if (event_info.event_joiners) {
 			updateData.event_joiners = event_info.event_joiners;
+		}
+		if (event_info.url) {
+			updateData.url = event_info.url;
 		}
 		const updateInfo = await eventCollection.updateOne({ event_id: event_id }, { $set: updateData });
 		if (updateInfo === null) throw "Can not update this event!";

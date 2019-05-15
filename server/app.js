@@ -5,6 +5,7 @@ const configRoutes = require("./routes");
 const logger = require('morgan');
 var cors = require('cors')
 
+
 const app = express();
 app.use(cors())
 
