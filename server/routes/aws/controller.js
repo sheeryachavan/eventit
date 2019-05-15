@@ -7,18 +7,13 @@ var cors = require('cors');
 require('dotenv').config(); 
 
 aws.config.update({
-    region: 'us-east-2', // Put your aws regin here
+    region: 'us-east-2', 
     accessKeyId: process.env.AWSAccessKeyId,
     secretAccessKey: process.env.AWSSecretKey
 
 })
 
-
-
 const S3_BUCKET = process.env.Bucket
-
-console.log("env var" + process.env.AWSAccessKeyId);
-
 router.post("/", cors(), async (req, res) => {
 
     const s3 = new aws.S3();
@@ -59,8 +54,6 @@ router.post("/", cors(), async (req, res) => {
             url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
 
         };
-
-        // Send it all back
 
         res.json({ success: true, data: { returnData } });
 

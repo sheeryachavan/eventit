@@ -12,27 +12,32 @@ Locations are populated in a dropdown box via the Google Geocode API.
 
 Two sets of packages must be installed, one for the Server backend, and one for the Frontend.
 ```
-cd server 
-npm install --save 
-cd .. 
-cd frontend 
-npm install --save 
+>cd frontend 
+>npm install  
+>cd .. 
+>cd server 
+>npm install  
 ```
-## Usage
+## Build App
 
-Firstly, run mongoDB.
-
-Then, in one terminal in /server, run: </br>
+In terminal 1 run mongoDB
 ```
-npm run seed 
-npm start
+>mongod
 ```
 
-The user can also manually navigate to http://localhost:3000, as this application is best viewed in Chrome.
+Then, in the terminal in /server folder, run: </br>
+```
+>npm run seed 
+>npm run build
+```
+When terminal displays 'INFO: Accepting connections at http://localhost:5000',
+Event.it is ready for use.
 
-On the homepage (http://localhost:3000) there is a Search bar and Create Event button centrally located.
+Then navigate to http://localhost:5000 in your browser. This application is best viewed in Chrome.
 
-## Log-in
+On the homepage (http://localhost:5000) there is a Search bar and Create Event button centrally located.
+
+## Log-in and Users
 
 Note that clicking the Event button displays an error message: Login or Create Account is required. 
 
@@ -44,19 +49,56 @@ The My Profile button takes users to their profile, which lists relevant identif
 
 ## Events
 
-A user can now create an event with the Create Event button. The new pop-up has error checking for invalid dates and times. The Address field is populated by Google Geocode API. 
+A user can now create an event with the Create Event button. The Address field is populated by Google Geocode API. 
 
 Events can be seen by scrolling down on the homepage or by clicking the All Events button in the upper right-hand corner while logged in. 
 
-While viewing an Event that is not owned by the user, that user may Register for that event. There is a notification if an event is full.
+While viewing an Event that is not owned by the user, that user may Register for that event. If the event registrations are full, the register button is replaced by "Resgistratin full" label. If user registers for the event, the register button is replaced by "You are Registered!" label. If Brochure of the event is available, event brochure option is shown where you can view the brochure.
 
-While viewing an Event that is owned by the user, that user may Update the Event. The owner can see all users who have registered to attend their event and also receives an email whenever an attendee joins an event.
+While viewing an Event that is owned by the user, that user may Update the Event. The owner can see all users who have registered to attend their event and also receives an email whenever an attendee joins an event.Owner can upload a brochure for the event. 
 
 ## Searching
 
-Events can be searched for based on either Location or by Keywords by toggling the switch in the upper left-hand corner. Locations utilize the Google Geocode API for matching.
+Events can be searched for based on either Location or by Keywords by toggling the switch in the upper left-hand corner. Locations utilize the Google Geocode API for matching. Event search is impemented using fuzzy search.
 
 
+#Have Fun! and dont forget to check the AboutUs page.
+
+# Technologies used
+React JS, HTML, CSS: handle front end
+
+NodeJS: Handle backend
+
+Express: as a server
+
+MongoDB: as database
+
+Redux: fetch logged-in userid throughout the components of react
+
+Firebase: for user authentication
+
+Google maps api: for places suggestions in search
+
+Amazon AWS s3 bucket: to store event brochures
+
+imagemagick: to resize images
+
+
+#Special Thanks to
+W3 School
+Stack overflow
+Prof. Patrick Hill
+Rozy Gupta
+https://github.com/keithweaver/python-aws-s3
+
+#==============================================================================
+
+#Presenters
+Conor Manning
+Krutarth Trivedi
+Michael Fang
+Shreesh Chavan
+Tianyi Wang
 
 
 Technical
