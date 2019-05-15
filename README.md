@@ -90,6 +90,7 @@ Stack overflow
 Prof. Patrick Hill
 Rozy Gupta
 https://github.com/keithweaver/python-aws-s3
+https://medium.com/@khelif96/uploading-files-from-a-react-app-to-aws-s3-the-right-way-541dd6be689
 
 #==============================================================================
 
