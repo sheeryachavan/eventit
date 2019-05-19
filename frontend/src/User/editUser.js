@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
 import api from '../api'
 import { connect } from "react-redux";
 import MessageHandler from '../Message/messageHandler'
@@ -14,10 +16,16 @@ class EditUser extends Component {
             facebook_username: '',
             twitter_username: '',
             isError: false,
-            errorMessage: ''
+            errorMessage: '',
 
         }
     }
+    static contextTypes = {
+        router: PropTypes.object,
+    }
+    // shouldComponentUpdate(nextProps, nextState) {
+
+    // }
     async componentWillMount() {
         if (this.props.id != null) {
             var user = await api.get(`eventit/user/profile/${this.props.id}`);
@@ -56,10 +64,12 @@ class EditUser extends Component {
                     "twitter_username": this.state.twitter_username,
 
                 }
-                var tem = await api.post(`eventit/user/profileUpdate/${this.props.id}`, data);
+                // debugger;
+                console.log("Post");
+                let resp = await api.post(`eventit/user/profileUpdate/${this.props.id}`, data);
+                console.log(resp);
                 this.setState({ isError: false, errorMessage: "User Profile Updated" });
-                var link = document.getElementById('test1');
-                link.click();
+
 
             }
         } catch (err) {
